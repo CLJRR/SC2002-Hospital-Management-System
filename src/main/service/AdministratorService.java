@@ -1,8 +1,6 @@
 package service;
 
 import entity.Administrator;
-import entity.Doctor;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,21 +45,21 @@ public class AdministratorService {
 
     }
 
-    public static void saveAdministratorToFile(Administrator administrator) {
+    public void saveAdministratorToFile(Administrator administrator) {
 
         List<Administrator> administrators = loadAdministratorsFromFile();
 
         // Check for duplicates by name
         for (Administrator existingAdministrator : administrators) {
-            if (existingAdministrator.getName().equals(administrator.getName())) {
-                System.out.println("Administrator with name: " + administrator.getName() + " already exists. Cannot add duplicate.");
+            if (existingAdministrator.getId().equals(administrator.getId())) {
+                System.out.println("Administrator with name: " + administrator.getId() + " already exists. Cannot add duplicate.");
                 return;
             }
         }
 
         // If no duplicate, save the administrator
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(administrator.getName() + "," + administrator.getGender() + "," + administrator.getAge());
+            writer.write(administrator.getId() + "," + administrator.getName() + "," + administrator.getGender() + "," + administrator.getAge() + "," + administrator.getPassword());
             writer.newLine();
             System.out.println("Administrator record saved: " + administrator);
         } catch (IOException e) {
@@ -93,25 +91,25 @@ public class AdministratorService {
         }
     }
 
-    // Function to change the password of a doctor by ID
+    // Function to change the password of a administrator by ID
     public static void changeDoctorPassword(String id, String newPassword) {
         List<Administrator> administrators = loadAdministratorsFromFile();
-        boolean doctorFound = false;
+        boolean administratorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Doctor doctor : doctors) {
-                if (doctor.getId().equals(id)) {
-                    doctor.setPassword(newPassword);
-                    doctorFound = true;
+            for (Administrator administrator : administrators) {
+                if (administrator.getId().equals(id)) {
+                    administrator.setPassword(newPassword);
+                    administratorFound = true;
                 }
-                writer.write(doctor.getId() + "," + doctor.getName() + "," + doctor.getGender() + "," + doctor.getAge() + "," + doctor.getPassword());
+                writer.write(administrator.getId() + "," + administrator.getName() + "," + administrator.getGender() + "," + administrator.getAge() + "," + administrator.getPassword());
                 writer.newLine();
             }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
 
-        if (doctorFound) {
+        if (administratorFound) {
             System.out.println("Password updated successfully for Doctor ID: " + id);
         } else {
             System.out.println("Doctor with ID: " + id + " not found.");

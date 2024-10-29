@@ -16,7 +16,7 @@ public class PharmacistService {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 4) {
+                if (data.length == 5) {
                     String id = data[0];
                     String name = data[1];
                     String gender = data[2];
@@ -45,7 +45,7 @@ public class PharmacistService {
     }
 
     // Save a pharmacist to file with duplicate check
-    public static void savePharmacistToFile(Pharmacist pharmacist) {
+    public void savePharmacistToFile(Pharmacist pharmacist) {
         List<Pharmacist> pharmacists = loadPharmacistsFromFile();
 
         // Check for duplicates by ID
@@ -55,7 +55,6 @@ public class PharmacistService {
                 return;
             }
         }
-
         // If no duplicate, save the pharmacist
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(pharmacist.getId() + "," + pharmacist.getName() + "," + pharmacist.getGender() + "," + pharmacist.getAge() + "," + pharmacist.getPassword());

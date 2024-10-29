@@ -46,7 +46,7 @@ public class DoctorService {
     }
 
     // Function to save doctor information to a text file
-    public static void saveDoctorToFile(Doctor doctor) {
+    public void saveDoctorToFile(Doctor doctor) {
         List<Doctor> doctors = loadDoctorsFromFile();
 
         // Check for duplicates by ID

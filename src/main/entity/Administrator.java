@@ -1,7 +1,7 @@
 package entity;
 
 public class Administrator extends User {
-
+    //comment
     private String name;
     private String gender;
     private Integer age;

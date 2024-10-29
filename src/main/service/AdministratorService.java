@@ -1,17 +1,19 @@
 package service;
 
-import entity.*;
+import entity.Administrator;
+import entity.Doctor;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorFileHandler {
+public class AdministratorService {
 
-    static String fileName = "./data/doctors.txt";
+    static String fileName = "./data/administrators.txt";
 
-    // Function to load all doctors from a text file
-    public static List<Doctor> loadDoctorsFromFile() {
-        List<Doctor> doctors = new ArrayList<>();
+    // Load all administrators from a text file
+    public static List<Administrator> loadAdministratorsFromFile() {
+        List<Administrator> administrators = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -21,62 +23,60 @@ public class DoctorFileHandler {
                     String name = data[1];
                     String gender = data[2];
                     Integer age = Integer.parseInt(data[3]);
-                    String password = data[4];
-
-                    Doctor doctor = new Doctor(id, name, gender, age);
-                    doctors.add(doctor);
+                    Administrator administrator = new Administrator(id, name, gender, age);
+                    administrators.add(administrator);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            e.printStackTrace();
         }
-        return doctors;
+        return administrators;
     }
 
-    //get Doctor by ID
-    public static Doctor getDoctorById(String id) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static Administrator getAdministratorById(String id) {
+        List<Administrator> administrators = loadAdministratorsFromFile();
 
-        for (Doctor doctor : doctors) {
-            if (doctor.getId().equals(id)) {
-                return doctor;  // Doctor found, return the object
+        for (Administrator administrator : administrators) {
+            if (administrator.getId().equals(id)) {
+                return administrator;  // Doctor found, return the object
             }
         }
 
-        System.out.println("Doctor with ID: " + id + " not found.");
-        return null;  // Return null if doctor not found
+        System.out.println("Pharmacist with ID: " + id + " not found.");
+        return null; // Return null if doctor not found
+
     }
 
-    // Function to save doctor information to a text file
-    public static void saveDoctorToFile(Doctor doctor) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static void saveAdministratorToFile(Administrator administrator) {
 
-        // Check for duplicates by ID
-        for (Doctor existingDoctor : doctors) {
-            if (existingDoctor.getId().equals(doctor.getId())) {
-                System.out.println("Doctor with ID: " + doctor.getId() + " already exists. Cannot add duplicate.");
+        List<Administrator> administrators = loadAdministratorsFromFile();
+
+        // Check for duplicates by name
+        for (Administrator existingAdministrator : administrators) {
+            if (existingAdministrator.getName().equals(administrator.getName())) {
+                System.out.println("Administrator with name: " + administrator.getName() + " already exists. Cannot add duplicate.");
                 return;
             }
         }
 
-        // If no duplicate, save the doctor
+        // If no duplicate, save the administrator
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(doctor.getId() + "," + doctor.getName() + "," + doctor.getGender() + "," + doctor.getAge() + "," + doctor.getPassword());
+            writer.write(administrator.getName() + "," + administrator.getGender() + "," + administrator.getAge());
             writer.newLine();
-            System.out.println("Doctor record saved: " + doctor);
+            System.out.println("Administrator record saved: " + administrator);
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
 
-    public static void deleteDoctorById(String id) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static void deleteAdministratorById(String id) {
+        List<Administrator> administrators = loadAdministratorsFromFile();
         boolean doctorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Doctor doctor : doctors) {
-                if (!doctor.getId().equals(id)) {
-                    writer.write(doctor.getId() + "," + doctor.getName() + "," + doctor.getGender() + "," + doctor.getAge() + "," + doctor.getPassword());
+            for (Administrator administrator : administrators) {
+                if (!administrator.getId().equals(id)) {
+                    writer.write(administrator.getId() + "," + administrator.getName() + "," + administrator.getGender() + "," + administrator.getAge() + "," + administrator.getPassword());
                     writer.newLine();
                 } else {
                     doctorFound = true;
@@ -95,7 +95,7 @@ public class DoctorFileHandler {
 
     // Function to change the password of a doctor by ID
     public static void changeDoctorPassword(String id, String newPassword) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+        List<Administrator> administrators = loadAdministratorsFromFile();
         boolean doctorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {

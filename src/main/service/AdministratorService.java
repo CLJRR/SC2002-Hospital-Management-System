@@ -10,7 +10,7 @@ public class AdministratorService {
     static String fileName = "./data/administrators.txt";
 
     // Load all administrators from a text file
-    public static List<Administrator> loadAdministratorsFromFile() {
+    public static List<Administrator> loadAll() {
         List<Administrator> administrators = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -31,8 +31,8 @@ public class AdministratorService {
         return administrators;
     }
 
-    public static Administrator getAdministratorById(String id) {
-        List<Administrator> administrators = loadAdministratorsFromFile();
+    public static Administrator getById(String id) {
+        List<Administrator> administrators = loadAll();
 
         for (Administrator administrator : administrators) {
             if (administrator.getId().equals(id)) {
@@ -40,19 +40,19 @@ public class AdministratorService {
             }
         }
 
-        System.out.println("Pharmacist with ID: " + id + " not found.");
+        System.out.println("ID: " + id + " not found.");
         return null; // Return null if doctor not found
 
     }
 
-    public void saveAdministratorToFile(Administrator administrator) {
+    public void save(Administrator administrator) {
 
-        List<Administrator> administrators = loadAdministratorsFromFile();
+        List<Administrator> administrators = loadAll();
 
         // Check for duplicates by name
         for (Administrator existingAdministrator : administrators) {
             if (existingAdministrator.getId().equals(administrator.getId())) {
-                System.out.println("Administrator with name: " + administrator.getId() + " already exists. Cannot add duplicate.");
+                System.out.println("ID: " + administrator.getId() + " already exists. Cannot add duplicate.");
                 return;
             }
         }
@@ -67,8 +67,8 @@ public class AdministratorService {
         }
     }
 
-    public static void deleteAdministratorById(String id) {
-        List<Administrator> administrators = loadAdministratorsFromFile();
+    public static void deleteById(String id) {
+        List<Administrator> administrators = loadAll();
         boolean doctorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -85,15 +85,15 @@ public class AdministratorService {
         }
 
         if (doctorFound) {
-            System.out.println("Doctor with ID: " + id + " has been deleted.");
+            System.out.println("ID: " + id + " has been deleted.");
         } else {
-            System.out.println("Doctor with ID: " + id + " not found.");
+            System.out.println("ID: " + id + " not found.");
         }
     }
 
     // Function to change the password of a administrator by ID
-    public static void changeDoctorPassword(String id, String newPassword) {
-        List<Administrator> administrators = loadAdministratorsFromFile();
+    public static void changePassword(String id, String newPassword) {
+        List<Administrator> administrators = loadAll();
         boolean administratorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -110,9 +110,9 @@ public class AdministratorService {
         }
 
         if (administratorFound) {
-            System.out.println("Password updated successfully for Doctor ID: " + id);
+            System.out.println("Password updated successfully for ID: " + id);
         } else {
-            System.out.println("Doctor with ID: " + id + " not found.");
+            System.out.println("ID: " + id + " not found.");
         }
     }
 }

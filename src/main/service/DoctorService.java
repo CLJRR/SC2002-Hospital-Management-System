@@ -10,7 +10,7 @@ public class DoctorService {
     static String fileName = "./data/doctors.txt";
 
     // Function to load all doctors from a text file
-    public static List<Doctor> loadDoctorsFromFile() {
+    public static List<Doctor> loadAll() {
         List<Doctor> doctors = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -21,7 +21,8 @@ public class DoctorService {
                     String name = data[1];
                     String gender = data[2];
                     Integer age = Integer.parseInt(data[3]);
-                    Doctor doctor = new Doctor(id, name, gender, age);
+                    String password = data[4];
+                    Doctor doctor = new Doctor(id, name, gender, age, password);
                     doctors.add(doctor);
                 }
             }
@@ -32,8 +33,8 @@ public class DoctorService {
     }
 
     //get Doctor by ID
-    public static Doctor getDoctorById(String id) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static Doctor getById(String id) {
+        List<Doctor> doctors = loadAll();
 
         for (Doctor doctor : doctors) {
             if (doctor.getId().equals(id)) {
@@ -41,18 +42,18 @@ public class DoctorService {
             }
         }
 
-        System.out.println("Doctor with ID: " + id + " not found.");
+        System.out.println("ID: " + id + " not found.");
         return null;  // Return null if doctor not found
     }
 
     // Function to save doctor information to a text file
-    public void saveDoctorToFile(Doctor doctor) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public void save(Doctor doctor) {
+        List<Doctor> doctors = loadAll();
 
         // Check for duplicates by ID
         for (Doctor existingDoctor : doctors) {
             if (existingDoctor.getId().equals(doctor.getId())) {
-                System.out.println("Doctor with ID: " + doctor.getId() + " already exists. Cannot add duplicate.");
+                System.out.println("ID: " + doctor.getId() + " already exists. Cannot add duplicate.");
                 return;
             }
         }
@@ -67,8 +68,8 @@ public class DoctorService {
         }
     }
 
-    public static void deleteDoctorById(String id) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static void deleteById(String id) {
+        List<Doctor> doctors = loadAll();
         boolean doctorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -85,15 +86,15 @@ public class DoctorService {
         }
 
         if (doctorFound) {
-            System.out.println("Doctor with ID: " + id + " has been deleted.");
+            System.out.println("ID: " + id + " has been deleted.");
         } else {
-            System.out.println("Doctor with ID: " + id + " not found.");
+            System.out.println("ID: " + id + " not found.");
         }
     }
 
     // Function to change the password of a doctor by ID
-    public static void changeDoctorPassword(String id, String newPassword) {
-        List<Doctor> doctors = loadDoctorsFromFile();
+    public static void changePassword(String id, String newPassword) {
+        List<Doctor> doctors = loadAll();
         boolean doctorFound = false;
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
@@ -110,9 +111,9 @@ public class DoctorService {
         }
 
         if (doctorFound) {
-            System.out.println("Password updated successfully for Doctor ID: " + id);
+            System.out.println("Password updated successfully for ID: " + id);
         } else {
-            System.out.println("Doctor with ID: " + id + " not found.");
+            System.out.println("ID: " + id + " not found.");
         }
     }
 }

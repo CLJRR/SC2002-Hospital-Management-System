@@ -13,6 +13,13 @@ public class Doctor extends User {
         this.age = age;
     }
 
+    public Doctor(String id, String name, String gender, Integer age, String password) {
+        super(id, password);
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+
     // Getters and setters for the Doctor fields
     public String getName() {
         return name;

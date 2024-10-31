@@ -1,0 +1,4 @@
+D001,John Smith,Male,45,DOCTOR,newPassword
+A001,Sarah Lee,Female,40,ADMINISTRATOR,password
+P001,Mark Lee,Male,29,PHARMACIST,password
+D002,Emily Clarke,Female,38,DOCTOR,password

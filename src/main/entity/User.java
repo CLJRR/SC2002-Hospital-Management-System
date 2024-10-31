@@ -32,4 +32,10 @@ public class User {
         this.password = password;
     }
 
+    public boolean verifyPassword(String enteredPassword) {
+        if (this.password.equals(enteredPassword)) {
+            return true;
+        }
+        return false;
+    }
 }

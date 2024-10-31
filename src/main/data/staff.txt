@@ -1,4 +1,3 @@
-
 D001,John Smith,Male,45,DOCTOR,password
 D002,Emily Clarke,Female,38,DOCTOR,password
 A001,Sarah Lee,Female,40,ADMINISTRATOR,password

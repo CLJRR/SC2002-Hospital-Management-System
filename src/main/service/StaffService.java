@@ -1,7 +1,7 @@
-package test;
+package service;
 
 import entity.*;
-import entity.Staff.Role;
+import enums.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,12 @@ public class StaffService {
         }
         // If no duplicate, save the staff
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(staff.getId() + "," + staff.getName() + "," + staff.getGender() + "," + staff.getAge() + "," + staff.getRole() + "," + staff.getPassword());
+            writer.write(staff.getId() + ","
+                    + staff.getName() + ","
+                    + staff.getGender() + ","
+                    + staff.getAge() + ","
+                    + staff.getRole() + ","
+                    + staff.getPassword());
             writer.newLine();
             System.out.println("Staff record saved: " + staff);
         } catch (IOException e) {
@@ -68,20 +73,25 @@ public class StaffService {
 
     public void deleteById(String id) {
         List<Staff> staffs = loadAll();
-        boolean staffFound = false;
+        boolean found = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Staff staff : staffs) {
                 if (!staff.getId().equals(id)) {
-                    writer.write(staff.getId() + "," + staff.getName() + "," + staff.getGender() + "," + staff.getAge() + "," + staff.getRole() + "," + staff.getPassword());
+                    writer.write(staff.getId() + ","
+                            + staff.getName() + ","
+                            + staff.getGender() + ","
+                            + staff.getAge() + ","
+                            + staff.getRole() + ","
+                            + staff.getPassword());
                     writer.newLine();
                 } else {
-                    staffFound = true;
+                    found = true;
                 }
             }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        if (staffFound) {
+        if (found) {
             System.out.println("ID: " + id + " has been deleted.");
         } else {
             System.out.println("ID: " + id + " not found.");
@@ -91,34 +101,36 @@ public class StaffService {
     // Function to change the password of a staff by ID
     public void changePassword(String id, String password, String newPassword) {
         List<Staff> staffs = loadAll();
-        boolean staffFound = false;
-        boolean verifyPassword = false;
+        boolean found = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Staff staff : staffs) {
                 if (staff.getId().equals(id)) {
-                    staffFound = true;
+                    found = true;
                     if (staff.verifyPassword(password)) {
                         staff.setPassword(newPassword);
-                        verifyPassword = true;
                         System.out.println("Password updated successfully for ID: " + id);
                     } else {
                         System.out.println("Incorrect Password enterd for " + id);
                     }
                 }
-                writer.write(staff.getId() + "," + staff.getName() + "," + staff.getGender() + "," + staff.getAge() + "," + staff.getRole() + "," + staff.getPassword());
+                writer.write(staff.getId() + ","
+                        + staff.getName() + ","
+                        + staff.getGender() + ","
+                        + staff.getAge() + ","
+                        + staff.getRole() + ","
+                        + staff.getPassword());
                 writer.newLine();
             }
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        if (!staffFound) {
+        if (!found) {
             System.out.println("ID: " + id + " not found.");
         }
     }
 
     public void deleteAll() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
-            writer.newLine();
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }

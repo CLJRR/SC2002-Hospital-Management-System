@@ -4,15 +4,17 @@ public class User {
 
     private String id;
     private String password;
+    private String name;
 
-    public User(String id) {
+    public User(String id, String name) {
         this.id = id;
-
+        this.name = name;
         this.password = "password";
     }
 
-    public User(String id, String password) {
+    public User(String id, String name, String password) {
         this.id = id;
+        this.name = name;
         this.password = password;
     }
 
@@ -33,10 +35,15 @@ public class User {
     }
 
     public boolean verifyPassword(String enteredPassword) {
-        if (this.password.equals(enteredPassword)) {
-            return true;
-        }
-        return false;
+        return this.password.equals(enteredPassword);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

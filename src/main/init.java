@@ -1,11 +1,8 @@
 
-import entity.Staff;
+import entity.*;
 import static entity.Staff.Role.*;
 import java.util.*;
-import service.*;
-
 public class init {
-
     public static void main(String[] args) {
         StaffService service = new StaffService();
         service.deleteAll();
@@ -13,7 +10,6 @@ public class init {
         service.save(new Staff("D002", "Emily Clarke", "Female", 38, DOCTOR));
         service.save(new Staff("A001", "Sarah Lee", "Female", 40, ADMINISTRATOR));
         service.save(new Staff("P001", "Mark Lee", "Male", 29, PHARMACIST));
-        // service.deleteById("D002");
         List<Staff> staffs = new ArrayList<>();
         staffs = service.loadAll();
 

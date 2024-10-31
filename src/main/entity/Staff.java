@@ -2,7 +2,7 @@ package entity;
 
 public class Staff extends User {
 
-    public enum Role {
+    public static enum Role {
         ADMINISTRATOR,
         PHARMACIST,
         DOCTOR
@@ -60,4 +60,10 @@ public class Staff extends User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public String toString() {
+        return "Staff [Id=" + getId() + ", name=" + name + ", gender=" + gender + ", age=" + age + ", role=" + role + ", Password=" + getPassword() + "]";
+    }
+
 }

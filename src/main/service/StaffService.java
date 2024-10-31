@@ -89,14 +89,21 @@ public class StaffService {
     }
 
     // Function to change the password of a staff by ID
-    public void changePassword(String id, String newPassword) {
+    public void changePassword(String id, String password, String newPassword) {
         List<Staff> staffs = loadAll();
         boolean staffFound = false;
+        boolean verifyPassword = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Staff staff : staffs) {
                 if (staff.getId().equals(id)) {
-                    staff.setPassword(newPassword);
                     staffFound = true;
+                    if (staff.verifyPassword(password)) {
+                        staff.setPassword(newPassword);
+                        verifyPassword = true;
+                        System.out.println("Password updated successfully for ID: " + id);
+                    } else {
+                        System.out.println("Incorrect Password enterd for " + id);
+                    }
                 }
                 writer.write(staff.getId() + "," + staff.getName() + "," + staff.getGender() + "," + staff.getAge() + "," + staff.getRole() + "," + staff.getPassword());
                 writer.newLine();
@@ -104,10 +111,17 @@ public class StaffService {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
-        if (staffFound) {
-            System.out.println("Password updated successfully for ID: " + id);
-        } else {
+        if (!staffFound) {
             System.out.println("ID: " + id + " not found.");
         }
+    }
+
+    public void deleteAll() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+            writer.newLine();
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
     }
 }

@@ -8,6 +8,7 @@ public class init {
 
     public static void main(String[] args) {
         StaffService service = new StaffService();
+        service.deleteAll();
         service.save(new Staff("D001", "John Smith", "Male", 45, DOCTOR));
         service.save(new Staff("D002", "Emily Clarke", "Female", 38, DOCTOR));
         service.save(new Staff("A001", "Sarah Lee", "Female", 40, ADMINISTRATOR));
@@ -25,8 +26,7 @@ public class init {
             }
         }
         for (Staff staff : staffs) {
-            System.out.println(staff.getId());
+            System.out.println(staff.toString());
         }
-        service.changePassword("D001", "newPassword");
     }
 }

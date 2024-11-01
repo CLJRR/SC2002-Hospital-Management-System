@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import service.*;
 
-public class init {
+public class Initialized {
 
     public static void main(String[] args) {
         StaffService staffService = new StaffService();

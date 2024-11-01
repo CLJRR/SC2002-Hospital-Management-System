@@ -8,12 +8,12 @@ import java.util.List;
 
 public class StaffService {
 
-    static String fileName = "./data/staff.txt";
+    private static final String FILE_NAME = "./data/staffs.txt";
 
     // Function to load all staffs from a text file
     public List<Staff> loadAll() {
         List<Staff> staffs = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -57,13 +57,8 @@ public class StaffService {
             }
         }
         // If no duplicate, save the staff
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(staff.getId() + ","
-                    + staff.getName() + ","
-                    + staff.getGender() + ","
-                    + staff.getAge() + ","
-                    + staff.getRole() + ","
-                    + staff.getPassword());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.write(format(staff));
             writer.newLine();
             System.out.println("Staff record saved: " + staff);
         } catch (IOException e) {
@@ -74,15 +69,10 @@ public class StaffService {
     public void deleteById(String id) {
         List<Staff> staffs = loadAll();
         boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Staff staff : staffs) {
                 if (!staff.getId().equals(id)) {
-                    writer.write(staff.getId() + ","
-                            + staff.getName() + ","
-                            + staff.getGender() + ","
-                            + staff.getAge() + ","
-                            + staff.getRole() + ","
-                            + staff.getPassword());
+                    writer.write(format(staff));
                     writer.newLine();
                 } else {
                     found = true;
@@ -102,7 +92,7 @@ public class StaffService {
     public void changePassword(String id, String password, String newPassword) {
         List<Staff> staffs = loadAll();
         boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Staff staff : staffs) {
                 if (staff.getId().equals(id)) {
                     found = true;
@@ -113,12 +103,7 @@ public class StaffService {
                         System.out.println("Incorrect Password enterd for " + id);
                     }
                 }
-                writer.write(staff.getId() + ","
-                        + staff.getName() + ","
-                        + staff.getGender() + ","
-                        + staff.getAge() + ","
-                        + staff.getRole() + ","
-                        + staff.getPassword());
+                writer.write(format(staff));
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -130,10 +115,19 @@ public class StaffService {
     }
 
     public void deleteAll() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }
 
+    }
+
+    private String format(Staff staff) {
+        return staff.getId() + ","
+                + staff.getName() + ","
+                + staff.getGender() + ","
+                + staff.getAge() + ","
+                + staff.getRole() + ","
+                + staff.getPassword();
     }
 }

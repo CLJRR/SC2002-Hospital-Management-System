@@ -3,6 +3,8 @@ import entity.*;
 import enums.Gender;
 import enums.Role;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import service.*;
 
 public class init {
@@ -20,5 +22,20 @@ public class init {
         patientService.save(new Patient("P1002", "Bob Stone", 47, LocalDate.parse("1975-11-22"), Gender.MALE, "88386868", "bob.stone@example.com", "B+"));
         patientService.save(new Patient("P1003", "Charlie White", 32, LocalDate.parse("1990-07-08"), Gender.MALE, "94315338", "charlie.white@example.com", "O-"));
 
+        //print out staff list
+        System.out.println("");
+        List<Staff> staffs = new ArrayList<>();
+        staffs = staffService.loadAll();
+        for (Staff staff : staffs) {
+            System.out.println(staff.toString());
+        }
+
+        //print out patient list
+        System.out.println("");
+        List<Patient> patients = new ArrayList<>();
+        patients = patientService.loadAll();
+        for (Patient patient : patients) {
+            System.out.println(patient.toString());
+        }
     }
 }

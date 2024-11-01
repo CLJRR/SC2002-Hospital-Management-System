@@ -9,12 +9,12 @@ import java.util.List;
 
 public class PatientService {
 
-    static String fileName = "./data/patient.txt";
+    private static final String FILE_NAME = "./data/patients.txt";
 
     // Function to load all patients from a text file
     public List<Patient> loadAll() {
         List<Patient> patients = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -61,7 +61,7 @@ public class PatientService {
             }
         }
         // If no duplicate, save the patient
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             writer.write(patient.getId() + ","
                     + patient.getName() + ","
                     + patient.getPassword() + ","
@@ -81,7 +81,7 @@ public class PatientService {
     public void deleteById(String id) {
         List<Patient> patients = loadAll();
         boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Patient patient : patients) {
                 if (!patient.getId().equals(id)) {
                     writer.write(patient.getId() + ","
@@ -112,7 +112,7 @@ public class PatientService {
     public void changePassword(String id, String password, String newPassword) {
         List<Patient> patients = loadAll();
         boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
             for (Patient patient : patients) {
                 if (patient.getId().equals(id)) {
                     found = true;
@@ -143,7 +143,7 @@ public class PatientService {
     }
 
     public void deleteAll() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
         } catch (IOException e) {
             System.out.println("Error writing to file: " + e.getMessage());
         }

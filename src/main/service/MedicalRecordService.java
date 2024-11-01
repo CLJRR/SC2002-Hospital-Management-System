@@ -109,7 +109,7 @@ public class MedicalRecordService {
                 .append(record.getAppointmentDate().format(DATE_FORMATTER)).append(",")
                 .append(record.getServiceProvided()).append(",");
 
-        Prescription prescription = record.getPrescripqtion();
+        Prescription prescription = record.getPrescription();
         sb.append(prescription.getMedName()).append(",")
                 .append(prescription.getStatus()).append(",")
                 .append(prescription.getAmount()).append(",")

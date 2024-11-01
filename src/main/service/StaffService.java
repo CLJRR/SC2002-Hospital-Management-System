@@ -114,14 +114,6 @@ public class StaffService {
         }
     }
 
-    public void deleteAll() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-
-    }
-
     private String format(Staff staff) {
         return staff.getId() + ","
                 + staff.getName() + ","
@@ -129,5 +121,13 @@ public class StaffService {
                 + staff.getAge() + ","
                 + staff.getRole() + ","
                 + staff.getPassword();
+    }
+
+    public void deleteAll() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
     }
 }

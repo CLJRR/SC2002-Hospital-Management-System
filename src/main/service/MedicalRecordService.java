@@ -15,10 +15,19 @@ public class MedicalRecordService {
 
     // Save a MedicalRecord to a text file
     public void save(MedicalRecord record) {
+        List<MedicalRecord> medicalRecords = loadAll();
+        // Check for duplicates by apptID
+        for (MedicalRecord medicalRecord : medicalRecords) {
+            if (medicalRecord.getApptId().equals(record.getApptId())) {
+                System.out.println("ID: " + medicalRecord.getApptId() + " already exists. Cannot add duplicate.");
+                return;
+            }
+        }
+        // If no duplicate, save
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
             writer.write(format(record));
             writer.newLine();
-            System.out.println("Medical record saved successfully.");
+            System.out.println("Medical record " + record.getApptId() + " saved successfully.");
         } catch (IOException e) {
             System.err.println("Error saving medical record: " + e.getMessage());
         }
@@ -100,7 +109,7 @@ public class MedicalRecordService {
                 .append(record.getAppointmentDate().format(DATE_FORMATTER)).append(",")
                 .append(record.getServiceProvided()).append(",");
 
-        Prescription prescription = record.getPrescription();
+        Prescription prescription = record.getPrescripqtion();
         sb.append(prescription.getMedName()).append(",")
                 .append(prescription.getStatus()).append(",")
                 .append(prescription.getAmount()).append(",")
@@ -109,4 +118,11 @@ public class MedicalRecordService {
         return sb.toString();
     }
 
+    public void deleteAll() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
+    }
 }

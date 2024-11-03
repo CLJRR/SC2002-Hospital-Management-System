@@ -11,7 +11,7 @@ public class ApptTest {
         AppointmentService databaseService = new AppointmentService();
 
         // 1. Unique appointment, doctor available
-        Appointment appointment1 = new Appointment("A010", "P001", "D001", LocalDate.of(2024, 11, 5), "06:00", Availability.APPOINTMENT);
+        Appointment appointment1 = new Appointment("A001", "P001", "D001", LocalDate.of(2024, 11, 5), "09:00", Availability.APPOINTMENT);
         databaseService.save(appointment1);
 
         // 2. Duplicate appointment ID, should not save
@@ -50,25 +50,12 @@ public class ApptTest {
         Appointment appointment10 = new Appointment("A008", "P008", "D002", LocalDate.of(2024, 11, 7), "10:00", Availability.APPOINTMENT);
         databaseService.save(appointment10);
 
-        // 3. Check available slots for a specific date
-        System.out.println("\nAvailable slots on 2024-11-05:");
-        List<String> availableSlots = databaseService.findAvailableSlots(LocalDate.of(2024, 11, 5));
-        System.out.println(availableSlots);
-        // 4. Load and view all appointments
-        System.out.println("\nAll appointments:");
-        databaseService.viewAppointments();
         // 5. Get appointments by a specific date
-        System.out.println("\nAppointments on 2024-11-05:");
+        System.out.println("\nAppointments on 2024-11-07:");
         List<Appointment> appointmentsOnDate = databaseService.getAppointmentsByDate(LocalDate.of(2024, 11, 5));
         for (Appointment appt : appointmentsOnDate) {
             System.out.println(appt);
         }
-        // 6. Check if a specific time slot is available
-        System.out.println("\nIs 10:00 available on 2024-11-05?");
-        boolean isAvailable = databaseService.isTimeSlotAvailable(LocalDate.of(2024, 11, 5), "10:00");
-        System.out.println(isAvailable ? "Available" : "Not Available");
-        System.out.println("\nIs 11:00 available on 2024-11-05?");
-        isAvailable = databaseService.isTimeSlotAvailable(LocalDate.of(2024, 11, 5), "11:00");
-        System.out.println(isAvailable ? "Available" : "Not Available");
+
     }
 }

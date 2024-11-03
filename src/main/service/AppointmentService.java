@@ -2,6 +2,7 @@ package service;
 
 import entity.Appointment;
 import enums.Availability;
+import enums.Flag;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -28,8 +29,7 @@ public class AppointmentService {
         for (Appointment existingAppointment : existingAppointments) {
             if (existingAppointment.getDoctorId().equals(appointment.getDoctorId())
                     && existingAppointment.getDate().equals(appointment.getDate())
-                    && existingAppointment.getTimeSlot().equals(appointment.getTimeSlot())
-                    ) {
+                    && existingAppointment.getTimeSlot().equals(appointment.getTimeSlot())) {
                 System.out.println("Doctor is not available at the specified time slot.");
                 return false; // Doctor is already booked for this time slot
             }
@@ -53,7 +53,7 @@ public class AppointmentService {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Appointment appointment = textToObject(line);
+                Appointment appointment = toObject(line);
                 if (appointment != null) {
                     appointments.add(appointment);
                 }
@@ -64,18 +64,6 @@ public class AppointmentService {
         return appointments;
     }    // Convert a line of text to an Appointment object
 
-    private Appointment textToObject(String line) {
-        String[] data = line.split(",");
-        if (data.length == 6) {
-            LocalDate date = LocalDate.parse(data[3]);
-            Availability availability = Availability.valueOf(data[5]);
-            return new Appointment(data[0], data[1], data[2], date, data[4], availability);
-        } else {
-            System.err.println("Error parsing appointment data: " + line);
-            return null;
-        }
-    }
-
     // Get appointments for a specific date
     public List<Appointment> getAppointmentsByDate(LocalDate date) {
         List<Appointment> appointmentsOnDate = new ArrayList<>();
@@ -85,38 +73,6 @@ public class AppointmentService {
             }
         }
         return appointmentsOnDate;
-    }
-
-    // Find available time slots for a specific date, considering availability status
-    public List<String> findAvailableSlots(LocalDate date) {
-        List<String> availableSlots = new ArrayList<>(Appointment.getAvailableTimeSlots());
-        List<Appointment> appointmentsOnDate = getAppointmentsByDate(date);
-
-        for (Appointment appointment : appointmentsOnDate) {
-            if (appointment.getAvailability() == Availability.APPOINTMENT) {
-                availableSlots.remove(appointment.getTimeSlot()); // Remove slots with appointments
-            }
-        }
-        return availableSlots;
-    }
-
-    // Check if a specific time slot is available on a given date, considering APPOINTMENT status
-    public boolean isTimeSlotAvailable(LocalDate date, String timeSlot) {
-        List<Appointment> appointmentsOnDate = getAppointmentsByDate(date);
-        for (Appointment appointment : appointmentsOnDate) {
-            if (appointment.getTimeSlot().equals(timeSlot) && appointment.getAvailability() == Availability.APPOINTMENT) {
-                return false; // Time slot is occupied by an appointment
-            }
-        }
-        return true; // Time slot is available
-    }
-
-    // View all appointments for testing and verification
-    public void viewAppointments() {
-        List<Appointment> appointments = loadAll();
-        for (Appointment appointment : appointments) {
-            System.out.println(appointment);
-        }
     }
 
     // Set a doctor's availability status for a particular date and time slot
@@ -136,6 +92,20 @@ public class AppointmentService {
         return true; // If no appointment found, assume available
     }
 
+    private Appointment toObject(String line) {
+        String[] data = line.split(",");
+        if (data.length == 7) {
+            LocalDate date = LocalDate.parse(data[3]);
+            Availability availability = Availability.valueOf(data[5]);
+            Flag flag = Flag.valueOf(data[6]);
+            return new Appointment(data[0], data[1], data[2], date, data[4], availability, flag);
+        } else {
+            System.err.println("Error parsing appointment data: " + line);
+            return null;
+        }
+
+    }
+
     // Convert Appointment object to text format
     private String format(Appointment appointment) {
         return appointment.getApptId() + ","
@@ -143,6 +113,7 @@ public class AppointmentService {
                 + appointment.getDoctorId() + ","
                 + appointment.getDate().toString() + ","
                 + appointment.getTimeSlot() + ","
-                + appointment.getAvailability();  // Save availability status
+                + appointment.getAvailability() + ","
+                + appointment.getFlag();
     }
 }

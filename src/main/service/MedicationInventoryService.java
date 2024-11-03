@@ -1,9 +1,9 @@
 package service;
 
+import entity.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import entity.*;
 
 public class MedicationInventoryService {
 
@@ -15,7 +15,7 @@ public class MedicationInventoryService {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                MedicationInventory inventory = textToMedicationInventory(line);
+                MedicationInventory inventory = toObject(line);
                 if (inventory != null) {
                     inventoryList.add(inventory);
                 }
@@ -95,7 +95,7 @@ public class MedicationInventoryService {
     }
 
     // Helper method to convert text line to MedicationInventory object
-    private MedicationInventory textToMedicationInventory(String line) {
+    private MedicationInventory toObject(String line) {
         String[] data = line.split(",");
         if (data.length == 3) {
             try {
@@ -111,7 +111,7 @@ public class MedicationInventoryService {
     }
 
     // Helper method to format MedicationInventory object to text line
-    private String format(MedicationInventory inventory) {
+    private String format(MedicationInventory inventory) {1
         return inventory.getName() + "," + inventory.getStock() + "," + inventory.getAlertlevel();
     }
 }

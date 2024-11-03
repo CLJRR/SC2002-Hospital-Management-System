@@ -1,0 +1,13 @@
+------------------------------------------
+            MedicationInventoryService
+------------------------------------------
+- FILE_NAME : String
+------------------------------------------
++ loadAll() : List<MedicationInventory>
++ getByName(name: String) : MedicationInventory
++ save(inventory: MedicationInventory) : boolean
++ deleteByName(name: String) : boolean
++ deleteAll() : void
+- textToMedicationInventory(line: String) : MedicationInventory
+- format(inventory: MedicationInventory) : String
+------------------------------------------

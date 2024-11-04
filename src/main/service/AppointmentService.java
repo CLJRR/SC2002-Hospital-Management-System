@@ -51,9 +51,9 @@ public class AppointmentService {
     public List<Appointment> loadAll() {
         List<Appointment> appointments = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Appointment appointment = toObject(line);
+            String input;
+            while ((input = reader.readLine()) != null) {
+                Appointment appointment = toObject(input);
                 if (appointment != null) {
                     appointments.add(appointment);
                 }
@@ -62,7 +62,7 @@ public class AppointmentService {
             System.err.println("Error loading appointments: " + e.getMessage());
         }
         return appointments;
-    }    // Convert a line of text to an Appointment object
+    }    // Convert a input of text to an Appointment object
 
     // Get appointments for a specific date
     public List<Appointment> getAppointmentsByDate(LocalDate date) {
@@ -92,15 +92,15 @@ public class AppointmentService {
         return true; // If no appointment found, assume available
     }
 
-    private Appointment toObject(String line) {
-        String[] data = line.split(",");
+    private Appointment toObject(String input) {
+        String[] data = input.split(",");
         if (data.length == 7) {
             LocalDate date = LocalDate.parse(data[3]);
             Availability availability = Availability.valueOf(data[5]);
             Flag flag = Flag.valueOf(data[6]);
             return new Appointment(data[0], data[1], data[2], date, data[4], availability, flag);
         } else {
-            System.err.println("Error parsing appointment data: " + line);
+            System.err.println("Error parsing appointment data: " + input);
             return null;
         }
 

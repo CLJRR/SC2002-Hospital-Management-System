@@ -17,9 +17,9 @@ public class MedicalRecordService {
     public List<MedicalRecord> loadAll() {
         List<MedicalRecord> medicalRecords = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                MedicalRecord record = toObject(line);
+            String input;
+            while ((input = reader.readLine()) != null) {
+                MedicalRecord record = toObject(input);
                 if (record != null) {
                     medicalRecords.add(record);
                 }
@@ -78,9 +78,9 @@ public class MedicalRecordService {
         }
     }
 
-    // Helper: Convert a line of text to a MedicalRecord object
-    private MedicalRecord toObject(String line) {
-        String[] data = line.split(",");
+    // Helper: Convert a input of text to a MedicalRecord object
+    private MedicalRecord toObject(String input) {
+        String[] data = input.split(",");
         if (data.length == 10) {
             try {
                 String apptId = data[0];
@@ -97,15 +97,15 @@ public class MedicalRecordService {
                 Prescription prescription = new Prescription(medName, flag, amount, dosage);
                 return new MedicalRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
             } catch (Exception e) {
-                System.err.println("Error parsing medical record data: " + line + " - " + e.getMessage());
+                System.err.println("Error parsing medical record data: " + input + " - " + e.getMessage());
             }
         } else {
-            System.err.println("Invalid data format: " + line);
+            System.err.println("Invalid data format: " + input);
         }
         return null;
     }
 
-    // Helper: Format a MedicalRecord object as a line for file storage
+    // Helper: Format a MedicalRecord object as a input for file storage
     private String format(MedicalRecord record) {
         StringBuilder sb = new StringBuilder();
         sb.append(record.getApptId()).append(",")

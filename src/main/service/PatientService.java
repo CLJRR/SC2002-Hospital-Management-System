@@ -15,9 +15,9 @@ public class PatientService {
     public List<Patient> loadAll() {
         List<Patient> patients = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Patient patient = toObject(line);
+            String input;
+            while ((input = reader.readLine()) != null) {
+                Patient patient = toObject(input);
                 if (patient != null) {
                     patients.add(patient);
                 }
@@ -83,32 +83,6 @@ public class PatientService {
         }
     }
 
-    // Change the password of a Patient by ID
-    public void changePassword(String id, String password, String newPassword) {
-        List<Patient> patients = loadAll();
-        boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (Patient patient : patients) {
-                if (patient.getId().equals(id)) {
-                    found = true;
-                    if (patient.verifyPassword(password)) {
-                        patient.setPassword(newPassword);
-                        System.out.println("Password updated successfully for ID: " + id);
-                    } else {
-                        System.out.println("Incorrect Password entered for " + id);
-                    }
-                }
-                writer.write(format(patient));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
-        if (!found) {
-            System.out.println("ID: " + id + " not found.");
-        }
-    }
-
     // Delete all Patient records
     public void deleteAll() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
@@ -118,9 +92,9 @@ public class PatientService {
         }
     }
 
-    // Helper method to convert a line of text to a Patient object
-    private Patient toObject(String line) {
-        String[] data = line.split(",");
+    // Helper method to convert a input of text to a Patient object
+    private Patient toObject(String input) {
+        String[] data = input.split(",");
         if (data.length == 9) {
             try {
                 String id = data[0];
@@ -134,15 +108,15 @@ public class PatientService {
                 String bloodType = data[8];
                 return new Patient(id, name, password, age, dateOfBirth, gender, phoneNumber, email, bloodType);
             } catch (Exception e) {
-                System.err.println("Error parsing patient data: " + line + " - " + e.getMessage());
+                System.err.println("Error parsing patient data: " + input + " - " + e.getMessage());
             }
         } else {
-            System.err.println("Invalid data format: " + line);
+            System.err.println("Invalid data format: " + input);
         }
         return null;
     }
 
-    // Helper method to format Patient object as a line for file storage
+    // Helper method to format Patient object as a input for file storage
     private String format(Patient patient) {
         return String.join(",",
                 patient.getId(),

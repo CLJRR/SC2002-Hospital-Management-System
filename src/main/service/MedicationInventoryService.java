@@ -13,9 +13,9 @@ public class MedicationInventoryService {
     public List<MedicationInventory> loadAll() {
         List<MedicationInventory> inventoryList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                MedicationInventory inventory = toObject(line);
+            String input;
+            while ((input = reader.readLine()) != null) {
+                MedicationInventory inventory = toObject(input);
                 if (inventory != null) {
                     inventoryList.add(inventory);
                 }
@@ -94,9 +94,9 @@ public class MedicationInventoryService {
         }
     }
 
-    // Helper method to convert text line to MedicationInventory object
-    private MedicationInventory toObject(String line) {
-        String[] data = line.split(",");
+    // Helper method to convert text input to MedicationInventory object
+    private MedicationInventory toObject(String input) {
+        String[] data = input.split(",");
         if (data.length == 3) {
             try {
                 String name = data[0];
@@ -104,13 +104,13 @@ public class MedicationInventoryService {
                 int alertLevel = Integer.parseInt(data[2]);
                 return new MedicationInventory(name, stock, alertLevel);
             } catch (NumberFormatException e) {
-                System.err.println("Error parsing medication data: " + line);
+                System.err.println("Error parsing medication data: " + input);
             }
         }
         return null;
     }
 
-    // Helper method to format MedicationInventory object to text line
+    // Helper method to format MedicationInventory object to text input
     private String format(MedicationInventory inventory) {
         return inventory.getName() + "," + inventory.getStock() + "," + inventory.getAlertlevel();
     }

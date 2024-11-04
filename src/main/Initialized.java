@@ -21,7 +21,6 @@ public class Initialized {
         patientService.save(new Patient("P1001", "Alice Brown", 42, LocalDate.parse("1980-05-14"), Gender.FEMALE, "96810518", "alice.brown@example.com", "A+"));
         patientService.save(new Patient("P1002", "Bob Stone", 47, LocalDate.parse("1975-11-22"), Gender.MALE, "88386868", "bob.stone@example.com", "B+"));
         patientService.save(new Patient("P1003", "Charlie White", 32, LocalDate.parse("1990-07-08"), Gender.MALE, "94315338", "charlie.white@example.com", "O-"));
-
         //print out staff list
         System.out.println("");
         List<Staff> staffs = new ArrayList<>();

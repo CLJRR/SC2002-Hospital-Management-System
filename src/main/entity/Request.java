@@ -6,25 +6,26 @@ public class Request {
 
     private String requestId;
     private String pharmId;
-    private String MedicationName;
+    private String medicationName;
     private int increaseStockBy;
-    private Flag flag;
     private String notes;
+    private Flag flag;
 
-    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, Flag flag) {
+    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, String notes, Flag flag) {
         this.requestId = requestId;
         this.pharmId = pharmId;
-        MedicationName = medicationName;
+        this.medicationName = medicationName;
         this.increaseStockBy = increaseStockBy;
+        this.notes = notes;
         this.flag = flag;
     }
 
-    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy) {
+    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, String notes) {
         this.requestId = requestId;
         this.pharmId = pharmId;
-        MedicationName = medicationName;
+        this.medicationName = medicationName;
         this.increaseStockBy = increaseStockBy;
-        this.flag = Flag.PENDING;
+        this.notes = notes;
     }
 
     public String getRequestId() {
@@ -52,11 +53,11 @@ public class Request {
     }
 
     public String getMedicationName() {
-        return MedicationName;
+        return medicationName;
     }
 
     public void setMedicationName(String MedicationName) {
-        this.MedicationName = MedicationName;
+        this.medicationName = MedicationName;
     }
 
     public int getIncreaseStockBy() {
@@ -65,6 +66,20 @@ public class Request {
 
     public void setIncreaseStockBy(int increaseStockBy) {
         this.increaseStockBy = increaseStockBy;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return "Request [requestId=" + requestId + ", pharmId=" + pharmId + ", medicationName=" + medicationName
+                + ", increaseStockBy=" + increaseStockBy + ", notes=" + notes + ", flag=" + flag + "]";
     }
 
 }

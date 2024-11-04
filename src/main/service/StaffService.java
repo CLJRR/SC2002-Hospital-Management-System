@@ -1,138 +1,90 @@
 package service;
 
-import entity.*;
+import entity.Staff;
 import enums.*;
-import java.io.*;
+import interfaces.*;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class StaffService {
+public class StaffService implements Load, Format, Save, Write, toObject {
 
-    private static final String FILE_NAME = "./data/staffs.txt";
-
-    // Function to load all Staff records from a text file
-    public List<Staff> loadAll() {
-        List<Staff> staffs = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-            String input;
-            while ((input = reader.readLine()) != null) {
-                Staff staff = toObject(input);
-                if (staff != null) {
-                    staffs.add(staff);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
-        }
-        return staffs;
-    }
-
-    //get Staff by ID
-    public Staff getById(String id) {
-        List<Staff> staffs = loadAll();
-        for (Staff staff : staffs) {
-            if (staff.getId().equals(id)) {
-                return staff;  // Staff found, return the object
+    @Override
+    public List<?> load(String fileName) throws IOException {
+        List<Staff> data = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Staff staff = (Staff) toObject(line);
+                data.add(staff);
             }
         }
-        System.out.println("ID: " + id + " not found.");
-        return null;  // Return null if staff not found
-    }
-
-    // Function to save staff information to a text file
-    public void save(Staff staff) {
-        List<Staff> staffs = loadAll();
-
-        // Check for duplicates by ID using the helper method
-        if (isDuplicateId(staff.getId(), staffs)) {
-            System.out.println("ID: " + staff.getId() + " already exists. Cannot add duplicate.");
-            return;
-        }
-
-
-        // If no duplicate, save the staff
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
-            writer.write(format(staff));
-            writer.newLine();
-            System.out.println("Staff record saved: " + staff);
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-        }
+        return data;
     }
 
 
 
-    
-
-    public void deleteById(String id) {
-        List<Staff> staffs = loadAll();
-        boolean found = false;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-            for (Staff staff : staffs) {
-                if (!staff.getId().equals(id)) {
-                    writer.write(format(staff));
-                    writer.newLine();
-                } else {
-                    found = true;
-                }
+    @Override
+    public void save(String filename, List<?> list) throws IOException {
+        List<String> data = new ArrayList<>();
+        for (Object obj : list) {
+            if (obj instanceof Staff) {
+                String formattedString = format(obj); // Use format method
+                data.add(formattedString);
+            } else {
+                throw new IOException("List contains incorrect objects.");
             }
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
         }
-        if (found) {
-            System.out.println("ID: " + id + " has been deleted.");
+        write(filename, data);
+
+    }
+
+    @Override
+    public void write(String fileName, List<String> data) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+            for (String line : data) {
+                out.println(line);
+            }
+        }
+    }
+    @Override
+    public String format(Object object) throws IOException {
+        if (object instanceof Staff staff) {
+            return staff.getId() + ","
+                    + staff.getName() + ","
+                    + staff.getGender() + ","
+                    + staff.getAge() + ","
+                    + staff.getRole() + ","
+                    + staff.getPassword();
         } else {
-            System.out.println("ID: " + id + " not found.");
+            throw new IOException("Invalid object type");
         }
     }
+    @Override
+    public Object toObject(String string) throws IOException {
+        String[] parts = string.split(",");
 
-    public void deleteAll() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, false))) {
-            System.out.println("All Staff records have been deleted.");
-        } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+        // Validate the format by checking the number of fields
+        if (parts.length != 6) {
+            throw new IOException("Invalid format");
         }
 
-    }
-    // Helper method to convert a input of text to a Staff object
+        try {
+            // Parse each part and create a Staff object
+            String id = parts[0].trim();
+            String name = parts[1].trim();
+            Gender gender = Gender.valueOf(parts[2].trim().toUpperCase());
+            Integer age = Integer.parseInt(parts[3].trim());
+            Role role = Role.valueOf(parts[4].trim().toUpperCase());
+            String password = parts[5].trim();
+            return new Staff(id, name, gender, age, role, password);
 
-    private Staff toObject(String input) {
-        String[] data = input.split(",");
-        if (data.length == 6) {
-            try {
-                String id = data[0];
-                String name = data[1];
-                String gender = data[2];
-                Integer age = Integer.parseInt(data[3]);
-                Role role = Role.valueOf(data[4].toUpperCase());
-                String password = data[5];
-                return new Staff(id, name, gender, age, role, password);
-            } catch (Exception e) {
-                System.err.println("Error parsing staff data: " + input + " - " + e.getMessage());
-            }
-        } else {
-            System.err.println("Invalid data format: " + input);
+        } catch (NumberFormatException e) {
+            throw new IOException("Invalid data format for age: " + parts[3], e);
         }
-        return null;
-    }
-
-    // Function to check if a Staff ID is duplicate
-    private boolean isDuplicateId(String id, List<Staff> staffs) {
-        for (Staff staff : staffs) {
-            if (staff.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    // Function to format Staff object for file saving
-
-    private String format(Staff staff) {
-        return staff.getId() + ","
-                + staff.getName() + ","
-                + staff.getGender() + ","
-                + staff.getAge() + ","
-                + staff.getRole() + ","
-                + staff.getPassword();
     }
 }

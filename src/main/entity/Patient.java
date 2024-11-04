@@ -1,6 +1,6 @@
 package entity;
 
-import enums.Gender;
+import enums.*;
 import java.time.LocalDate;
 
 public class Patient extends User {
@@ -11,27 +11,51 @@ public class Patient extends User {
     private String phoneNumber;
     private String email;
     private String bloodType;
+    private Role role;
 
     public Patient(String id, String name, Integer age, LocalDate dateOfBirth, Gender gender, String phoneNumber,
-            String email, String bloodType) {
+            String email, String bloodType, Role role) {
         super(id, name);
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
+        this.age = age;
+        this.role = role;
+        this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bloodType = bloodType;
     }
 
     public Patient(String id, String name, String password, Integer age, LocalDate dateOfBirth, Gender gender,
-            String phoneNumber, String email, String bloodType) {
+            String phoneNumber, String email, String bloodType, Role role) {
         super(id, name, password);
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
         this.gender = gender;
+        this.age = age;
+        this.role = role; 
+        this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bloodType = bloodType;
+    }
+    public Patient(String id, String name, Gender gender, Integer age, Role role) {
+        super(id, name);
+        this.gender = gender;
+        this.age = age;
+        this.role = role;
+        this.dateOfBirth = null;
+        this.phoneNumber = null;
+        this.email = null;
+        this.bloodType = null;
+    }
+
+    public Patient(String id, String name, Gender gender, Integer age, Role role, String password) {
+        super(id, name, password);
+        this.gender = gender;
+        this.age = age;
+        this.role = role;
+        this.dateOfBirth = null;
+        this.phoneNumber = null;
+        this.email = null;
+        this.bloodType = null;
     }
 
     public Integer getAge() {
@@ -82,11 +106,12 @@ public class Patient extends User {
         this.bloodType = bloodType;
     }
 
-    @Override
-    public String toString() {
-        return "Patient [age=" + age + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender + ", phoneNumber="
-                + phoneNumber + ", email=" + email + ", bloodType=" + bloodType + ", getId()=" + getId()
-                + ", getPassword()=" + getPassword() + ", getName()=" + getName() + "]";
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
 }

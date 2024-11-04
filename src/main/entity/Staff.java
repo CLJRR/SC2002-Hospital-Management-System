@@ -1,20 +1,21 @@
 package entity;
+
 import enums.*;
+
 public class Staff extends User {
 
-
-    private String gender;
+    private Gender gender;
     private Integer age;
     private Role role;
 
-    public Staff(String id, String name, String gender, Integer age, Role role) {
+    public Staff(String id, String name, Gender gender, Integer age, Role role) {
         super(id, name);
         this.gender = gender;
         this.age = age;
         this.role = role;
     }
 
-    public Staff(String id, String name, String gender, Integer age, Role role, String password) {
+    public Staff(String id, String name, Gender gender, Integer age, Role role, String password) {
         super(id, name, password);
         this.gender = gender;
         this.age = age;
@@ -22,11 +23,11 @@ public class Staff extends User {
     }
 
     // Getters and setters for the Doctor fields
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -45,8 +46,6 @@ public class Staff extends User {
     public void setRole(Role role) {
         this.role = role;
     }
-
-
 
     @Override
     public String toString() {

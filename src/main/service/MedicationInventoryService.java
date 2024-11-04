@@ -27,7 +27,7 @@ public class MedicationInventoryService {
     }
 
     // Function to get MedicationInventory by name
-    public MedicationInventory getByName(String name) {
+    public MedicationInventory getById(String name) {
         List<MedicationInventory> inventoryList = loadAll();
         for (MedicationInventory inventory : inventoryList) {
             if (inventory.getName().equalsIgnoreCase(name)) {
@@ -61,7 +61,7 @@ public class MedicationInventoryService {
     }
 
     // Function to delete MedicationInventory by name from a text file
-    public boolean deleteByName(String name) {
+    public boolean deleteById(String name) {
         List<MedicationInventory> inventoryList = loadAll();
         boolean found = false;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {

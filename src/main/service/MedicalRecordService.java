@@ -48,7 +48,7 @@ public class MedicalRecordService {
     }
 
     // Get an appointment by appointment ID
-    public MedicalRecord getApptById(String apptId) {
+    public MedicalRecord getById(String apptId) {
         return loadAll().stream()
                 .filter(record -> record.getApptId().equals(apptId))
                 .findFirst()
@@ -56,7 +56,7 @@ public class MedicalRecordService {
     }
 
     // Delete a MedicalRecord by appointment ID
-    public void deleteByApptId(String apptId) {
+    public void deleteById(String apptId) {
         List<MedicalRecord> records = loadAll();
         boolean isDeleted = records.removeIf(record -> record.getApptId().equals(apptId));
 

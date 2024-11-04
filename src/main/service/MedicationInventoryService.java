@@ -7,7 +7,7 @@ import java.util.List;
 
 public class MedicationInventoryService {
 
-    private static final String FILE_NAME = "./data/MedicationInventory.txt";
+    private static final String FILE_NAME = "./data/medicationInventory.txt";
 
     // Function to load all MedicationInventory from a text file
     public List<MedicationInventory> loadAll() {
@@ -111,7 +111,7 @@ public class MedicationInventoryService {
     }
 
     // Helper method to format MedicationInventory object to text line
-    private String format(MedicationInventory inventory) {1
+    private String format(MedicationInventory inventory) {
         return inventory.getName() + "," + inventory.getStock() + "," + inventory.getAlertlevel();
     }
 }

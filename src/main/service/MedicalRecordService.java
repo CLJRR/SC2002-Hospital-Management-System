@@ -1,7 +1,7 @@
 package service;
 
 import entity.*;
-import enums.*;
+import enums.Flag;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -81,20 +81,21 @@ public class MedicalRecordService {
     // Helper: Convert a line of text to a MedicalRecord object
     private MedicalRecord toObject(String line) {
         String[] data = line.split(",");
-        if (data.length == 9) {
+        if (data.length == 10) {
             try {
                 String apptId = data[0];
                 String patientId = data[1];
                 String doctorId = data[2];
                 LocalDate appointmentDate = LocalDate.parse(data[3], DATE_FORMATTER);
                 String serviceProvided = data[4];
-                String medName = data[5];
-                Status status = Status.valueOf(data[6].toUpperCase());
-                int amount = Integer.parseInt(data[7]);
-                String dosage = data[8];
+                String diagnoses = data[5];
+                String medName = data[6];
+                Flag flag = Flag.valueOf(data[7].toUpperCase());
+                int amount = Integer.parseInt(data[8]);
+                String dosage = data[9];
 
-                Prescription prescription = new Prescription(medName, status, amount, dosage);
-                return new MedicalRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, prescription);
+                Prescription prescription = new Prescription(medName, flag, amount, dosage);
+                return new MedicalRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
             } catch (Exception e) {
                 System.err.println("Error parsing medical record data: " + line + " - " + e.getMessage());
             }
@@ -111,7 +112,8 @@ public class MedicalRecordService {
                 .append(record.getPatientId()).append(",")
                 .append(record.getDoctorId()).append(",")
                 .append(record.getAppointmentDate().format(DATE_FORMATTER)).append(",")
-                .append(record.getServiceProvided()).append(",");
+                .append(record.getServiceProvided()).append(",")
+                .append(record.getDiagnoses()).append(",");
 
         Prescription prescription = record.getPrescription();
         sb.append(prescription.getMedName()).append(",")

@@ -1,2 +1,2 @@
-A001,P1001,D001,2024-10-10,General Checkup,Ibuprofen,PENDING,30,200mg twice daily
-A002,P1001,D001,2024-10-10,General Checkup,Ibuprofen,PENDING,30,200mg twice daily
+A001,P1001,D001,2024-10-10,General Checkup,fever,Ibuprofen,PENDING,30,200mg twice daily
+A002,P1001,D001,2024-10-10,General Checkup,flu,Ibuprofen,PENDING,30,200mg twice daily

@@ -14,8 +14,8 @@ public class medicalrecord {
         // Creating a Prescription object
         Prescription prescription = new Prescription("Ibuprofen", 30, "200mg twice daily");
         // Creating a MedicalRecord object
-        MedicalRecord record1 = new MedicalRecord("A001", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", prescription);
-        MedicalRecord record2 = new MedicalRecord("A002", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", prescription);
+        MedicalRecord record1 = new MedicalRecord("A001", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", "fever", prescription);
+        MedicalRecord record2 = new MedicalRecord("A002", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", "flu", prescription);
         // Saving the MedicalRecord
         service.save(record1);
         service.save(record2);

@@ -1,24 +1,24 @@
 package entity;
 
-import enums.Status;
+import enums.Flag;
 
 public class Prescription {
 
     String medName;
-    Status status;
+    Flag flag;
     Integer amount;
     String dosage;
 
     public Prescription(String medName, Integer amount, String dosage) {
         this.medName = medName;
-        this.status = Status.PENDING;
+        this.flag = Flag.PENDING;
         this.amount = amount;
         this.dosage = dosage;
     }
 
-    public Prescription(String medName, Status status, Integer amount, String dosage) {
+    public Prescription(String medName, Flag flag, Integer amount, String dosage) {
         this.medName = medName;
-        this.status = status;
+        this.flag = flag;
         this.amount = amount;
         this.dosage = dosage;
     }
@@ -47,12 +47,12 @@ public class Prescription {
         this.dosage = dosage;
     }
 
-    public Status getStatus() {
-        return status;
+    public Flag getStatus() {
+        return flag;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus(Flag flag) {
+        this.flag = flag;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Prescription {
         StringBuilder sb = new StringBuilder();
         sb.append("Prescription{");
         sb.append("medName=").append(medName);
-        sb.append(", status=").append(status);
+        sb.append(", flag=").append(flag);
         sb.append(", amount=").append(amount);
         sb.append(", dosage=").append(dosage);
         sb.append('}');

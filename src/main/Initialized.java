@@ -10,16 +10,17 @@ public class Initialized {
 
     public static void main(String[] args) throws IOException {
         // try {
-        PatientService patientService = new PatientService();
+        final String FILE_NAME = "./data/users.txt";
+        UserService userService = new UserService();
         // Cast the result of load() to List<Staff>
 
         @SuppressWarnings("unchecked")
-        List<Patient> patients = (List<Patient>) patientService.load("./data/patients.txt");
-        Patient x = new Patient("D001", "John Smith", Gender.MALE, 45, Role.DOCTOR);
-        patients.add(x);
-        for (Patient patient : patients) {
-            System.out.println(patient);
+        List<User> users = (List<User>) userService.load(FILE_NAME);
+        User x = new User("D001", "John Smith", Gender.MALE, 45, Role.DOCTOR);
+        users.add(x);
+        for (User user : users) {
+            System.out.println(user.getId());
         }
-        patientService.save("./data/patients.txt", patients);
+        userService.save(FILE_NAME, users);
     }
 }

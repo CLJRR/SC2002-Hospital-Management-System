@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class PatientService implements Load, Format, Save, Write, toObject {
+public class UserService implements Load, Format, Save, Write, toObject {
 
     private static final String FILE_NAME = "./data/patients.txt";
 

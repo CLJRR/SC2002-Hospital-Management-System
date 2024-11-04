@@ -1,3 +1,0 @@
-P1001,Alice Brown,password,42,1980-05-14,FEMALE,96810518,alice.brown@example.com,A+,PATIENT
-P1002,Bob Stone,password,47,1975-11-22,MALE,88386868,bob.stone@example.com,B+,PATIENT
-P1003,Charlie White,password,32,1990-07-08,MALE,94315338,charlie.white@example.com,O-,PATIENT

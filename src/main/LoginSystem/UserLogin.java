@@ -1,12 +1,11 @@
 package LoginSystem;
 
+import UserSystem.User;
+import UserSystem.UserService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import UserSystem.User;
-import UserSystem.UserService;
 
 public class UserLogin {
     private String loginIDAttempt;
@@ -61,11 +60,11 @@ public class UserLogin {
                     System.out.println("Login successfully.");
                     return true;
                 }
-            }
-            else
-            {
-                System.out.println("Incorrect Password.");
-                return false;
+                else
+                {
+                    System.out.println("Incorrect Password.");
+                    return false;
+                }
             }
         }
         System.out.println("LoginID not found.");

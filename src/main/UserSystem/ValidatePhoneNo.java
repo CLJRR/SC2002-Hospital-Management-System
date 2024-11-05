@@ -2,7 +2,7 @@ package UserSystem;
 
 public class ValidatePhoneNo {
     public boolean validatePhoneNo(String PhoneNo) {
-        if (PhoneNo.charAt(0) == 8 || PhoneNo.charAt(1) == 9)
+        if (PhoneNo.charAt(0) == '8' || PhoneNo.charAt(0) == '9')
         {
             if (PhoneNo.length() == 8)
             {

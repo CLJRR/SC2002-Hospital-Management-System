@@ -1,11 +1,11 @@
+import LoginSystem.Login;
+import LoginSystem.UserLogin;
 import UserSystem.*;
 import enums.Gender;
 import enums.Role;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-
-import LoginSystem.Login;
 
 public class Main {
 
@@ -32,5 +32,8 @@ public class Main {
         // userService.save(FILE_NAME, users);
         Login test = new Login();
         test.login();
+        UserLogin a = new UserLogin();
+        a.inputAttempt();
+        a.checkAttempt(test);
     }
 }

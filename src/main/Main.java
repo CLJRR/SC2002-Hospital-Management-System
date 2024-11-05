@@ -1,10 +1,11 @@
-
 import UserSystem.*;
 import enums.Gender;
 import enums.Role;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+
+import LoginSystem.Login;
 
 public class Main {
 
@@ -25,9 +26,11 @@ public class Main {
 
         System.out.println("Please enter UserId");
 
-        for (User user : users) {
-            System.out.println(user.getId());
-        }
-        userService.save(FILE_NAME, users);
+        // for (User user : users) {
+        //     System.out.println(user.getId());
+        // }
+        // userService.save(FILE_NAME, users);
+        Login test = new Login();
+        test.login();
     }
 }

@@ -81,7 +81,9 @@ public class UserService implements Load, Format, Save, Write, toObject {
             String id = parts[0];
             String name = parts[1];
             String password = parts[2];
-            Integer age = Integer.parseInt(parts[3]);
+            // Integer age = Integer.parseInt(parts[3]);
+            Integer age = "null".equals(parts[3]) ? null : Integer.parseInt(parts[3]);
+            
             // Handle nullable dateOfBirth field
             LocalDate dateOfBirth = "null".equals(parts[4]) ? null : LocalDate.parse(parts[4]);
             // Parse enum values with error handling

@@ -1,1 +1,0 @@
-  List<User> users = (List<User>) userService.load(USER_FILE_NAME);

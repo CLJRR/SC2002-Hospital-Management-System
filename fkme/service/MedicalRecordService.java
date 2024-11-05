@@ -14,7 +14,7 @@ public class MedicalRecordService {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     // Load all MedicalRecords from the text file
-    public List<    @Override
+    @Override
     public String format(Object object) throws IOException {
         if (object instanceof User user) {
             return String.join(",",
@@ -64,7 +64,9 @@ public class MedicalRecordService {
         } catch (IllegalArgumentException e) {
             throw new IOException("Invalid enum value in Gender or Role field.", e);
         }
-    }> loadAll() {
+    }
+
+    > loadAll() {
         List<MedicalRecord> medicalRecords = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String input;

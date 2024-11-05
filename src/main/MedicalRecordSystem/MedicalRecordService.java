@@ -1,15 +1,22 @@
-package UserSystem;
+package MedicalRecordSystem;
 
-import FIleManager.*;
-import enums.Gender;
-import enums.Role;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserService implements Load, Format, Save, Write, toObject {
+import FIleManager.Format;
+import FIleManager.Load;
+import FIleManager.Save;
+import FIleManager.Write;
+import FIleManager.toObject;
+import UserSystem.User;
+import enums.Gender;
+import enums.Role;
+
+public class MedicalRecordService implements Load, Format, Save, Write, toObject {
 
     @Override
     public List<?> load(String fileName) throws IOException {
@@ -17,51 +24,27 @@ public class UserService implements Load, Format, Save, Write, toObject {
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                User user = (User) toObject(line);
-                data.add(user);
+                User medicalRecord = (User) toObject(line);
+                data.add(medicalRecord);
             }
         }
         return data;
     }
 
     @Override
-    public void save(String filename, List<?> list) throws IOException {
-        List<String> data = new ArrayList<>();
-        for (Object obj : list) {
-            if (obj instanceof User) {
-                String formattedString = format(obj); // Use format method
-                data.add(formattedString);
-            } else {
-                throw new IOException("List contains incorrect objects.");
-            }
-        }
-        write(filename, data);
-
-    }
-
-    @Override
-    public void write(String fileName, List<String> data) throws IOException {
-        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
-            for (String line : data) {
-                out.println(line);
-            }
-        }
-    }
-
-    @Override
     public String format(Object object) throws IOException {
-        if (object instanceof User user) {
+        if (object instanceof MedicalRecord medicalRecord) {
             return String.join(",",
-                    user.getId(),
-                    user.getName(),
-                    user.getPassword(),
-                    String.valueOf(user.getAge()),
-                    user.getDateOfBirth() == null ? "null" : user.getDateOfBirth().toString(),
-                    user.getGender().name(),
-                    user.getPhoneNumber() == null ? "null" : user.getPhoneNumber(),
-                    user.getEmail() == null ? "null" : user.getEmail(),
-                    user.getBloodType() == null ? "null" : user.getBloodType(),
-                    user.getRole().name()
+                    medicalRecord.getId(),
+                    medicalRecord.getName(),
+                    medicalRecord.getPassword(),
+                    String.valueOf(medicalRecord.getAge()),
+                    medicalRecord.getDateOfBirth() == null ? "null" : medicalRecord.getDateOfBirth().toString(),
+                    medicalRecord.getGender().name(),
+                    medicalRecord.getPhoneNumber() == null ? "null" : medicalRecord.getPhoneNumber(),
+                    medicalRecord.getEmail() == null ? "null" : medicalRecord.getEmail(),
+                    medicalRecord.getBloodType() == null ? "null" : medicalRecord.getBloodType(),
+                    medicalRecord.getRole().name()
             );
 
         } else {

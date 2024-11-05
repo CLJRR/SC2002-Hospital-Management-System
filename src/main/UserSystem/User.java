@@ -5,6 +5,9 @@ import java.time.LocalDate;
 
 public class User {
 
+    private String id;
+    private String password;
+    private String name;
     private Integer age;
     private LocalDate dateOfBirth;
     private Gender gender;
@@ -12,17 +15,15 @@ public class User {
     private String email;
     private String bloodType;
     private Role role;
-    private String id;
-    private String password;
-    private String name;
 
-    public User(String id, String name, Integer age, LocalDate dateOfBirth, Gender gender, String phoneNumber,
+    //patient
+    public User(String id, String name, LocalDate dateOfBirth, Gender gender, String phoneNumber,
             String email, String bloodType, Role role) {
         this.id = id;
         this.name = name;
         this.password = "password";
         this.gender = gender;
-        this.age = age;
+        this.age = null;
         this.role = role;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
@@ -30,20 +31,21 @@ public class User {
         this.bloodType = bloodType;
     }
 
-    public User(String id, String name, String password, Integer age, LocalDate dateOfBirth, Gender gender,
+    //patient
+    public User(String id, String name, String password, LocalDate dateOfBirth, Gender gender,
             String phoneNumber, String email, String bloodType, Role role) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.gender = gender;
-        this.age = age;
+        this.age = null;
         this.role = role;
         this.dateOfBirth = dateOfBirth;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bloodType = bloodType;
     }
-
+    //staff
     public User(String id, String name, Gender gender, Integer age, Role role) {
         this.id = id;
         this.name = name;
@@ -56,7 +58,7 @@ public class User {
         this.email = null;
         this.bloodType = null;
     }
-
+    //staff
     public User(String id, String name, Gender gender, Integer age, Role role, String password) {
         this.id = id;
         this.name = name;
@@ -68,6 +70,20 @@ public class User {
         this.phoneNumber = null;
         this.email = null;
         this.bloodType = null;
+    }
+
+    public User(String id, String name, String password, Integer age, LocalDate dateOfBirth, Gender gender,
+            String phoneNumber, String email, String bloodType, Role role) {
+        this.id = id;
+        this.password = password;
+        this.name = name;
+        this.age = age;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.bloodType = bloodType;
+        this.role = role;
     }
 
     public Integer getAge() {

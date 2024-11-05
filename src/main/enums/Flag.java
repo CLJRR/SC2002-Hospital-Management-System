@@ -4,5 +4,6 @@ public enum Flag {
     PENDING,
     REJECTED,
     CONFIRMED,
-    CANCELLED
+    CANCELLED,
+    COMPLETED
 }

@@ -1,7 +1,6 @@
+
 package enums;
+
 public enum Role {
-    ADMINISTRATOR,
-    PHARMACIST,
-    DOCTOR,
-    PATIENT
+    ADMINISTRATOR, PHARMACIST, DOCTOR, PATIENT
 }

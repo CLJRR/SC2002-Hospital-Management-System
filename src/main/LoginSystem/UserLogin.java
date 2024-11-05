@@ -1,22 +1,9 @@
-public package LoginSystem;
+package LoginSystem;
 
 import UserSystem.User;
 import UserSystem.UserService;
-import enums.*;
-import data.users.txt;
-
-import interfaces.Format;
-import interfaces.Load;
-import interfaces.Save;
-import interfaces.Write;
-import interfaces.toObject;
-import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,6 +13,7 @@ public class UserLogin {
 
     public String getLoginIDAttempt() {
         return this.loginIDAttempt;
+    }
 
     public String getPasswordAttempt() {
         return this.passwordAttempt;
@@ -48,5 +36,38 @@ public class UserLogin {
         System.out.println("Enter password: ");
         String pw = sc.nextLine();
         setPasswordAttempt(pw);
+    }
+    
+    public boolean checkAttempt(Login login) throws IOException {
+        final String FILE_NAME = "./data/users.txt";
+        UserService userService = new UserService();
+        
+        @SuppressWarnings("unchecked")
+        List<User> users = (List<User>) userService.load(FILE_NAME);
+        List<User> AccountList = new ArrayList<>();
+        for (User user : users) {
+            if (user.getRole() == login.getChoice()) {
+                AccountList.add(user);
+            }
+        }
+
+        for (int i = 0; i < AccountList.size(); i++)
+        {
+            if (AccountList.get(i).getId().equals(this.loginIDAttempt))
+            {
+                if (AccountList.get(i).getPassword().equals(this.passwordAttempt))
+                {
+                    System.out.println("Login successfully.");
+                    return true;
+                }
+                else
+                {
+                    System.out.println("Incorrect Password.");
+                    return false;
+                }
+            }
+        }
+        System.out.println("LoginID not found.");
+        return false;
     }
 }

@@ -23,8 +23,8 @@ import javax.management.relation.Role;
 
 
 public class CheckAttempt {
-    // returns 1 if successful login, 0 if login failed
-    public int checkAttempt(Role role) throws IOException {
+    // returns True if successful login, False if login failed
+    public boolean checkAttempt(Role role) throws IOException {
         final String FILE_NAME = "./data/users.txt";
         UserService userService = new UserService();
         
@@ -44,16 +44,16 @@ public class CheckAttempt {
                 if (AccountList.get(i).getPassword().equals(this.passwordAttempt))
                 {
                     System.out.println("Login successfully.");
-                    return 1;
+                    return true;
                 }
             }
             else
             {
                 System.out.println("Incorrect Password.");
-                return 0;
+                return false;
             }
         }
         System.out.println("LoginID not found.");
-        return 0;
+        return false;
     }
 }

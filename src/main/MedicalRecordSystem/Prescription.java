@@ -1,4 +1,4 @@
-package entity;
+package MedicalRecordSystem;
 
 import enums.Flag;
 

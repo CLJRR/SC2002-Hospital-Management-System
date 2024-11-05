@@ -1,11 +1,7 @@
 package UserSystem;
 
 import enums.*;
-import UserSystem.UserService;
 
-import FIleManager.*;
-import java.io.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,11 +15,11 @@ public class UpdateInformation {
         List<User> users = (List<User>) userService.load(FILE_NAME);
         List<User> AccountList = new ArrayList<>();
 
-        for (user : users) {
-            if (user.getRole == Role.PATIENT) {
-                if (user.getId == UserId) {
+        for (User user : users) {
+            if (user.getRole() == Role.PATIENT) {
+                if (user.getId() == UserId) {
                     Scanner sc = new Scanner(System.in);
-                    int option;
+                    int option = 0;
                     int valid = 0;
                     while (valid == 0) {
                         System.out.println("Select option: ");
@@ -38,9 +34,41 @@ public class UpdateInformation {
                     switch(option)
                     {
                         case 1:
-                            System.out.println("Enter new PhoneNo. : ");
+                            System.out.println("Enter new PhoneNo.: ");
                             String newPhoneNo = sc.nextLine();
-                            
+                            ValidatePhoneNo vPhoneNo = new ValidatePhoneNo();
+                            boolean v = false;
+                            while (v == false)
+                            {  
+                                System.out.println("Enter valid PhoneNo.: ");
+                                newPhoneNo = sc.nextLine();
+                                v = vPhoneNo.validatePhoneNo(newPhoneNo);
+                                if (v == true)
+                                {
+                                    break;
+                                }
+                            }
+                            user.setPhoneNumber(newPhoneNo);
+                            System.out.println("New Phone Number set");
+                            break;
+                        case 2:
+                            System.out.println("Enter new email: ");
+                            String newEmail = sc.nextLine();
+                            ValidateEmail vemail = new ValidateEmail();
+                            boolean temp = false;
+                            while (temp == false)
+                            {
+                                System.out.println("Enter valid email: ");
+                                newEmail = sc.nextLine();
+                                temp = vemail.validateEmail(newEmail);
+                                if (temp == true)
+                                {
+                                    break;
+                                }
+                            }
+                            user.setEmail(newEmail);
+                            System.out.println("New Email set");
+                            break;
                     }
                 }
             }

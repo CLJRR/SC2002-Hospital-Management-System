@@ -43,7 +43,6 @@ public class Login {
                 setChoice(Role.PATIENT);
                 System.out.println("Welcome Patient");
             }
-            
         }
     }
 

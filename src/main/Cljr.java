@@ -26,18 +26,17 @@ public class Cljr {
         users.add(new User("A001", "Sarah Lee", Gender.FEMALE, 40, Role.ADMINISTRATOR));
         userService.save(FILENAME, users);
 
-
         final String FILENAMEE = "./data/medicalRecords.txt";
         MedicalRecordService medicalrecordService = new MedicalRecordService();
 
         @SuppressWarnings("unchecked")
-        List<MedicalRecord> medicalRecords = (List<MedicalRecord>) userService.load(FILENAMEE);
-        // List<MedicalRecord> medicalRecords = new ArrayList<MedicalRecord>();
+        // List<MedicalRecord> medicalRecords = (List<MedicalRecord>) medicalrecordService.load(FILENAMEE);
+        List<MedicalRecord> medicalRecords = new ArrayList<MedicalRecord>();
 
         Prescription prescription = new Prescription("Ibuprofen", 30, "200mg twice daily");
         // Creating a MedicalRecord object
-        MedicalRecord record1 = new MedicalRecord("A001", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", "fever", prescription);
-        MedicalRecord record2 = new MedicalRecord("A002", "P1001", "D001", LocalDate.of(2024, 10, 10), "General Checkup", "flu", prescription);
+        MedicalRecord record1 = new MedicalRecord("A001", "P1001", "D001", LocalDate.parse("1975-11-22"), "General Checkup", "fever", prescription);
+        MedicalRecord record2 = new MedicalRecord("A002", "P1001", "D001", LocalDate.parse("1975-11-22"), "General Checkup", "flu", prescription);
         // Saving the MedicalRecord
         medicalRecords.add(record1);
         medicalRecords.add(record2);

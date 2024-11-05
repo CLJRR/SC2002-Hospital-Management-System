@@ -1,21 +1,11 @@
 package MedicalRecordSystem;
 
-import FIleManager.Format;
-import FIleManager.Load;
-import FIleManager.Save;
-import FIleManager.Write;
-import FIleManager.toObject;
+import FIleManager.*;
 import enums.Flag;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.time.*;
+import java.time.format.*;
+import java.util.*;
 
 public class MedicalRecordService implements Load, Format, Save, Write, toObject {
 

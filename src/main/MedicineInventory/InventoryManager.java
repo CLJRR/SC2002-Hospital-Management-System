@@ -1,10 +1,10 @@
 package MedicineInventory;
 
-import entity.MedicationInventory;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import TODO.MedicationInventory;
 
 public class InventoryManager {
     private Map<String, MedicationInventory> inventory; // Stores medications with their names as keys

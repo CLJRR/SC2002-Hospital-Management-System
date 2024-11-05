@@ -1,7 +1,8 @@
 package MedicineInventory;
 
-import entity.MedicationInventory;
 import java.util.Scanner;
+
+import TODO.MedicationInventory;
 
 public class InventoryTest {
     public static void main(String[] args) {

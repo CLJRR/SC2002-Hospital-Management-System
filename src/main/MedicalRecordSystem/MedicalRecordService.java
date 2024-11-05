@@ -1,30 +1,33 @@
 package MedicalRecordSystem;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import FIleManager.Format;
 import FIleManager.Load;
 import FIleManager.Save;
 import FIleManager.Write;
 import FIleManager.toObject;
-import UserSystem.User;
-import enums.Gender;
-import enums.Role;
+import enums.Flag;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class MedicalRecordService implements Load, Format, Save, Write, toObject {
 
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     @Override
     public List<?> load(String fileName) throws IOException {
-        List<User> data = new ArrayList<>();
+        List<MedicalRecord> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                User medicalRecord = (User) toObject(line);
+                MedicalRecord medicalRecord = (MedicalRecord) toObject(line);
                 data.add(medicalRecord);
             }
         }
@@ -32,21 +35,46 @@ public class MedicalRecordService implements Load, Format, Save, Write, toObject
     }
 
     @Override
+    public void save(String filename, List<?> list) throws IOException {
+        List<String> data = new ArrayList<>();
+        for (Object obj : list) {
+            if (obj instanceof MedicalRecord) {
+                String formattedString = format(obj); // Use format method
+                data.add(formattedString);
+            } else {
+                throw new IOException("List contains incorrect objects.");
+            }
+        }
+        write(filename, data);
+
+    }
+
+    @Override
+    public void write(String fileName, List<String> data) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+            for (String line : data) {
+                out.println(line);
+            }
+        }
+    }
+
+    @Override
     public String format(Object object) throws IOException {
         if (object instanceof MedicalRecord medicalRecord) {
-            return String.join(",",
-                    medicalRecord.getId(),
-                    medicalRecord.getName(),
-                    medicalRecord.getPassword(),
-                    String.valueOf(medicalRecord.getAge()),
-                    medicalRecord.getDateOfBirth() == null ? "null" : medicalRecord.getDateOfBirth().toString(),
-                    medicalRecord.getGender().name(),
-                    medicalRecord.getPhoneNumber() == null ? "null" : medicalRecord.getPhoneNumber(),
-                    medicalRecord.getEmail() == null ? "null" : medicalRecord.getEmail(),
-                    medicalRecord.getBloodType() == null ? "null" : medicalRecord.getBloodType(),
-                    medicalRecord.getRole().name()
-            );
+            StringBuilder sb = new StringBuilder();
+            sb.append(medicalRecord.getApptId()).append(",")
+                    .append(medicalRecord.getPatientId()).append(",")
+                    .append(medicalRecord.getDoctorId()).append(",")
+                    .append(medicalRecord.getAppointmentDate().format(DATE_FORMATTER)).append(",")
+                    .append(medicalRecord.getServiceProvided()).append(",")
+                    .append(medicalRecord.getDiagnoses()).append(",");
 
+            Prescription prescription = medicalRecord.getPrescription();
+            sb.append(prescription.getMedName()).append(",")
+                    .append(prescription.getStatus()).append(",")
+                    .append(prescription.getAmount()).append(",")
+                    .append(prescription.getDosage());
+            return sb.toString();
         } else {
             throw new IOException("Invalid object type");
         }
@@ -61,25 +89,25 @@ public class MedicalRecordService implements Load, Format, Save, Write, toObject
             throw new IOException("Invalid format.");
         }
         try {
-            String id = parts[0];
-            String name = parts[1];
-            String password = parts[2];
-            Integer age = Integer.parseInt(parts[3]);
-            // Handle nullable dateOfBirth field
-            LocalDate dateOfBirth = "null".equals(parts[4]) ? null : LocalDate.parse(parts[4]);
-            // Parse enum values with error handling
-            Gender gender = Gender.valueOf(parts[5].toUpperCase());
-            String phoneNumber = "null".equals(parts[6]) ? null : parts[6];
-            String email = "null".equals(parts[7]) ? null : parts[7];
-            String bloodType = "null".equals(parts[8]) ? null : parts[8];
-            Role role = Role.valueOf(parts[9].trim().toUpperCase());
+            String apptId = parts[0];
+            String patientId = parts[1];
+            String doctorId = parts[2];
+            LocalDate appointmentDate = LocalDate.parse(parts[3], DATE_FORMATTER);
+            String serviceProvided = parts[4];
+            String diagnoses = parts[5];
+            String medName = parts[6];
+            Flag flag = Flag.valueOf(parts[7].toUpperCase());
+            int amount = Integer.parseInt(parts[8]);
+            String dosage = parts[9];
+            Prescription prescription = new Prescription(medName, flag, amount, dosage);
+            return new MedicalRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
 
-            return new User(id, name, password, age, dateOfBirth, gender, phoneNumber, email, bloodType, role);
-
+        } catch (DateTimeParseException e) {
+            throw new IOException("Invalid date format in the appointmentDate field.", e);
         } catch (NumberFormatException e) {
-            throw new IOException("Invalid data format for age: " + parts[3], e);
+            throw new IOException("Invalid number format in the amount field.", e);
         } catch (IllegalArgumentException e) {
-            throw new IOException("Invalid enum value in Gender or Role field.", e);
+            throw new IOException("Invalid enum value in the Flag field.", e);
         }
     }
 }

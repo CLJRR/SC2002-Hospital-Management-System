@@ -1,10 +1,10 @@
 
-import entity.*;
+import UserSystem.User;
+import UserSystem.UserService;
 import enums.Gender;
 import enums.Role;
 import java.io.IOException;
 import java.util.List;
-import service.*;
 
 public class Initialized {
 

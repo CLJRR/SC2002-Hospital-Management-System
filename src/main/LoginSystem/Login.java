@@ -1,12 +1,11 @@
-public package LoginSystem;
-
+package LoginSystem;
 import enums.*;
 import java.util.Scanner;
 
 public class Login {
     private Role choice;
 
-    public Login() {
+    public void login() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to HMS");
         System.out.println("Select option: ");
@@ -20,32 +19,31 @@ public class Login {
         while (valid != 1) {
             System.out.println("Enter an option: ");
             option = sc.nextInt();
-            if (option == 1 || option == 2 || option == 3 || option == 4)
-            {
+            if (option == 1 || option == 2 || option == 3 || option == 4) {
                 valid = 1;
                 break;
             }
             System.out.println("Error! Please enter either [1] or [2] or [3] or [4]");
         }
-        
-        switch(option)
-        {
-            case 1:
+
+        switch (option) {
+            case 1 -> {
                 setChoice(Role.ADMINISTRATOR);
-                System.out.println("Welcome Administrator")
-                break;
-            case 2:
+                System.out.println("Welcome Administrator");
+            }
+            case 2 -> {
                 setChoice(Role.PHARMACIST);
                 System.out.println("Welcome Pharmacist");
-                break;
-            case 3:
+            }
+            case 3 -> {
                 setChoice(Role.DOCTOR);
                 System.out.println("Welcome Doctor");
-                break;
-            case 4:
+            }
+            case 4 -> {
                 setChoice(Role.PATIENT);
                 System.out.println("Welcome Patient");
-                break;
+            }
+            
         }
     }
 

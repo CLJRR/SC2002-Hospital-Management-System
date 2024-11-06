@@ -1,5 +1,7 @@
 
 import MedicalRecordSystem.*;
+import SessionManager.*;
+import SessionManager.SessionManager.Session;
 import UserSystem.*;
 import enums.*;
 import java.io.IOException;
@@ -42,5 +44,23 @@ public class Cljr {
         medicalRecords.add(record2);
         medicalrecordService.save(FILENAMEE, medicalRecords);
 
+        // Example usage
+        SessionManager sessionManager = new SessionManager();
+
+        // Creating a new session for a user
+        String sessionId = sessionManager.createSession("user1");
+
+        // Validating the session
+        System.out.println("Is valid session: " + sessionManager.isValidSession(sessionId));
+
+        // Retrieving the session and printing its details
+        Session session = sessionManager.getSession(sessionId);
+        System.out.println(session);
+
+        // Removing (ending) the session
+        sessionManager.removeSession(sessionId);
+
+        // Trying to validate a session after it’s removed
+        System.out.println("Is valid session: " + sessionManager.isValidSession(sessionId));
     }
 }

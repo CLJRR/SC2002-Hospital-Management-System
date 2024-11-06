@@ -11,14 +11,14 @@ public class Login extends InputPrompt {
 
 
     public boolean checkAttempt(InputPrompt login) throws IOException {
-        final String FILE_NAME = "../src/main/data/users.txt";
+        final String FILE_NAME = "./data/users.txt";
         UserService userService = new UserService();
 
         @SuppressWarnings("unchecked")
         List<User> users = (List<User>) userService.load(FILE_NAME);
 
         for (User user:users) {
-            if (user.getId().equals(login.getLoginIDAttempt())) {
+            if (user.getId().equalsIgnoreCase(login.getLoginIDAttempt())) {
                 if (user.getPassword().equals(login.getPasswordAttempt())) {
                     System.out.println("Login successfully.");
                     this.setChoice(user.getRole());

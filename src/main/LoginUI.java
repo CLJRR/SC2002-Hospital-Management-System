@@ -1,5 +1,7 @@
-package LoginSystem;
 
+
+import LoginSystem.InputPrompt;
+import LoginSystem.Login;
 import enums.Role;
 import java.io.IOException;
 
@@ -9,20 +11,28 @@ public static void main(String[] args) throws IOException {
     a.inputAttempt();
     Login login = new Login();
     boolean check = login.checkAttempt(a);
-    System.out.println(check);
-    //scanner
+    while (check == false)
+    {
+        a.inputAttempt();
+        check = login.checkAttempt(a);
+    }
+    
     Role role = login.getChoice();
     switch(role){
         case ADMINISTRATOR -> {
+            AdminUI.main(args);
             break;
         }
         case PHARMACIST -> {
+            PharmacistUI.main(args);
             break;
         }
         case DOCTOR -> {
+            DoctorUI.main(args);
             break;
         }
         case PATIENT -> {
+            PatientUI.main(args);
             break;
         }
         }

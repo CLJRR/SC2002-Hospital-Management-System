@@ -1,4 +1,5 @@
 
+import LoginSystem.*;
 import UserSystem.*;
 import enums.*;
 import java.io.IOException;
@@ -28,21 +29,10 @@ public class Main {
             System.out.println(user.getId());
         }
         // userService.save(FILE_NAME, users);
-        // Login test = new Login();
-        // test.login();
-        // UserLogin a = new UserLogin();
-        // a.inputAttempt();
-        // boolean check = a.checkAttempt(test);
-        // System.out.println(check);
-
-        UpdateInformation b = new UpdateInformation();
-        b.updateInformation(users,"P1002");
-        b.updateInformation(users,"P1002");
-        for (User user : users) {
-            System.out.println(user.getPhoneNumber());
-        }
-        for (User user : users) {
-            System.out.println(user.getEmail());
-        }
+        UserLogin a = new UserLogin();
+        a.inputAttempt();
+        Login test = new Login();
+        boolean check = test.checkAttempt(a);
+        System.out.println(check);
     }
 }

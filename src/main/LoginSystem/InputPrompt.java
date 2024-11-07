@@ -2,7 +2,7 @@ package LoginSystem;
 
 import java.util.Scanner;
 
-public class UserLogin {
+public class InputPrompt {
     private String loginIDAttempt;
     private String passwordAttempt;
 

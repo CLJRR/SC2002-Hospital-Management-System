@@ -1,7 +1,7 @@
 package MedicalRecordSystem;
 
 import FIleManager.*;
-import enums.Flag;
+import enums.*;
 import java.io.*;
 import java.time.*;
 import java.time.format.*;

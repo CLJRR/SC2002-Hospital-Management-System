@@ -1,5 +1,6 @@
 package AppointmentOutcomeRecordSystem;
 
+import enums.Flag;
 import java.time.LocalDate;
 
 public class AppointmentOutcomeRecord {
@@ -78,7 +79,9 @@ public class AppointmentOutcomeRecord {
     public void setDiagnoses(String diagnoses) {
         this.diagnoses = diagnoses;
     }
-
+    public void setStatus(Flag flag) {
+        prescription.setStatus(flag);
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

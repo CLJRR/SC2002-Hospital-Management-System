@@ -1,13 +1,12 @@
 package MedicineInventorySystem;
 
-import TODO.MedicationInventory;
 import java.io.*;
 import java.util.*;
 
 public class MedicineInventoryService {
 
     // Default file path for the inventory file
-    private static final String DEFAULT_FILE_PATH = "src/main/data/medicine_inventory.txt";
+    private static final String DEFAULT_FILE_PATH = "./data/medicine_inventory.txt";
 
     // Load medicines from the default file and return as a list of MedicationInventory objects
     public List<MedicationInventory> loadInventory() {

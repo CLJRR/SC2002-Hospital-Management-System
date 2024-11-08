@@ -1,5 +1,5 @@
 
-import MedicalRecordSystem.*;
+import AppointmentOutcomeRecordSystem.*;
 import java.io.IOException;
 
 public class Cljr {

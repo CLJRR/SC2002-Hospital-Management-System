@@ -1,12 +1,12 @@
 package LoginSystem;
 
-import UserSystem.User;
-import UserSystem.UserService;
+import SessionManager.Session;
+import UserSystem.*;
 import enums.*;
 import java.io.IOException;
 import java.util.List;
-
 //comment
+
 public class Login extends InputPrompt {
 
     private Role choice;
@@ -19,12 +19,14 @@ public class Login extends InputPrompt {
         List<User> users = (List<User>) userService.load();
 
         for (User user : users) {
-            System.out.println(user.getId());
             if (user.getId().equalsIgnoreCase(login.getLoginIDAttempt())) {
                 if (user.getPassword().equals(login.getPasswordAttempt())) {
                     System.out.println("Login successfully.");
+                    Session.setLoginID(user.getId());
+                    Session.setRole(user.getRole());
+                    Session.setName(user.getName());
                     this.setChoice(user.getRole());
-                    System.out.println("Welcome " + this.choice);
+                    System.out.println("Welcome " + this.choice + " " + user.getName());
                     return true;
                 } else {
                     System.out.println("Incorrect Password.");

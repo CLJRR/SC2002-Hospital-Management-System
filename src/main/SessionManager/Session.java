@@ -1,42 +1,40 @@
 package SessionManager;
 
+import enums.Role;
+
 public class Session {
 
-    private String sessionId;
-    private String username;
-    private long loginTime;
+    private static String loginID;
+    private static Role role;
+    private static String name;
 
-    public Session(String sessionId, String username) {
-        this.sessionId = sessionId;
-        this.username = username;
-        this.loginTime = System.currentTimeMillis();
+    public static String getLoginID() {
+        return loginID;
     }
 
-    // New constructor to restore session with specific login time
-    public Session(String sessionId, String username, long loginTime) {
-        this.sessionId = sessionId;
-        this.username = username;
-        this.loginTime = loginTime;
+    public static void setLoginID(String id) {
+        Session.loginID = id;
     }
 
-    public String getSessionId() {
-        return sessionId;
+    public static Role getRole() {
+        return role;
     }
 
-    public String getUsername() {
-        return username;
+    public static void setRole(Role role) {
+        Session.role = role;
     }
 
-    public long getLoginTime() {
-        return loginTime;
+    public static String getName() {
+        return name;
     }
 
-    @Override
-    public String toString() {
-        return "Session{"
-                + "sessionId='" + sessionId + '\''
-                + ", username='" + username + '\''
-                + ", loginTime=" + loginTime
-                + '}';
+    public static void setName(String name) {
+        Session.name = name;
+    }
+
+    public static void logout() {
+        loginID = null;
+        role = null;
+        name = null;
     }
 }

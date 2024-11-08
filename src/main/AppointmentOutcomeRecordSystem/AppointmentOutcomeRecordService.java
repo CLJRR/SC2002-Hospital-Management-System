@@ -10,9 +10,10 @@ import java.util.*;
 public class AppointmentOutcomeRecordService implements Load, Format, Save, Write, toObject {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    final String fileName = "./data/medicalRecords.txt";
 
     @Override
-    public List<?> load(String fileName) throws IOException {
+    public List<?> load() throws IOException {
         List<AppointmentOutcomeRecord> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
@@ -25,7 +26,7 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
     }
 
     @Override
-    public void save(String filename, List<?> list) throws IOException {
+    public void save(List<?> list) throws IOException {
         List<String> data = new ArrayList<>();
         for (Object obj : list) {
             if (obj instanceof AppointmentOutcomeRecord) {
@@ -35,12 +36,12 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
                 throw new IOException("List contains incorrect objects.");
             }
         }
-        write(filename, data);
+        write(data);
 
     }
 
     @Override
-    public void write(String fileName, List<String> data) throws IOException {
+    public void write(List<String> data) throws IOException {
         try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
             for (String line : data) {
                 out.println(line);

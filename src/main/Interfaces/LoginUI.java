@@ -1,11 +1,10 @@
 package Interfaces;
 
+import LoginSystem.InputPrompt;
+import LoginSystem.Login;
 import enums.Role;
 import java.io.IOException;
 import java.util.HashMap;
-
-import LoginSystem.InputPrompt;
-import LoginSystem.Login;
 
 public class LoginUI {
 
@@ -27,7 +26,10 @@ public class LoginUI {
         });
         roleActions.put(Role.PHARMACIST, () -> {
             PharmacistUI pharmacistUI = new PharmacistUI();
-            pharmacistUI.pharmacistUI();
+            try {
+                pharmacistUI.pharmacistUI();
+            } catch (IOException ex) {
+            }
         });
     }
 

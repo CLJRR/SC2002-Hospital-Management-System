@@ -1,9 +1,9 @@
 package MedicineInventorySystem;
 
+import java.io.IOException;
 import java.util.*;
 
 public class InventorySaver {
-
     private Map<String, MedicationInventory> inventory;
     private MedicineInventoryService inventoryService;
 
@@ -14,6 +14,11 @@ public class InventorySaver {
 
     public void saveInventory() {
         List<MedicationInventory> inventoryList = new ArrayList<>(inventory.values());
-        inventoryService.saveInventory(inventoryList);
+        try {
+            inventoryService.save(inventoryList); // Ensure `save` method exists in `MedicineInventoryService`
+            System.out.println("Inventory saved successfully.");
+        } catch (IOException e) {
+            System.err.println("Error saving inventory: " + e.getMessage());
+        }
     }
 }

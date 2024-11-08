@@ -27,7 +27,7 @@ public class LoginUI {
         });
         roleActions.put(Role.PHARMACIST, () -> {
             PharmacistUI pharmacistUI = new PharmacistUI();
-            pharmacistUI.pharmacistUI();
+            //pharmacistUI.pharmacistUI();
         });
     }
 

@@ -2,7 +2,7 @@ package MedicalRecordSystem;
 
 import java.time.LocalDate;
 
-public class MedicalRecord {
+public class AppointmentOutcomeRecord {
 
     private String apptId;
     private String patientId;
@@ -12,7 +12,7 @@ public class MedicalRecord {
     private Prescription prescription;
     private String diagnoses;
 
-    public MedicalRecord(String apptId, String patientId, String doctorId, LocalDate appointmentDate,
+    public AppointmentOutcomeRecord(String apptId, String patientId, String doctorId, LocalDate appointmentDate,
             String serviceProvided, String diagnoses, Prescription prescription) {
         this.apptId = apptId;
         this.patientId = patientId;
@@ -82,15 +82,15 @@ public class MedicalRecord {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("MedicalRecord{");
-        sb.append("apptId= ").append(apptId);
-        sb.append(", patientId= ").append(patientId);
-        sb.append(", doctorId= ").append(doctorId);
-        sb.append(", appointmentDate= ").append(appointmentDate);
-        sb.append(", serviceProvided= ").append(serviceProvided);
-        sb.append(", diagnoses= ").append(diagnoses);
-        sb.append(", prescription= ").append(prescription);
-        sb.append('}');
+        sb.append("MedicalOutcomeRecord:");
+        sb.append("\napptId: ").append(apptId);
+        sb.append("\npatientId: ").append(patientId);
+        sb.append("\ndoctorId: ").append(doctorId);
+        sb.append("\nappointmentDate: ").append(appointmentDate);
+        sb.append("\nserviceProvided: ").append(serviceProvided);
+        sb.append("\ndiagnoses: ").append(diagnoses);
+        sb.append("\nprescription: ").append(prescription);
+
         return sb.toString();
     }
 

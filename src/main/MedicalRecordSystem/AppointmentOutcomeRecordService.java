@@ -7,17 +7,17 @@ import java.time.*;
 import java.time.format.*;
 import java.util.*;
 
-public class MedicalRecordService implements Load, Format, Save, Write, toObject {
+public class AppointmentOutcomeRecordService implements Load, Format, Save, Write, toObject {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public List<?> load(String fileName) throws IOException {
-        List<MedicalRecord> data = new ArrayList<>();
+        List<AppointmentOutcomeRecord> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                MedicalRecord medicalRecord = (MedicalRecord) toObject(line);
+                AppointmentOutcomeRecord medicalRecord = (AppointmentOutcomeRecord) toObject(line);
                 data.add(medicalRecord);
             }
         }
@@ -28,7 +28,7 @@ public class MedicalRecordService implements Load, Format, Save, Write, toObject
     public void save(String filename, List<?> list) throws IOException {
         List<String> data = new ArrayList<>();
         for (Object obj : list) {
-            if (obj instanceof MedicalRecord) {
+            if (obj instanceof AppointmentOutcomeRecord) {
                 String formattedString = format(obj); // Use format method
                 data.add(formattedString);
             } else {
@@ -50,7 +50,7 @@ public class MedicalRecordService implements Load, Format, Save, Write, toObject
 
     @Override
     public String format(Object object) throws IOException {
-        if (object instanceof MedicalRecord medicalRecord) {
+        if (object instanceof AppointmentOutcomeRecord medicalRecord) {
             StringBuilder sb = new StringBuilder();
             sb.append(medicalRecord.getApptId()).append(",")
                     .append(medicalRecord.getPatientId()).append(",")
@@ -90,7 +90,7 @@ public class MedicalRecordService implements Load, Format, Save, Write, toObject
             int amount = Integer.parseInt(parts[8]);
             String dosage = parts[9];
             Prescription prescription = new Prescription(medName, flag, amount, dosage);
-            return new MedicalRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
+            return new AppointmentOutcomeRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
 
         } catch (DateTimeParseException e) {
             throw new IOException("Invalid date format in the appointmentDate field.", e);

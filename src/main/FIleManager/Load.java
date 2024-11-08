@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface Load {
 
-    List<?> load(String fileName) throws IOException;
+    List<?> load() throws IOException;
 }

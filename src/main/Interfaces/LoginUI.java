@@ -26,14 +26,10 @@ public class LoginUI {
         });
         roleActions.put(Role.PHARMACIST, () -> {
             PharmacistUI pharmacistUI = new PharmacistUI();
-<<<<<<< HEAD
             try {
                 pharmacistUI.pharmacistUI();
             } catch (IOException ex) {
             }
-=======
-            //pharmacistUI.pharmacistUI();
->>>>>>> a569badf926e61ee7fdc77443261889be09959df
         });
     }
 

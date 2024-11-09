@@ -1,11 +1,10 @@
 package Interfaces;
 
+import LoginSystem.InputPrompt;
+import LoginSystem.Login;
 import enums.Role;
 import java.io.IOException;
 import java.util.HashMap;
-
-import LoginSystem.InputPrompt;
-import LoginSystem.Login;
 
 public class LoginUI {
 
@@ -14,20 +13,36 @@ public class LoginUI {
     public LoginUI() {
         // Initialize the roleActions map with each role mapped to a specific UI action
         roleActions.put(Role.ADMINISTRATOR, () -> {
+            // try {
             AdminUI adminUI = new AdminUI();
             adminUI.adminUI();
+            // } catch (IOException e) {
+            //     System.out.println("Error launching Admin UI: " + e.getMessage());
+            // }
         });
         roleActions.put(Role.DOCTOR, () -> {
+            try {
             DoctorUI doctorUI = new DoctorUI();
             doctorUI.doctorUI();
+            } catch (IOException e) {
+                System.out.println("Error launching Doctor UI: " + e.getMessage());
+            }
         });
         roleActions.put(Role.PATIENT, () -> {
+            try {
             PatientUI patientUI = new PatientUI();
             patientUI.patientUI();
+            } catch (IOException e) {
+                System.out.println("Error launching Patient UI: " + e.getMessage());
+            }
         });
         roleActions.put(Role.PHARMACIST, () -> {
-            PharmacistUI pharmacistUI = new PharmacistUI();
-            pharmacistUI.pharmacistUI();
+            try {
+                PharmacistUI pharmacistUI = new PharmacistUI();
+                pharmacistUI.pharmacistUI();
+            } catch (IOException e) {
+                System.out.println("Error launching Pharmacist UI: " + e.getMessage());
+            }
         });
     }
 

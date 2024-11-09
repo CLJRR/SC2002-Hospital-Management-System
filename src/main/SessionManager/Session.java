@@ -13,7 +13,7 @@ public class Session {
     }
 
     public static void setLoginID(String id) {
-        Session.loginID = id;
+        Session.loginID = id.toUpperCase();
     }
 
     public static Role getRole() {

@@ -1,10 +1,15 @@
 package Interfaces;
 
+import AppointmentOutcomeRecordSystem.ViewAppointmentOutcomeRecords;
+import SessionManager.Session;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class PatientUI {
 
-    public void patientUI() {
+    public void patientUI() throws IOException {
+        ViewAppointmentOutcomeRecords viewApptRecord = new ViewAppointmentOutcomeRecords();
+
         Scanner sc = new Scanner(System.in);
         int option = 0;
         while (option != 9) {
@@ -20,6 +25,7 @@ public class PatientUI {
             option = sc.nextInt();
             switch (option) {
                 case 1 -> {
+
                     break;
                 }
                 case 2 -> {
@@ -41,6 +47,7 @@ public class PatientUI {
                     break;
                 }
                 case 8 -> {
+                    viewApptRecord.viewRecordsById(Session.getLoginID());
                     break;
                 }
                 case 9 -> {

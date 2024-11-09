@@ -3,9 +3,7 @@ package AppointmentOutcomeRecordSystem;
 import enums.Flag;
 import java.io.IOException;
 import java.util.List;
-
-public class UpdateStatus {
-
+public class UpdateStatus{
     public void UpdatePrescriptionStatus(String apptId) throws IOException {
 
         AppointmentOutcomeRecordService medicalrecordService = new AppointmentOutcomeRecordService();

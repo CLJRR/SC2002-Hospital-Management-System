@@ -1,3 +1,4 @@
+P1001,John Doe,password,null,1975-11-22,MALE,123456789,bob.stone@example.com,B+,PATIENT
 P1002,Bob Stone,password,null,1975-11-22,MALE,123456789,bob.stone@example.com,B+,PATIENT
 P1003,Charlie White,password,null,1990-07-08,MALE,123456789,charlie.white@example.com,O-,PATIENT
 D001,John Smith,password,45,null,MALE,null,null,null,DOCTOR

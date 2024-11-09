@@ -1,9 +1,12 @@
 package Interfaces;
+import AppointmentOutcomeRecordSystem.ViewAppointmentOutcomeRecords;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class DoctorUI {
-    public void doctorUI() {
+    public void doctorUI() throws IOException {
         Scanner sc = new Scanner(System.in);
+        ViewAppointmentOutcomeRecords viewRecord = new ViewAppointmentOutcomeRecords();
         int option = 0;
         while (option != 8)
         {
@@ -19,7 +22,6 @@ public class DoctorUI {
             switch(option)
             {
                 case 1 -> {
-                    break;
                 }
                 case 2 -> {
                     break;

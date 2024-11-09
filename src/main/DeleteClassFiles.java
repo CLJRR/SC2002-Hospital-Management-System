@@ -1,15 +1,17 @@
 
 import java.io.File;
+import java.io.IOException;
 
 public class DeleteClassFiles {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Set the directory path
         String directoryPath = "./";
 
         File directory = new File(directoryPath);
         deleteClassFiles(directory);
         System.out.println(".class files deleted successfully.");
+
     }
 
     public static void deleteClassFiles(File dir) {

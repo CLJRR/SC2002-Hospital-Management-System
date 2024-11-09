@@ -2,27 +2,30 @@ package AppointmentOutcomeRecordSystem;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class ViewAppointmentOutcomeRecords {
 
-    public void viewAllMedicalOutcomeRecords() throws IOException {
+    public void viewRecordsById(String Id) throws IOException {
+        Scanner sc = new Scanner(System.in);
         AppointmentOutcomeRecordService medicalrecordService = new AppointmentOutcomeRecordService();
         @SuppressWarnings("unchecked")
         List<AppointmentOutcomeRecord> medicalRecords = (List<AppointmentOutcomeRecord>) medicalrecordService.load();
-        // List<AppointmentOutcomeRecord> medicalRecords = (List<AppointmentOutcomeRecord>) medicalrecordService.load();
-        System.out.println(medicalRecords.size());
+
         // List<MedicalOutcomeRecord> medicalRecords = new ArrayList<MedicalOutcomeRecord>();
+        System.out.println("----------------------------------------------------------------------------------------------------------------");
         for (AppointmentOutcomeRecord medicalRecord : medicalRecords) {
-            System.out.println(medicalRecord.toString());
+            if (Id.equalsIgnoreCase((medicalRecord.getApptId()))) {
+                System.out.println(medicalRecord.toString());
+                return;
+            }
+            if (Id.equalsIgnoreCase((medicalRecord.getPatientId())) || Id.equalsIgnoreCase((medicalRecord.getDoctorId()))) {
+                // returnRecord.add(medicalRecord);
+                System.out.println(medicalRecord.toString());
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
+            }
         }
-        medicalrecordService.save(medicalRecords);
-    }
-
-    public void viewMedicalRecord(String ApptId) throws IOException {
-
-    }
-
-    public void viewMedicalRecordByPatient(String ApptId) throws IOException {
-
+        System.out.println("Press Enter to go back");
+        sc.nextLine();
     }
 }

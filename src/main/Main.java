@@ -6,8 +6,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         LoginUI x = new LoginUI();
-        x.loginUI();
+        while (true) {
+            x.loginUI();
+        }
     }
 
-    
 }

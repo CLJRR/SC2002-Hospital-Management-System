@@ -16,7 +16,7 @@ public class PatientUI {
 
     public void patientUI() throws IOException {
         String patientId = Session.getLoginID();
-        
+
         Scanner sc = new Scanner(System.in);
         int option = 0;
         while (option != 9) {
@@ -31,7 +31,7 @@ public class PatientUI {
             System.out.println("8) View Past Appointment Outcome Records");
             System.out.println("9) Logout");
             option = sc.nextInt();
-            
+
             ViewAppointmentOutcomeRecords viewApptRecord = new ViewAppointmentOutcomeRecords();
             ApptOutcome apptOutcome = new ApptOutcome();
             AppointmentService appointmentService = new AppointmentService();
@@ -46,10 +46,10 @@ public class PatientUI {
                     break;
                 }
                 case 2 -> {
-                try {
-                    updateInformation.updateInformation(patientId);
-                } catch (IOException ex) {
-                }
+                    try {
+                        updateInformation.updateInformation(patientId);
+                    } catch (IOException ex) {
+                    }
                     break;
                 }
                 case 3 -> {
@@ -95,6 +95,7 @@ public class PatientUI {
                     break;
                 }
                 case 9 -> {
+                    System.out.println("Logged Out User " + Session.getName());
                     Session.logout();
                     break;
                 }

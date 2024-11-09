@@ -2,7 +2,7 @@ package MedicineInventorySystem;
 
 import java.util.*;
 
-public class InventoryManager {
+public class InventoryController {
 
     private Map<String, MedicationInventory> inventory;
     private InventoryLoader inventoryLoader;
@@ -12,7 +12,7 @@ public class InventoryManager {
     private LowStockChecker lowStockChecker;
 
     // Constructor
-    public InventoryManager() {
+    public InventoryController() {
         this.inventory = new HashMap<>();
         this.inventoryLoader = new InventoryLoader(this.inventory);
         this.inventorySaver = new InventorySaver(this.inventory);

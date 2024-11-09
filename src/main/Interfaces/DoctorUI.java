@@ -1,4 +1,5 @@
 package Interfaces;
+
 import AppointmentOutcomeRecordSystem.ViewAppointmentOutcomeRecords;
 import ApptTest.AppointmentService;
 import ApptTest.DoctorController;
@@ -7,15 +8,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class DoctorUI {
+
     public void doctorUI() throws IOException {
         Scanner sc = new Scanner(System.in);
         ViewAppointmentOutcomeRecords viewRecord = new ViewAppointmentOutcomeRecords();
         int option = 0;
         AppointmentService appointmentService = new AppointmentService();
         DoctorController doctorController = new DoctorController(appointmentService);
-        
-        while (option != 8)
-        {
+
+        while (option != 8) {
             System.out.println(Session.getName());
             System.out.println("1) View Patient Medical Records");
             System.out.println("2) Update Patient Medical Records");
@@ -26,8 +27,7 @@ public class DoctorUI {
             System.out.println("7) Record Appointment Outcome");
             System.out.println("8) Logout");
             option = sc.nextInt();
-            switch(option)
-            {
+            switch (option) {
                 case 1 -> {
                 }
                 case 2 -> {
@@ -58,6 +58,7 @@ public class DoctorUI {
                     break;
                 }
                 case 8 -> {
+                    System.out.println("Logged Out User " + Session.getName());
                     Session.logout();
                     break;
                 }

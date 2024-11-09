@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class AdminInventory {
 
     public void adminInventory() {
-        InventoryManager inventoryManager = new InventoryManager();
+        InventoryController inventoryManager = new InventoryController();
         Scanner scanner = new Scanner(System.in);
 
         // View inventory loaded from file

@@ -3,7 +3,7 @@ package Interfaces;
 import AppointmentOutcomeRecordSystem.UpdatePrescriptionStatus;
 import ApptTest.AppointmentService;
 import ApptTest.PharmacistController;
-import MedicineInventorySystem.InventoryManager;
+import MedicineInventorySystem.InventoryController;
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ public class PharmacistUI {
     public void pharmacistUI() throws IOException {
         Scanner sc = new Scanner(System.in);
         UpdatePrescriptionStatus updatePrescriptionStatus = new UpdatePrescriptionStatus();
-        InventoryManager inventoryManager = new InventoryManager();
+        InventoryController inventoryManager = new InventoryController();
         AppointmentService appointmentService = new AppointmentService();
         PharmacistController pharmacistController = new PharmacistController(appointmentService);
 
@@ -45,6 +45,7 @@ public class PharmacistUI {
                     break;
                 }
                 case 5 -> {
+                    System.out.println("Logged Out User "+Session.getName());
                     Session.logout();
                     break;
                 }

@@ -58,6 +58,7 @@ public class AdminUI {
                     break;
                 }
                 case 5 -> {
+                    System.out.println("Logged Out User " + Session.getName());
                     Session.logout();
                     break;
                 }

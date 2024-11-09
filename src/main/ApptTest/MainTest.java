@@ -110,6 +110,6 @@ public class MainTest {
             }
         }
 
-        scanner.close();
+
     }
 }

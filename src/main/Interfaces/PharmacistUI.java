@@ -1,6 +1,6 @@
 package Interfaces;
 
-import AppointmentOutcomeRecordSystem.UpdatePrescriptionStatus;
+import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import ApptTest.AppointmentService;
 import ApptTest.PharmacistController;
 import MedicineInventorySystem.InventoryController;
@@ -12,9 +12,9 @@ public class PharmacistUI {
 
     public void pharmacistUI() throws IOException {
         Scanner sc = new Scanner(System.in);
-        UpdatePrescriptionStatus updatePrescriptionStatus = new UpdatePrescriptionStatus();
-        InventoryController inventoryManager = new InventoryController();
         AppointmentService appointmentService = new AppointmentService();
+        InventoryController inventoryManager = new InventoryController();
+        AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
         PharmacistController pharmacistController = new PharmacistController(appointmentService);
 
         int option = 0;
@@ -28,13 +28,11 @@ public class PharmacistUI {
             option = sc.nextInt();
             switch (option) {
                 case 1 -> {
-                    System.out.print("Enter Appointment ID: ");
-                    String appointmentId = sc.nextLine();
-                    System.out.println("Outcome: " + pharmacistController.viewAppointmentOutcome(appointmentId));
+                    appointmentOutcomeRecordController.viewPendingRecords();
                     break;
                 }
                 case 2 -> {
-                    updatePrescriptionStatus.updatePrescriptionStatus();
+                    appointmentOutcomeRecordController.updatePrescriptionStatus();
                     break;
                 }
                 case 3 -> {
@@ -45,7 +43,7 @@ public class PharmacistUI {
                     break;
                 }
                 case 5 -> {
-                    System.out.println("Logged Out User "+Session.getName());
+                    System.out.println("Logged Out User " + Session.getName());
                     Session.logout();
                     break;
                 }

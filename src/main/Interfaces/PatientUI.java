@@ -16,8 +16,7 @@ public class PatientUI {
 
     public void patientUI() throws IOException {
         String patientId = Session.getLoginID();
-        ViewAppointmentOutcomeRecords viewApptRecord = new ViewAppointmentOutcomeRecords();
-
+        
         Scanner sc = new Scanner(System.in);
         int option = 0;
         while (option != 9) {
@@ -32,7 +31,8 @@ public class PatientUI {
             System.out.println("8) View Past Appointment Outcome Records");
             System.out.println("9) Logout");
             option = sc.nextInt();
-
+            
+            ViewAppointmentOutcomeRecords viewApptRecord = new ViewAppointmentOutcomeRecords();
             ApptOutcome apptOutcome = new ApptOutcome();
             AppointmentService appointmentService = new AppointmentService();
             PatientController patientController = new PatientController(appointmentService);

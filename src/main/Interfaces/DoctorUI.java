@@ -47,11 +47,11 @@ public class DoctorUI {
                 }
                 case 7 -> {
                     System.out.print("Enter Appointment ID: ");
-                    String appointmentId = sc.nextLine();
+                    String appointmentId = sc.next();
                     System.out.print("Enter Outcome: ");
-                    String outcome = sc.nextLine();
+                    String outcome = sc.next();
                     System.out.print("Enter Prescribed Medication: ");
-                    String meds = sc.nextLine();
+                    String meds = sc.next();
 
                     boolean outcomeUpdated = doctorController.updateAppointmentOutcome(appointmentId, outcome, meds);
                     System.out.println(outcomeUpdated ? "Outcome updated successfully" : "Failed to update outcome");

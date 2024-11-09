@@ -1,10 +1,7 @@
 package Interfaces;
 
-import AppointmentOutcomeRecordSystem.ViewAppointmentOutcomeRecords;
-import ApptTest.Appointment;
-import ApptTest.AppointmentService;
-import ApptTest.ApptOutcome;
-import ApptTest.PatientController;
+import AppointmentOutcomeSystem.*;
+import ApptTest.*;
 import SessionManager.Session;
 import UserSystem.UpdateInformation;
 import java.io.IOException;
@@ -31,11 +28,9 @@ public class PatientUI {
             System.out.println("8) View Past Appointment Outcome Records");
             System.out.println("9) Logout");
             option = sc.nextInt();
-
-            ViewAppointmentOutcomeRecords viewApptRecord = new ViewAppointmentOutcomeRecords();
-            ApptOutcome apptOutcome = new ApptOutcome();
             AppointmentService appointmentService = new AppointmentService();
             PatientController patientController = new PatientController(appointmentService);
+            AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
             UpdateInformation updateInformation = new UpdateInformation();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
@@ -90,8 +85,7 @@ public class PatientUI {
                     break;
                 }
                 case 8 -> {
-                    viewApptRecord.viewRecordsById(Session.getLoginID());
-                    apptOutcome.viewPastAppointmentOutcomes(patientId);
+                    appointmentOutcomeRecordController.patientViewPastRecords();
                     break;
                 }
                 case 9 -> {

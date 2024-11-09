@@ -1,6 +1,6 @@
 package Interfaces;
 
-import AppointmentOutcomeRecordSystem.ViewAppointmentOutcomeRecords;
+import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import ApptTest.AppointmentService;
 import ApptTest.DoctorController;
 import SessionManager.Session;
@@ -11,7 +11,7 @@ public class DoctorUI {
 
     public void doctorUI() throws IOException {
         Scanner sc = new Scanner(System.in);
-        ViewAppointmentOutcomeRecords viewRecord = new ViewAppointmentOutcomeRecords();
+        AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
         int option = 0;
         AppointmentService appointmentService = new AppointmentService();
         DoctorController doctorController = new DoctorController(appointmentService);
@@ -46,15 +46,7 @@ public class DoctorUI {
                     break;
                 }
                 case 7 -> {
-                    System.out.print("Enter Appointment ID: ");
-                    String appointmentId = sc.next();
-                    System.out.print("Enter Outcome: ");
-                    String outcome = sc.next();
-                    System.out.print("Enter Prescribed Medication: ");
-                    String meds = sc.next();
-
-                    boolean outcomeUpdated = doctorController.updateAppointmentOutcome(appointmentId, outcome, meds);
-                    System.out.println(outcomeUpdated ? "Outcome updated successfully" : "Failed to update outcome");
+                    appointmentOutcomeRecordController.recordAppointmentOutcome();
                     break;
                 }
                 case 8 -> {

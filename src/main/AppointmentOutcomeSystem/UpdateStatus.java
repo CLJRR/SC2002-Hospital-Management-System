@@ -1,4 +1,4 @@
-package AppointmentOutcomeRecordSystem;
+package AppointmentOutcomeSystem;
 
 import MedicineInventorySystem.InventoryController;
 import enums.Flag;

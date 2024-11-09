@@ -33,19 +33,25 @@ public class InventoryController {
     }
 
     public void viewInventory() {
+        inventoryLoader.loadInitialInventory();
         inventoryViewer.viewInventory();
     }
 
     public void increaseStock(String medicationName, int quantity) {
+        inventoryLoader.loadInitialInventory();
         stockAdjuster.increaseStock(medicationName, quantity);
     }
 
     public boolean decreaseStock(String medicationName, int quantity) {
+        inventoryLoader.loadInitialInventory();
         if (stockAdjuster.decreaseStock(medicationName, quantity)) {
-
+            inventorySaver.saveInventory();
             return true;
+        } else {
+
+            return false;
         }
-        return false;
+
     }
 
     public void checkLowStockAlerts() {

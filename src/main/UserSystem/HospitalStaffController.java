@@ -20,8 +20,8 @@ public class HospitalStaffController {
         this.hospitalStaffUpdater = new HospitalStaffUpdater(this.staffs);
         this.hospitalStaffFilter = new HospitalStaffFilter(this.staffs);
 
-        // load initial staff
-        hospitalStaffLoader.loadInitialStaff();
+        // load initial users
+        hospitalStaffLoader.loadInitialUsers();
     }
 
     public void saveStaff() {
@@ -40,6 +40,7 @@ public class HospitalStaffController {
     public void addStaff(User staff) {
         if (staff.getRole() == Role.DOCTOR || staff.getRole() == Role.PHARMACIST) {
             staffs.put(staff.getId(), staff);
+            System.out.println("Staff added.");
         }
         else {
             System.out.println("Error adding Staff.");

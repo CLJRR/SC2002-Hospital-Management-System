@@ -24,6 +24,7 @@ public class HospitalStaffUpdater {
                 System.out.println("6) Quit");
                 
                 int option = sc.nextInt();
+                sc.nextLine(); // Consumes NewLine
 
                 switch(option) {
                     case 1 -> {
@@ -39,19 +40,49 @@ public class HospitalStaffUpdater {
                         break;
                     }
                     case 3 -> {
-                        System.out.println("Enter new Gender: ");
-                        Gender newGender = Gender.valueOf(sc.nextLine().trim().toUpperCase());
+                        Gender newGender = Gender.OTHER;
+                        boolean validGender = false;
+                        while (!validGender) {
+                            try {
+                                System.out.println("Enter new Gender: ");
+                                newGender = Gender.valueOf(sc.nextLine().trim().toUpperCase());
+                                validGender = true;
+                            } catch (Exception e) {
+                                System.err.println("Gender not valid. Please try again.");
+                            }
+                        }
                         staff.setGender(newGender);
                         break;
                     }
                     case 4 -> {
-                        System.out.println("Enter new Age: ");
-                        Integer age = sc.nextInt();
+                        Integer age = 0;
+                        boolean validAge = false;
+                        while (!validAge) {
+                            try {
+                                System.out.println("Enter new Age: ");
+                                age = Integer.valueOf(sc.nextLine());
+                                validAge = true;
+                            } catch (NumberFormatException e) {
+                                System.err.println("Age not valid. Please try again.");
+                            }
+                        }
                         staff.setAge(age);
+                        break;
                     }
                     case 5 -> {
-                        System.out.println("Enter new Role: ");
-                        Role newRole = Role.valueOf(sc.nextLine().trim().toUpperCase());
+                        Role newRole = Role.DOCTOR;
+                        boolean validRole = false;
+                        while (!validRole) {
+                            try {
+                                System.out.println("Enter new Role: ");
+                                newRole = Role.valueOf(sc.nextLine().trim().toUpperCase());
+                                if (newRole == Role.DOCTOR || newRole == Role.PHARMACIST) {
+                                    validRole = true;
+                                }
+                            } catch (Exception e) {
+                                System.err.println("Role not valid. Please try again. ");
+                            }
+                        }
                         staff.setRole(newRole);
                         break;
                     }

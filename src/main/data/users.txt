@@ -1,4 +1,10 @@
-D002,Emily Clarke,password,38,null,FEMALE,null,null,null,DOCTOR
+D003,Sally Newman,password,30,null,FEMALE,null,null,null,DOCTOR
+D002,Emily Clarke,password,40,null,FEMALE,null,null,null,DOCTOR
 D001,John Smith,password,45,null,MALE,null,null,null,DOCTOR
 P001,Mark Lee,password,29,null,MALE,null,null,null,PHARMACIST
-P002,Marvin Gaye,password,34,null,MALE,null,null,null,PHARMACIST
+P003,Sarah Lim,password,23,null,FEMALE,null,null,null,PHARMACIST
+P1003,Charlie White,password,null,1990-07-08,MALE,123456789,charlie.white@example.com,O-,PATIENT
+P1001,John Doe,password,null,1975-11-22,MALE,123456789,bob.stone@example.com,B+,PATIENT
+A001,Sarah Lee,password,40,null,FEMALE,null,null,null,ADMINISTRATOR
+D004,Marvin Gay,password,25,null,OTHER,null,null,null,DOCTOR
+P1002,Bob Stone,password,null,1975-11-22,MALE,123456789,bob.stone@example.com,B+,PATIENT

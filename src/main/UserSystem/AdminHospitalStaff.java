@@ -13,7 +13,7 @@ public class AdminHospitalStaff {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\nChoose an option: ");
+            System.out.println("\nChoose an option: "); 
             System.out.println("1) View Staff");
             System.out.println("2) Add Staff");
             System.out.println("3) Remove Staff");
@@ -33,17 +33,41 @@ public class AdminHospitalStaff {
                     String staffId = sc.nextLine();
                     System.out.print("Enter Staff Name to add: ");
                     String name = sc.nextLine();
-                    System.out.print("Enter Staff Gender to add: ");
-                    Gender gender = Gender.valueOf(sc.nextLine().trim().toUpperCase());
-                    System.out.print("Enter Staff Age to add: ");
-                    Integer age = sc.nextInt();
-                    sc.nextLine(); // consumes new line
-                    System.out.print("Enter Staff Role to add: ");
-                    Role role = Role.valueOf(sc.nextLine().trim().toUpperCase());
-
+                    boolean validGender = false;
+                    Gender gender = Gender.OTHER;
+                    while (validGender == false) {
+                        try {
+                            System.out.print("Enter Staff Gender to add: ");
+                            gender = Gender.valueOf(sc.nextLine().trim().toUpperCase());
+                            validGender = true;
+                        } catch (Exception e) {
+                            System.err.println("Gender not valid. Please try again.");
+                        }
+                    }
+                    boolean validAge = false;
+                    Integer age = 0;
+                    while (validAge == false) {
+                        try {
+                            System.out.print("Enter Staff Age to add: ");
+                            age = Integer.valueOf(sc.nextLine());
+                            validAge = true;
+                        } catch (NumberFormatException e) {
+                            System.err.println("Age not valid. Please try again.");
+                        }
+                    }
+                    boolean validRole = false;
+                    Role role = Role.DOCTOR;
+                    while (validRole == false) {
+                        try {
+                            System.out.print("Enter Staff Role to add: ");
+                            role = Role.valueOf(sc.nextLine().trim().toUpperCase());
+                            validRole = true;
+                        } catch (Exception e) {
+                            System.err.println("Role not valid. Please try again.");
+                        }
+                    }
                     User staff = new User(staffId, name, gender, age, role);
                     hospitalStaffController.addStaff(staff);
-                    System.out.println("Staff added: " + staffId);
                     break;
                 case 3:
                 case 4:

@@ -16,8 +16,8 @@ public class InventoryManager {
         this.inventory = new HashMap<>();
         this.inventoryLoader = new InventoryLoader(this.inventory);
         this.inventorySaver = new InventorySaver(this.inventory);
-        this.inventoryViewer = new InventoryViewer(this.inventory);
         this.stockAdjuster = new StockAdjuster(this.inventory);
+        this.inventoryViewer = new InventoryViewer(this.inventory);
         this.lowStockChecker = new LowStockChecker(this.inventory);
 
         // Load initial inventory
@@ -40,8 +40,12 @@ public class InventoryManager {
         stockAdjuster.increaseStock(medicationName, quantity);
     }
 
-    public void decreaseStock(String medicationName, int quantity) {
-        stockAdjuster.decreaseStock(medicationName, quantity);
+    public boolean decreaseStock(String medicationName, int quantity) {
+        if (stockAdjuster.decreaseStock(medicationName, quantity)) {
+
+            return true;
+        }
+        return false;
     }
 
     public void checkLowStockAlerts() {

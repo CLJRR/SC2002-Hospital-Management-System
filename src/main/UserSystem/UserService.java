@@ -14,7 +14,7 @@ public class UserService implements Load, Format, Save, Write, toObject {
     private static final String FILENAME = "./data/users.txt";
 
     @Override
-    public List<?> load() throws IOException {
+    public List<User> load() throws IOException {
         List<User> data = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream(FILENAME))) {
             while (scanner.hasNextLine()) {

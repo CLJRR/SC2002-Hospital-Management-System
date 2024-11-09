@@ -3,6 +3,7 @@ package Interfaces;
 import ApptTest.*;
 import MedicineInventorySystem.*;
 import SessionManager.Session;
+import UserSystem.AdminHospitalStaff;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -15,6 +16,7 @@ public class AdminUI {
         AdminInventory invSystem = new AdminInventory();
         AppointmentService appService = new AppointmentService();
         AdminController adminController = new AdminController(appService);
+        AdminHospitalStaff staffSystem = new AdminHospitalStaff();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
 
@@ -28,6 +30,7 @@ public class AdminUI {
             option = sc.nextInt();
             switch (option) {
                 case 1 -> {
+                    staffSystem.adminHospitalStaff();
                     break;
                 }
                 case 2 -> {

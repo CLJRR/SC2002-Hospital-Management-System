@@ -1,0 +1,3 @@
+A010,patientIdapptIdToLoad,D001,2024-12-08,consult,cancer,Ibuprofen,PENDING,100,once
+A001,P1001,D001,1975-11-22,General Checkup,fever,Ibuprofen,PENDING,20,200mg twice daily
+A002,P1002,D001,1975-11-22,General Checkup,flu,Ibuprofen,DISPENSED,30,200mg twice daily

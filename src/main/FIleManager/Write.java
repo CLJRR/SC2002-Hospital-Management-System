@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface Write {
 
-    public void write(String fileName, List<String> data) throws IOException;
+    public void write(List<String> data) throws IOException;
 
 }

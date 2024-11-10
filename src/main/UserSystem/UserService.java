@@ -11,10 +11,12 @@ import java.util.Scanner;
 
 public class UserService implements Load, Format, Save, Write, toObject {
 
+    private static final String FILENAME = "./data/users.txt";
+
     @Override
-    public List<?> load(String fileName) throws IOException {
+    public List<User> load() throws IOException {
         List<User> data = new ArrayList<>();
-        try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
+        try (Scanner scanner = new Scanner(new FileInputStream(FILENAME))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 User user = (User) toObject(line);
@@ -25,7 +27,7 @@ public class UserService implements Load, Format, Save, Write, toObject {
     }
 
     @Override
-    public void save(String filename, List<?> list) throws IOException {
+    public void save(List<?> list) throws IOException {
         List<String> data = new ArrayList<>();
         for (Object obj : list) {
             if (obj instanceof User) {
@@ -35,13 +37,13 @@ public class UserService implements Load, Format, Save, Write, toObject {
                 throw new IOException("List contains incorrect objects.");
             }
         }
-        write(filename, data);
+        write(data);
 
     }
 
     @Override
-    public void write(String fileName, List<String> data) throws IOException {
-        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+    public void write(List<String> data) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileWriter(FILENAME))) {
             for (String line : data) {
                 out.println(line);
             }
@@ -83,7 +85,7 @@ public class UserService implements Load, Format, Save, Write, toObject {
             String password = parts[2];
             // Integer age = Integer.parseInt(parts[3]);
             Integer age = "null".equals(parts[3]) ? null : Integer.parseInt(parts[3]);
-            
+
             // Handle nullable dateOfBirth field
             LocalDate dateOfBirth = "null".equals(parts[4]) ? null : LocalDate.parse(parts[4]);
             // Parse enum values with error handling

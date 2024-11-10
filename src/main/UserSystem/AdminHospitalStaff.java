@@ -99,7 +99,7 @@ public class AdminHospitalStaff {
                     hospitalStaffController.filterStaff();
                     break;
                 case 6:
-                    hospitalStaffController.saveStaff();
+                    hospitalStaffController.saveUsers();
                     System.out.println("Staffs saved to file. Exiting program.");
                     exit = true;
                     break;

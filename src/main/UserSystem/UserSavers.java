@@ -3,16 +3,16 @@ package UserSystem;
 import java.io.IOException;
 import java.util.*;
 
-public class HospitalStaffSaver {
+public class UserSavers {
     private Map<String, User> users;
     private UserService userService;
 
-    public HospitalStaffSaver(Map<String, User> users) {
+    public UserSavers(Map<String, User> users) {
         this.users = users;
         this.userService = new UserService();
     }
 
-    public void saveStaff() {
+    public void saveUsers() {
         List<User> userList = new ArrayList<>(users.values());
         try {
             userService.save(userList);

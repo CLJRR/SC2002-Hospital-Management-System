@@ -5,8 +5,8 @@ import java.util.*;
 
 public class HospitalStaffController {
     private Map<String, User> staffs;
-    private HospitalStaffSaver hospitalStaffSaver;
-    private HospitalStaffLoader hospitalStaffLoader;
+    private UserSavers hospitalStaffSaver;
+    private UserLoader hospitalStaffLoader;
     private HospitalStaffViewer hospitalStaffViewer;
     private HospitalStaffUpdater hospitalStaffUpdater;
     private HospitalStaffFilter hospitalStaffFilter;
@@ -14,8 +14,8 @@ public class HospitalStaffController {
     // Constructor
     public HospitalStaffController() {
         this.staffs = new HashMap<>();
-        this.hospitalStaffSaver = new HospitalStaffSaver(this.staffs);
-        this.hospitalStaffLoader = new HospitalStaffLoader(this.staffs);
+        this.hospitalStaffSaver = new UserSavers(this.staffs);
+        this.hospitalStaffLoader = new UserLoader(this.staffs);
         this.hospitalStaffViewer = new HospitalStaffViewer(this.staffs);
         this.hospitalStaffUpdater = new HospitalStaffUpdater(this.staffs);
         this.hospitalStaffFilter = new HospitalStaffFilter(this.staffs);
@@ -24,8 +24,8 @@ public class HospitalStaffController {
         hospitalStaffLoader.loadInitialUsers();
     }
 
-    public void saveStaff() {
-        hospitalStaffSaver.saveStaff();
+    public void saveUsers() {
+        hospitalStaffSaver.saveUsers();
     }
 
     public void updateStaff(User staff) {

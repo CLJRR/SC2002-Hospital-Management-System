@@ -4,8 +4,17 @@ import java.io.IOException;
 import java.util.*;
 
 public class UpdateInformation {
+    private Map<String, User> users;
+    private UserLoader userLoader;
+    private UserSavers userSavers;
 
-    private Map<String, User> users = new HashMap<>();
+    public UpdateInformation() {
+        this.users = new HashMap<>();
+        this.userLoader = new UserLoader(this.users);
+        this.userSavers = new UserSavers(this.users);
+
+        userLoader.loadInitialUsers();
+    }
 
     public void updateInformation(String UserId) throws IOException {
         User user = users.get(UserId);
@@ -37,6 +46,7 @@ public class UpdateInformation {
                         v = vPhoneNo.validatePhoneNo(newPhoneNo);
                     }
                     user.setPhoneNumber(newPhoneNo);
+                    userSavers.saveUsers();
                     System.out.println("New Phone Number set to " + user.getPhoneNumber());
                 }
                 case 2 -> {
@@ -50,6 +60,7 @@ public class UpdateInformation {
                         temp = vemail.validateEmail(newEmail);
                     }
                     user.setEmail(newEmail);
+                    userSavers.saveUsers();
                     System.out.println("New Email set to " + user.getEmail());
                 }
             }

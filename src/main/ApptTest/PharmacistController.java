@@ -11,3 +11,4 @@ public class PharmacistController {
         return appointmentService.viewAppointmentOutcome(appointmentId);
     }
 }
+  

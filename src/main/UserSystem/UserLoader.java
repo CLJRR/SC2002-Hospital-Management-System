@@ -3,11 +3,11 @@ package UserSystem;
 import java.io.IOException;
 import java.util.*;
 
-public class HospitalStaffLoader {
+public class UserLoader {
     private Map<String, User> users;
     private UserService userService;
 
-    public HospitalStaffLoader(Map<String, User> users) {
+    public UserLoader(Map<String, User> users) {
         this.users = users;
         this.userService = new UserService();
     }

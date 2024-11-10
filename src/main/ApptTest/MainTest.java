@@ -1,5 +1,6 @@
 package ApptTest;
 
+import SessionManager.Session;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -30,18 +31,29 @@ public class MainTest {
                     scanner.nextLine();
 
                     if (patientChoice == 1) {
-                        System.out.print("Enter Patient ID: ");
-                        String patientId = scanner.nextLine();
-                        System.out.print("Enter Doctor ID: ");
-                        String doctorId = scanner.nextLine();
                         System.out.print("Enter Appointment Date (yyyy-MM-dd): ");
                         LocalDate date = LocalDate.parse(scanner.nextLine(), formatter);
+
+                        // show timeslots that have at least one doc avail and which doctor 
+                        //9am -d2
+                        //10am - d1, d2 
+                        //enter time
+                        //enter doctor
+                        //check that doc is avail
+
+                        // System.out.print("Enter Patient ID: ");
+                        // String patientId = scanner.nextLine();
+                        System.out.print("Enter Doctor ID: ");
+                        String doctorId = scanner.nextLine();
                         System.out.print("Enter Time Slot: ");
                         String timeSlot = scanner.nextLine();
 
-                        Appointment appointment = patientController.scheduleAppointment(patientId, doctorId, date, timeSlot);
+                        Appointment appointment = patientController.scheduleAppointment(Session.getLoginID(), doctorId, date, timeSlot);
+                        //if successful print
+
                         System.out.println("Scheduled: " + appointment);
                     } else if (patientChoice == 2) {
+                        //viewappt(Session.getLoginID()) //show all appt
                         System.out.print("Enter Appointment ID: ");
                         String appointmentId = scanner.nextLine();
                         System.out.println("Appointment: " + patientController.viewAppointment(appointmentId));

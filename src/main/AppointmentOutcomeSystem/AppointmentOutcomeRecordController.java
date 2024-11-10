@@ -76,6 +76,9 @@ public class AppointmentOutcomeRecordController {
                         appointmentOutcomeRecords.remove(apptId);
                         record.setStatus(Flag.DISPENSED);
                         appointmentOutcomeRecords.put(apptId, record);
+
+
+                        
                         saver.saveRecords();
 
                     }

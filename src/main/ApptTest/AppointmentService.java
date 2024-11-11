@@ -1,64 +1,93 @@
 package ApptTest;
 
-import enums.Availability;
-import enums.Flag;
-import java.time.LocalDate;
+import FIleManager.*;
+import enums.*;
+import java.io.*;
+import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
+public class AppointmentService implements Load, Format, Save, Write, toObject {
 
-public class AppointmentService {
-    private Map<String, Appointment> appointments = new HashMap<>();
-    private int appointmentCounter = 1;
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    final String fileName = "src\\main\\data\\appointments.txt";
 
-    public Appointment scheduleAppointment(String patientId, String doctorId, LocalDate date, String timeSlot) {
-        String appointmentId = "APPT" + appointmentCounter++;
-        Appointment appointment = new Appointment(appointmentId, patientId, doctorId, date, timeSlot, Availability.AVAILABLE, Flag.PENDING);
-        appointments.put(appointmentId, appointment);
-        return appointment;
-    }
-
-    public Appointment viewAppointment(String appointmentId) {
-        return appointments.get(appointmentId);
-    }
-
-    public boolean rescheduleAppointment(String appointmentId, LocalDate newDate, String newTimeSlot) {
-        Appointment appointment = appointments.get(appointmentId);
-        if (appointment != null && appointment.getAvailability() == Availability.BOOKED) {
-            appointment.setDate(newDate);
-            appointment.setTimeSlot(newTimeSlot);
-            return true;
+    @Override
+    public List<?> load() throws IOException {
+        List<Appointment> data = new ArrayList<>();
+        try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                Appointment appointment = (Appointment) toObject(line);
+                data.add(appointment);
+            }
         }
-        return false;
+        return data;
     }
 
-    public boolean cancelAppointment(String appointmentId) {
-        Appointment appointment = appointments.get(appointmentId);
-        if (appointment != null && appointment.getAvailability() == Availability.BOOKED) {
-            appointment.setAvailability(Availability.CANCELLED);
-            appointment.setFlag(Flag.PENDING);
-            return true;
+    @Override
+    public void save(List<?> list) throws IOException {
+        List<String> data = new ArrayList<>();
+        for (Object obj : list) {
+            if (obj instanceof Appointment) {
+                String formattedString = format(obj); // Use format method
+                data.add(formattedString);
+            } else {
+                throw new IOException("List contains incorrect objects.");
+            }
         }
-        return false;
+        write(data);
     }
 
-    public boolean updateAppointmentOutcome(String appointmentId, String outcome, String prescribedMeds) {
-        Appointment appointment = appointments.get(appointmentId);
-        if (appointment != null && appointment.getAvailability() == Availability.BOOKED) {
-            appointment.setOutcome(outcome);
-            appointment.setPrescribedMeds(prescribedMeds);
-            appointment.setFlag(Flag.COMPLETED);
-            appointment.setAvailability(Availability.BOOKED);
-            return true;
+    @Override
+    public void write(List<String> data) throws IOException {
+        try (PrintWriter out = new PrintWriter(new FileWriter(fileName))) {
+            for (String line : data) {
+                out.println(line);
+            }
         }
-        return false;
     }
 
-    public String viewAppointmentOutcome(String appointmentId) {
-        Appointment appointment = appointments.get(appointmentId);
-        return (appointment != null) ? appointment.getOutcome() : "No outcome recorded.";
+    @Override
+    public String format(Object object) throws IOException {
+        if (object instanceof Appointment appointment) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(appointment.getAppointmentId()).append(",")
+              .append(appointment.getPatientId()).append(",")
+              .append(appointment.getDoctorId()).append(",")
+              .append(appointment.getDate().format(DATE_FORMATTER)).append(",")
+              .append(appointment.getTimeSlot()).append(",")
+              .append(appointment.getAvailability()).append(",")
+              .append(appointment.getFlag());
+            return sb.toString();
+        } else {
+            throw new IOException("Invalid object type");
+        }
     }
 
-    public List<Appointment> listAppointments() {
-        return new ArrayList<>(appointments.values());
+    @Override
+    public Object toObject(String string) throws IOException {
+        String[] parts = string.split(",");
+
+        // Validate the format by checking the number of fields
+        if (parts.length != 7) {
+            throw new IOException("Invalid format.");
+        }
+        try {
+            String appointmentId = parts[0];
+            String patientId = parts[1];
+            String doctorId = parts[2];
+            LocalDate date = LocalDate.parse(parts[3], DATE_FORMATTER);
+            String timeSlot = parts[4];
+            Availability availability = Availability.valueOf(parts[5].toUpperCase());
+            Flag flag = Flag.valueOf(parts[6].toUpperCase());
+
+            return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, availability, flag);
+
+        } catch (DateTimeParseException e) {
+            throw new IOException("Invalid date format in the date field.", e);
+        } catch (IllegalArgumentException e) {
+            throw new IOException("Invalid enum value in the Availability or Flag field.", e);
+        }
     }
 }

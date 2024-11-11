@@ -22,6 +22,7 @@ public class HospitalStaffUpdater {
                 System.out.println("4) Update Age");
                 System.out.println("5) Update Role");
                 System.out.println("6) Quit");
+                System.out.print("Select Option: ");
                 
                 int option = sc.nextInt();
                 sc.nextLine(); // Consumes NewLine

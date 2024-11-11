@@ -13,7 +13,7 @@ public class PatientMedicalRecord {
         this.appointmentOutcomeRecords = new HashMap<>();
         this.getUser = new GetUser();
         this.patient = getUser.getUser(UserId);
-        this.appointmentOutcomeRecordLoader = new AppointmentOutcomeRecordLoader(appointmentOutcomeRecords);
+        this.appointmentOutcomeRecordLoader = new AppointmentOutcomeRecordLoader(this.appointmentOutcomeRecords);
         appointmentOutcomeRecordLoader.loadInitialAppointmentOutcomes();
     }
     

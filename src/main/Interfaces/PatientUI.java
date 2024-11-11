@@ -3,6 +3,7 @@ package Interfaces;
 import AppointmentOutcomeSystem.*;
 import ApptTest.*;
 import SessionManager.Session;
+import UserSystem.PatientMedicalRecord;
 import UserSystem.UpdateInformation;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -33,12 +34,13 @@ public class PatientUI {
             PatientController patientController = new PatientController(appointmentService);
             AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
             UpdateInformation updateInformation = new UpdateInformation();
+            PatientMedicalRecord patientMedicalRecord = new PatientMedicalRecord(patientId);
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             switch (option) {
                 case 1 -> {
-
+                    patientMedicalRecord.patientMedicalRecord();
                     break;
                 }
                 case 2 -> {

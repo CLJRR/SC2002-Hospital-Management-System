@@ -3,11 +3,11 @@ package UserSystem;
 import java.io.IOException;
 import java.util.*;
 
-public class UserSavers {
+public class UserSaver {
     private Map<String, User> users;
     private UserService userService;
 
-    public UserSavers(Map<String, User> users) {
+    public UserSaver(Map<String, User> users) {
         this.users = users;
         this.userService = new UserService();
     }

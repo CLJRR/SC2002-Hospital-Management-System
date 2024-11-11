@@ -6,12 +6,12 @@ import java.util.*;
 public class UpdateInformation {
     private Map<String, User> users;
     private UserLoader userLoader;
-    private UserSavers userSavers;
+    private UserSaver userSavers;
 
     public UpdateInformation() {
         this.users = new HashMap<>();
         this.userLoader = new UserLoader(this.users);
-        this.userSavers = new UserSavers(this.users);
+        this.userSavers = new UserSaver(this.users);
 
         userLoader.loadInitialUsers();
     }

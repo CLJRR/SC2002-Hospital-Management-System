@@ -60,7 +60,7 @@ public class AppointmentOutcomeRecordController {
         saver.saveRecords();
     }
 
-    public void updatePrescriptionStatus() throws IOException {
+    public void updatePrescriptionFlag() throws IOException {
         System.out.println("Pending Records:");
         viewPendingRecords();
         System.out.println("1) Update Record");
@@ -79,7 +79,7 @@ public class AppointmentOutcomeRecordController {
                     AppointmentOutcomeRecord record = appointmentOutcomeRecords.get(apptId);
                     if (invController.decreaseStock(record.getPrescription().getMedName(), record.getPrescription().getAmount())) {
                         appointmentOutcomeRecords.remove(apptId);
-                        record.setStatus(Flag.DISPENSED);
+                        record.setFlag(Flag.DISPENSED);
                         appointmentOutcomeRecords.put(apptId, record);
 
                         saver.saveRecords();

@@ -79,9 +79,11 @@ public class AppointmentOutcomeRecord {
     public void setDiagnoses(String diagnoses) {
         this.diagnoses = diagnoses;
     }
-    public void setStatus(Flag flag) {
-        prescription.setStatus(flag);
+
+    public void setFlag(Flag flag) {
+        prescription.setFlag(flag);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

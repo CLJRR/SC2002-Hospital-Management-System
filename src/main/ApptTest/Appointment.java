@@ -1,7 +1,6 @@
 package ApptTest;
 
-import enums.Availability;
-import enums.Flag;
+import enums.*;
 import java.time.LocalDate;
 
 public class Appointment {
@@ -11,17 +10,17 @@ public class Appointment {
     private String doctorId;
     private LocalDate date;
     private String timeSlot;
-    private Availability availability;
+    private Type type;
     private Flag flag;
 
     // Constructor with all attributes
-    public Appointment(String appointmentId, String patientId, String doctorId, LocalDate date, String timeSlot, Availability availability, Flag flag) {
+    public Appointment(String appointmentId, String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
         this.appointmentId = appointmentId;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.date = date;
         this.timeSlot = timeSlot;
-        this.availability = availability;
+        this.type = type;
         this.flag = flag;
     }
 
@@ -66,12 +65,12 @@ public class Appointment {
         this.timeSlot = timeSlot;
     }
 
-    public Availability getAvailability() {
-        return availability;
+    public Type getType() {
+        return type;
     }
 
-    public void setAvailability(Availability availability) {
-        this.availability = availability;
+    public void setType(Type type) {
+        this.type = type;
     }
 
     public Flag getFlag() {
@@ -91,7 +90,7 @@ public class Appointment {
         sb.append("\ndoctorId: ").append(doctorId);
         sb.append("\ndate: ").append(date);
         sb.append("\ntimeSlot: ").append(timeSlot);
-        sb.append("\navailability: ").append(availability);
+        sb.append("\ntype: ").append(type);
         sb.append("\nflag: ").append(flag);
 
         return sb.toString();

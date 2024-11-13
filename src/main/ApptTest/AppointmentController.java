@@ -31,12 +31,17 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
-    // Method to view all appointment records
+    //view all records
     public void viewAllRecords() throws IOException {
         viewer.viewAllRecords();
     }
 
-    // Method to view pending appointment records
+    //ADMIN
+    public void adminViewAllRecords() throws IOException {
+        viewer.adminViewAllRecords();
+    }
+
+    //Doctor
     public void viewPendingRecords() throws IOException {
         viewer.viewPendingRecords();
     }
@@ -55,17 +60,17 @@ public class AppointmentController {
 
         if (appointmentRecords.containsKey(apptId)) {
             Appointment appointment = appointmentRecords.get(apptId);
-            System.out.println("Enter new status (CONFIRMED/PENDING/COMPLETED): ");
-            String status = sc.next().toUpperCase();
+            System.out.println("Enter new Flag (CONFIRMED/PENDING/COMPLETED): ");
+            String newFlag = sc.next().toUpperCase();
 
             try {
-                Flag flag = Flag.valueOf(status);
+                Flag flag = Flag.valueOf(newFlag);
                 appointment.setFlag(flag);
                 appointmentRecords.put(apptId, appointment);
                 saver.saveRecords();
                 System.out.println("Appointment outcome recorded successfully.");
             } catch (IllegalArgumentException e) {
-                System.err.println("Invalid status entered.");
+                System.err.println("Invalid Flag entered.");
             }
         } else {
             System.out.println("Appointment ID not found.");
@@ -74,7 +79,6 @@ public class AppointmentController {
 
     public void AdminViewAllAppointments() throws IOException {
 
-        
     }
 
     // Method for an admin to update appointment details
@@ -83,16 +87,16 @@ public class AppointmentController {
     //     String apptId = sc.next().toUpperCase();
     //     if (appointmentRecords.containsKey(apptId)) {
     //         Appointment appointment = appointmentRecords.get(apptId);
-    //         System.out.println("Enter new availability (AVAILABLE/BOOKED/CANCELLED): ");
+    //         System.out.println("Enter new flag (AVAILABLE/BOOKED/CANCELLED): ");
     //         String availabilityInput = sc.next().toUpperCase();
     //         try {
-    //             Availability availability = Availability.valueOf(availabilityInput);
-    //             appointment.setAvailability(availability);
+    //             Availability flag = Availability.valueOf(availabilityInput);
+    //             appointment.setAvailability(flag);
     //             appointmentRecords.put(apptId, appointment);
     //             saver.saveRecords();
     //             System.out.println("Appointment updated successfully.");
     //         } catch (IllegalArgumentException e) {
-    //             System.err.println("Invalid availability entered.");
+    //             System.err.println("Invalid flag entered.");
     //         }
     //     } else {
     //         System.out.println("Appointment ID not found.");

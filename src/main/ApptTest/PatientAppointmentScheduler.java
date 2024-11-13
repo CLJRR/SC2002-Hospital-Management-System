@@ -32,11 +32,11 @@ public class PatientAppointmentScheduler {
     }
 
     // Method to create a new appointment
-    public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Availability availability, Flag flag) {
+    public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Availability flag, Flag flag) {
         String appointmentId = UUID.randomUUID().toString(); // Generates a unique ID
-        return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, availability, flag);
+        return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, flag, flag);
     }
-    
+
     // Method to view available slots and schedule a new appointment
     public void viewAndScheduleAppointment() {
         System.out.print("Enter the desired date for the appointment (yyyy-MM-dd): ");
@@ -71,7 +71,7 @@ public class PatientAppointmentScheduler {
         // Schedule appointment
         Appointment appointment = createAppointment(patientId, doctorId, date, selectedSlot.toString(), Availability.BOOKED, Flag.PENDING);
         appointmentRecords.put(appointment.getAppointmentId(), appointment);
-        
+
         try {
             // Save the updated list of appointments
             service.save(new ArrayList<>(appointmentRecords.values()));
@@ -144,7 +144,7 @@ public class PatientAppointmentScheduler {
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()
                         + ", Doctor ID: " + appointment.getDoctorId()
-                        + ", Status: " + appointment.getFlag());
+                        + ", Flag: " + appointment.getFlag());
                 hasAppointments = true;
             }
         }

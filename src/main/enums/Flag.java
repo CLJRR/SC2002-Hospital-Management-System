@@ -6,5 +6,6 @@ public enum Flag {
     CONFIRMED,
     CANCELLED,
     COMPLETED,
-    DISPENSED
+    DISPENSED,
+    AVAILABLE,
 }

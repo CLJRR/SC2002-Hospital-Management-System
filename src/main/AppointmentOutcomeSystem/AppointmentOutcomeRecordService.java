@@ -62,7 +62,7 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
 
             Prescription prescription = medicalRecord.getPrescription();
             sb.append(prescription.getMedName()).append(",")
-                    .append(prescription.getStatus()).append(",")
+                    .append(prescription.getFlag()).append(",")
                     .append(prescription.getAmount()).append(",")
                     .append(prescription.getDosage());
             return sb.toString();

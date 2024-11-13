@@ -1,4 +1,4 @@
-package ApptTest;
+package AppointmentSystem;
 
 import java.io.IOException;
 import java.util.*;

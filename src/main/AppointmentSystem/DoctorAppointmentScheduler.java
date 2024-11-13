@@ -1,6 +1,6 @@
-package ApptTest;
+package AppointmentSystem;
 
-import enums.Availability;
+import enums.Type;
 import enums.Flag;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -31,78 +31,78 @@ public class DoctorAppointmentScheduler {
         }
     }
 
-    // Method to set or update availability for appointments on a specific date
+    // Method to set or update flag for appointments on a specific date
     public void setAvailabilityForDate() {
-        System.out.print("Enter the date to set availability (yyyy-MM-dd): ");
+        System.out.print("Enter the date to set flag (yyyy-MM-dd): ");
         LocalDate date = LocalDate.parse(sc.nextLine());
 
-        // Generate all slots for the selected date with default availability of AVAILABLE
+        // Generate all slots for the selected date with default flag of AVAILABLE
         List<LocalTime> allSlots = generateTimeSlots();
 
-        System.out.println("Set availability for each slot:");
+        System.out.println("Set flag for each slot:");
         for (LocalTime slot : allSlots) {
             // Check if there is an existing appointment or timeslot for the slot
-            Availability currentAvailability = getAvailabilityStatus(date, slot);
+            Type currentAvailability = getAvailabilityFlag(date, slot);
 
             System.out.println(slot + " - " + slot.plusHours(1) + " is currently " + currentAvailability);
             System.out.print("Enter 'leave' to mark as leave, 'available' to mark as available, or press Enter to keep as is: ");
             String input = sc.nextLine().toLowerCase();
 
-            // Determine availability based on input
-            Availability newAvailability;
+            // Determine flag based on input
+            Type newAvailability;
             if ("leave".equals(input)) {
-                newAvailability = Availability.CANCELLED;
+                newAvailability = Type.CANCELLED;
             } else if ("available".equals(input)) {
-                newAvailability = Availability.AVAILABLE;
+                newAvailability = Type.AVAILABLE;
             } else {
                 continue; // Skip updating if the input is empty or not recognized
             }
 
-            // Create or update the timeslot with the new availability status
+            // Create or update the timeslot with the new flag Flag
             createOrUpdateTimeslot(date, slot, newAvailability);
         }
 
         try {
-            // Save the updated availability to the file
+            // Save the updated flag to the file
             service.save(new ArrayList<>(appointmentRecords.values()));
-            System.out.println("Availability set successfully for " + date);
+            System.out.println("Type set successfully for " + date);
         } catch (IOException e) {
-            System.err.println("Error saving availability: " + e.getMessage());
+            System.err.println("Error saving flag: " + e.getMessage());
         }
     }
 
     // Method to create or update a timeslot for a given date and time
-    private void createOrUpdateTimeslot(LocalDate date, LocalTime slot, Availability availability) {
+    private void createOrUpdateTimeslot(LocalDate date, LocalTime slot, Type flag) {
         // Check if an appointment entry exists for this timeslot
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equals(doctorId) && appointment.getDate().equals(date) && appointment.getTimeSlot().equals(slot.toString())) {
-                // Update the availability of an existing timeslot
-                appointment.setAvailability(availability);
+                // Update the flag of an existing timeslot
+                appointment.setAvailability(flag);
                 return;
             }
         }
 
         // If no existing timeslot is found, create a new one
         Appointment newTimeslot = new Appointment(
-            UUID.randomUUID().toString(), // Generate a unique appointment ID
-            "N/A",                        // No patient assigned yet
-            doctorId,
-            date,
-            slot.toString(),
-            availability,
-            null  // Flag not used here as it is specific to appointment status
+                UUID.randomUUID().toString(), // Generate a unique appointment ID
+                "N/A", // No patient assigned yet
+                doctorId,
+                date,
+                slot.toString(),
+                flag,
+                null // Flag not used here as it is specific to appointment Flag
         );
         appointmentRecords.put(newTimeslot.getAppointmentId(), newTimeslot);
     }
 
-    // Method to retrieve the current availability status of a timeslot for a given date
-    private Availability getAvailabilityStatus(LocalDate date, LocalTime slot) {
+    // Method to retrieve the current flag Flag of a timeslot for a given date
+    private Type getAvailabilityFlag(LocalDate date, LocalTime slot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equals(doctorId) && appointment.getDate().equals(date) && appointment.getTimeSlot().equals(slot.toString())) {
-                return appointment.getAvailability(); // Return existing availability status if found
+                return appointment.getAvailability(); // Return existing flag Flag if found
             }
         }
-        return Availability.AVAILABLE; // Default to AVAILABLE if no entry exists
+        return Type.AVAILABLE; // Default to AVAILABLE if no entry exists
     }
 
     // Helper method to generate time slots from 9 AM to 5 PM, excluding lunch hour (12 PM - 1 PM)
@@ -131,7 +131,7 @@ public class DoctorAppointmentScheduler {
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()
                         + ", Patient ID: " + appointment.getPatientId()
-                        + ", Status: " + appointment.getFlag());
+                        + ", Flag: " + appointment.getFlag());
                 hasAppointments = true;
             }
         }
@@ -190,7 +190,7 @@ public class DoctorAppointmentScheduler {
         try {
             service.save(new ArrayList<>(appointmentRecords.values()));
         } catch (IOException e) {
-            System.err.println("Error saving appointment status: " + e.getMessage());
+            System.err.println("Error saving appointment Flag: " + e.getMessage());
         }
     }
 
@@ -205,7 +205,7 @@ public class DoctorAppointmentScheduler {
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()
                         + ", Patient ID: " + appointment.getPatientId()
-                        + ", Status: " + appointment.getFlag());
+                        + ", Flag: " + appointment.getFlag());
                 hasAppointments = true;
             }
         }

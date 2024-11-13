@@ -5,5 +5,6 @@ public enum Availability {
     BOOKED,
     PENDING,
     CANCELLED,
-    COMPLETED
+    COMPLETED,
+    LEAVE
 }

@@ -13,25 +13,25 @@ public class LoginUI {
     public LoginUI() {
         // Initialize the roleActions map with each role mapped to a specific UI action
         roleActions.put(Role.ADMINISTRATOR, () -> {
-            // try {
-            AdminUI adminUI = new AdminUI();
-            adminUI.adminUI();
-            // } catch (IOException e) {
-            //     System.out.println("Error launching Admin UI: " + e.getMessage());
-            // }
+            try {
+                AdminUI adminUI = new AdminUI();
+                adminUI.adminUI();
+            } catch (IOException e) {
+                System.out.println("Error launching Admin UI: " + e.getMessage());
+            }
         });
         roleActions.put(Role.DOCTOR, () -> {
             try {
-            DoctorUI doctorUI = new DoctorUI();
-            doctorUI.doctorUI();
+                DoctorUI doctorUI = new DoctorUI();
+                doctorUI.doctorUI();
             } catch (IOException e) {
                 System.out.println("Error launching Doctor UI: " + e.getMessage());
             }
         });
         roleActions.put(Role.PATIENT, () -> {
             try {
-            PatientUI patientUI = new PatientUI();
-            patientUI.patientUI();
+                PatientUI patientUI = new PatientUI();
+                patientUI.patientUI();
             } catch (IOException e) {
                 System.out.println("Error launching Patient UI: " + e.getMessage());
             }

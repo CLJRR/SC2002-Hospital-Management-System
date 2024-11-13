@@ -2,7 +2,6 @@ package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import ApptTest.AppointmentService;
-import ApptTest.DoctorController;
 import SessionManager.Session;
 import UserSystem.*;
 import java.io.IOException;
@@ -15,7 +14,6 @@ public class DoctorUI {
         AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
         int option = 0;
         AppointmentService appointmentService = new AppointmentService();
-        DoctorController doctorController = new DoctorController(appointmentService);
         DoctorMedicalRecordController doctorMedicalRecordController = new DoctorMedicalRecordController(Session.getLoginID());
 
         while (option != 8) {

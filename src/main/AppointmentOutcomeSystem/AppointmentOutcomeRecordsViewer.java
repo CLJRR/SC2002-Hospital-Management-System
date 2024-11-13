@@ -29,24 +29,32 @@ public class AppointmentOutcomeRecordsViewer {
         }
     }
 
-    public void viewRecordsById(String Id) throws IOException {
+    public boolean viewRecordsById(String Id) throws IOException {
         // List<MedicalOutcomeRecord> medicalRecords = new ArrayList<MedicalOutcomeRecord>();
-        // 
+        Integer count = 0;
         System.out.println("For Id " + Id);
         System.out.println("----------------------------------------------------------------------------------------------------------------");
         for (AppointmentOutcomeRecord medicalRecord : appointmentOutcomeRecords.values()) {
             //by appt id 
             if (Id.equalsIgnoreCase((medicalRecord.getApptId()))) {
                 System.out.println(medicalRecord.toString());
-                return;
+                count++;
+                return true;
             }
             //by patient id 
             if (Id.equalsIgnoreCase((medicalRecord.getPatientId()))) {
                 System.out.println(medicalRecord.toString());
                 System.out.println("----------------------------------------------------------------------------------------------------------------");
+                count++;
             }
+        }
+        if (count == 0) {
+            System.out.println("No Outcome Records found");
+            return false;
         }
         System.out.println("Press Enter to go back");
         sc.nextLine();
+        return true;
+
     }
 }

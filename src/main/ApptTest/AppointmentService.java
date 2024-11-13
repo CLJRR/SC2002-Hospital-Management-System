@@ -10,7 +10,7 @@ import java.util.*;
 public class AppointmentService implements Load, Format, Save, Write, toObject {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    final String fileName = "src\\main\\data\\appointments.txt";
+    final String fileName = "./data/appointments.txt";
 
     @Override
     public List<?> load() throws IOException {
@@ -53,12 +53,12 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
         if (object instanceof Appointment appointment) {
             StringBuilder sb = new StringBuilder();
             sb.append(appointment.getAppointmentId()).append(",")
-              .append(appointment.getPatientId()).append(",")
-              .append(appointment.getDoctorId()).append(",")
-              .append(appointment.getDate().format(DATE_FORMATTER)).append(",")
-              .append(appointment.getTimeSlot()).append(",")
-              .append(appointment.getAvailability()).append(",")
-              .append(appointment.getFlag());
+                    .append(appointment.getPatientId()).append(",")
+                    .append(appointment.getDoctorId()).append(",")
+                    .append(appointment.getDate().format(DATE_FORMATTER)).append(",")
+                    .append(appointment.getTimeSlot()).append(",")
+                    .append(appointment.getAvailability()).append(",")
+                    .append(appointment.getFlag());
             return sb.toString();
         } else {
             throw new IOException("Invalid object type");
@@ -75,8 +75,8 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
         }
         try {
             String appointmentId = parts[0];
-            String patientId = parts[1];
-            String doctorId = parts[2];
+            String patientId = parts[1].equals("null") ? null : parts[1];
+            String doctorId = parts[2].equals("null") ? null : parts[2];
             LocalDate date = LocalDate.parse(parts[3], DATE_FORMATTER);
             String timeSlot = parts[4];
             Availability availability = Availability.valueOf(parts[5].toUpperCase());

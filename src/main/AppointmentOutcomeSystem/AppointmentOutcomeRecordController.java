@@ -49,6 +49,11 @@ public class AppointmentOutcomeRecordController {
 
     }
 
+    public boolean adminViewRecords(String apptId) throws IOException {
+        loader.loadInitialAppointmentOutcomes();
+        return (viewer.viewRecordsById(apptId));
+    }
+
     public void recordAppointmentOutcome() throws IOException {
         AppointmentOutcomeRecord newRecord = prompts.prompts();
         appointmentOutcomeRecords.put(newRecord.getApptId(), newRecord);
@@ -77,8 +82,6 @@ public class AppointmentOutcomeRecordController {
                         record.setStatus(Flag.DISPENSED);
                         appointmentOutcomeRecords.put(apptId, record);
 
-
-                        
                         saver.saveRecords();
 
                     }

@@ -1,5 +1,6 @@
 package ApptTest;
 
+import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import enums.Flag;
 import java.io.IOException;
 import java.util.*;
@@ -8,12 +9,23 @@ public class ApptViewer {
 
     private Map<String, Appointment> appointmentRecords;
     static final Scanner sc = new Scanner(System.in);
+    private AppointmentOutcomeRecordController outcomeController = new AppointmentOutcomeRecordController();
 
     public ApptViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
 
-    public void viewAllRecords() {
+    public void viewAllRecords() throws IOException {
+        System.out.println("All Appointment Records:");
+        for (Appointment record : appointmentRecords.values()) {
+            System.out.println(record.toString());
+            outcomeController.adminViewRecords(record.getAppointmentId());
+
+        }
+        System.out.println(); // Adds a new line after the last record
+    }
+
+    public void AdminviewAllRecords() {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             System.out.println(record.toString());

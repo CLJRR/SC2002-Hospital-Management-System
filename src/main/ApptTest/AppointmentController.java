@@ -1,7 +1,6 @@
 package ApptTest;
 
 import SessionManager.Session;
-import enums.Availability;
 import enums.Flag;
 import java.io.IOException;
 import java.util.*;
@@ -33,7 +32,7 @@ public class AppointmentController {
     }
 
     // Method to view all appointment records
-    public void viewAllRecords() {
+    public void viewAllRecords() throws IOException {
         viewer.viewAllRecords();
     }
 
@@ -53,7 +52,7 @@ public class AppointmentController {
         System.out.println("Recording a new appointment outcome:");
         System.out.print("Enter appointment ID: ");
         String apptId = sc.next().toUpperCase();
-        
+
         if (appointmentRecords.containsKey(apptId)) {
             Appointment appointment = appointmentRecords.get(apptId);
             System.out.println("Enter new status (CONFIRMED/PENDING/COMPLETED): ");
@@ -73,27 +72,30 @@ public class AppointmentController {
         }
     }
 
-    // Method for an admin to update appointment details
-    public void updateAppointmentDetails() throws IOException {
-        System.out.println("Enter the appointment ID to update: ");
-        String apptId = sc.next().toUpperCase();
+    public void AdminViewAllAppointments() throws IOException {
 
-        if (appointmentRecords.containsKey(apptId)) {
-            Appointment appointment = appointmentRecords.get(apptId);
-            System.out.println("Enter new availability (AVAILABLE/BOOKED/CANCELLED): ");
-            String availabilityInput = sc.next().toUpperCase();
-
-            try {
-                Availability availability = Availability.valueOf(availabilityInput);
-                appointment.setAvailability(availability);
-                appointmentRecords.put(apptId, appointment);
-                saver.saveRecords();
-                System.out.println("Appointment updated successfully.");
-            } catch (IllegalArgumentException e) {
-                System.err.println("Invalid availability entered.");
-            }
-        } else {
-            System.out.println("Appointment ID not found.");
-        }
+        
     }
+
+    // Method for an admin to update appointment details
+    // public void updateAppointmentDetails() throws IOException {
+    //     System.out.println("Enter the appointment ID to update: ");
+    //     String apptId = sc.next().toUpperCase();
+    //     if (appointmentRecords.containsKey(apptId)) {
+    //         Appointment appointment = appointmentRecords.get(apptId);
+    //         System.out.println("Enter new availability (AVAILABLE/BOOKED/CANCELLED): ");
+    //         String availabilityInput = sc.next().toUpperCase();
+    //         try {
+    //             Availability availability = Availability.valueOf(availabilityInput);
+    //             appointment.setAvailability(availability);
+    //             appointmentRecords.put(apptId, appointment);
+    //             saver.saveRecords();
+    //             System.out.println("Appointment updated successfully.");
+    //         } catch (IllegalArgumentException e) {
+    //             System.err.println("Invalid availability entered.");
+    //         }
+    //     } else {
+    //         System.out.println("Appointment ID not found.");
+    //     }
+    // }
 }

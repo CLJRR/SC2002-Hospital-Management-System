@@ -1,8 +1,6 @@
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
-import ApptTest.AppointmentService;
-import ApptTest.PharmacistController;
 import MedicineInventorySystem.InventoryController;
 import SessionManager.Session;
 import java.io.IOException;
@@ -12,10 +10,8 @@ public class PharmacistUI {
 
     public void pharmacistUI() throws IOException {
         Scanner sc = new Scanner(System.in);
-        AppointmentService appointmentService = new AppointmentService();
         InventoryController inventoryManager = new InventoryController();
         AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
-        PharmacistController pharmacistController = new PharmacistController(appointmentService);
 
         int option = 0;
         while (option != 5) {

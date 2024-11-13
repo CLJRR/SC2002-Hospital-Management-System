@@ -23,7 +23,7 @@ public class AppointmentOutcomeRecordsViewer {
 
     public void viewPendingRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
-            if (record.getPrescription().getStatus() == Flag.PENDING) {
+            if (record.getPrescription().getFlag() == Flag.PENDING) {
                 System.out.println(record.getApptId() + " " + record.getPrescription());
             }
         }
@@ -33,7 +33,7 @@ public class AppointmentOutcomeRecordsViewer {
         // List<MedicalOutcomeRecord> medicalRecords = new ArrayList<MedicalOutcomeRecord>();
         Integer count = 0;
         System.out.println("For Id " + Id);
-        System.out.println("----------------------------------------------------------------------------------------------------------------");
+        // System.out.println("----------------------------------------------------------------------------------------------------------------");
         for (AppointmentOutcomeRecord medicalRecord : appointmentOutcomeRecords.values()) {
             //by appt id 
             if (Id.equalsIgnoreCase((medicalRecord.getApptId()))) {

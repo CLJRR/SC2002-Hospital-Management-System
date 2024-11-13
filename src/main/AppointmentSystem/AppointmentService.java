@@ -1,4 +1,4 @@
-package ApptTest;
+package AppointmentSystem;
 
 import FIleManager.*;
 import enums.*;
@@ -57,7 +57,7 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
                     .append(appointment.getDoctorId()).append(",")
                     .append(appointment.getDate().format(DATE_FORMATTER)).append(",")
                     .append(appointment.getTimeSlot()).append(",")
-                    .append(appointment.getAvailability()).append(",")
+                    .append(appointment.getType()).append(",")
                     .append(appointment.getFlag());
             return sb.toString();
         } else {
@@ -79,15 +79,15 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
             String doctorId = parts[2].equals("null") ? null : parts[2];
             LocalDate date = LocalDate.parse(parts[3], DATE_FORMATTER);
             String timeSlot = parts[4];
-            Availability availability = Availability.valueOf(parts[5].toUpperCase());
+            Type type = Type.valueOf(parts[5].toUpperCase());
             Flag flag = Flag.valueOf(parts[6].toUpperCase());
 
-            return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, availability, flag);
+            return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, type, flag);
 
         } catch (DateTimeParseException e) {
             throw new IOException("Invalid date format in the date field.", e);
         } catch (IllegalArgumentException e) {
-            throw new IOException("Invalid enum value in the Availability or Flag field.", e);
+            throw new IOException("Invalid enum value in the Type or Flag field.", e);
         }
     }
 }

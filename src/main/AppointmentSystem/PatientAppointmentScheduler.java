@@ -1,6 +1,6 @@
-package ApptTest;
+package AppointmentSystem;
 
-import enums.Availability;
+import enums.Type;
 import enums.Flag;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,11 +32,11 @@ public class PatientAppointmentScheduler {
     }
 
     // Method to create a new appointment
-    public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Availability availability, Flag flag) {
+    public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
         String appointmentId = UUID.randomUUID().toString(); // Generates a unique ID
-        return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, availability, flag);
+        return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, type, flag);
     }
-    
+
     // Method to view available slots and schedule a new appointment
     public void viewAndScheduleAppointment() {
         System.out.print("Enter the desired date for the appointment (yyyy-MM-dd): ");
@@ -69,9 +69,9 @@ public class PatientAppointmentScheduler {
         String doctorId = sc.nextLine();
 
         // Schedule appointment
-        Appointment appointment = createAppointment(patientId, doctorId, date, selectedSlot.toString(), Availability.BOOKED, Flag.PENDING);
+        Appointment appointment = createAppointment(patientId, doctorId, date, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
         appointmentRecords.put(appointment.getAppointmentId(), appointment);
-        
+
         try {
             // Save the updated list of appointments
             service.save(new ArrayList<>(appointmentRecords.values()));
@@ -121,7 +121,7 @@ public class PatientAppointmentScheduler {
 
         // Step 4: Remove old appointment and create a new one
         appointmentRecords.remove(appointmentId);
-        Appointment newAppointment = createAppointment(patientId, existingAppointment.getDoctorId(), newDate, selectedSlot.toString(), Availability.BOOKED, Flag.PENDING);
+        Appointment newAppointment = createAppointment(patientId, existingAppointment.getDoctorId(), newDate, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
         appointmentRecords.put(newAppointment.getAppointmentId(), newAppointment);
 
         try {
@@ -144,7 +144,7 @@ public class PatientAppointmentScheduler {
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()
                         + ", Doctor ID: " + appointment.getDoctorId()
-                        + ", Status: " + appointment.getFlag());
+                        + ", Flag: " + appointment.getFlag());
                 hasAppointments = true;
             }
         }
@@ -193,7 +193,7 @@ public class PatientAppointmentScheduler {
         List<LocalTime> bookedSlots = new ArrayList<>();
 
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getAvailability() == Availability.BOOKED) {
+            if (appointment.getDate().equals(date) && appointment.getAvailability() == Type.BOOKED) {
                 bookedSlots.add(LocalTime.parse(appointment.getTimeSlot()));
             }
         }

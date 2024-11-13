@@ -1,6 +1,7 @@
-package ApptTest;
+package AppointmentSystem;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
+import SessionManager.Session;
 import enums.Flag;
 import java.io.IOException;
 import java.util.*;
@@ -15,27 +16,28 @@ public class ApptViewer {
         this.appointmentRecords = appointmentRecords;
     }
 
-    public void viewAllRecords() throws IOException {
+    public void viewAllRecords() {
+        System.out.println("All Appointment Records:");
+        for (Appointment record : appointmentRecords.values()) {
+            System.out.println(record.toString());
+
+        }
+        System.out.println(); // Adds a new line after the last record
+    }
+
+    public void adminViewAllRecords() throws IOException {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             System.out.println(record.toString());
             outcomeController.adminViewRecords(record.getAppointmentId());
-
         }
         System.out.println(); // Adds a new line after the last record
     }
 
-    public void AdminviewAllRecords() {
-        System.out.println("All Appointment Records:");
-        for (Appointment record : appointmentRecords.values()) {
-            System.out.println(record.toString());
-        }
-        System.out.println(); // Adds a new line after the last record
-    }
-
+    //For doctor to view pending records
     public void viewPendingRecords() throws IOException {
         for (Appointment record : appointmentRecords.values()) {
-            if (record.getFlag() == Flag.PENDING) {
+            if (Session.getLoginID().equalsIgnoreCase(record.getDoctorId()) && record.getFlag() == Flag.PENDING) {
                 System.out.println(record.getAppointmentId() + " " + record.getFlag());
             }
         }

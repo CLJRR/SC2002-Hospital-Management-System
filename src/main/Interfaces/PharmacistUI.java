@@ -18,7 +18,7 @@ public class PharmacistUI {
         while (option != 5) {
             System.out.println(Session.getName());
             System.out.println("1) View Appointment Outcome Record");
-            System.out.println("2) Update Prescription Status");
+            System.out.println("2) Update Prescription Flag");
             System.out.println("3) View Medication Inventory");
             System.out.println("4) Submit Replenishment Requests");
             System.out.println("5) Logout");
@@ -29,7 +29,7 @@ public class PharmacistUI {
                     break;
                 }
                 case 2 -> {
-                    appointmentOutcomeRecordController.updatePrescriptionStatus();
+                    appointmentOutcomeRecordController.updatePrescriptionFlag();
                     break;
                 }
                 case 3 -> {

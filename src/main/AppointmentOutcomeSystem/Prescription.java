@@ -47,11 +47,11 @@ public class Prescription {
         this.dosage = dosage;
     }
 
-    public Flag getStatus() {
+    public Flag getFlag() {
         return flag;
     }
 
-    public void setStatus(Flag flag) {
+    public void setFlag(Flag flag) {
         this.flag = flag;
     }
 

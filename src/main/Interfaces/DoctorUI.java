@@ -1,7 +1,7 @@
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
-import ApptTest.AppointmentService;
+import AppointmentSystem.AppointmentService;
 import SessionManager.Session;
 import UserSystem.*;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package ApptTest;
+package AppointmentSystem;
 
 import enums.*;
 import java.time.LocalDate;

@@ -1,5 +1,5 @@
 
-import ApptTest.*;
+import AppointmentSystem.*;
 import SessionManager.Session;
 
 public class CljrApptTest {

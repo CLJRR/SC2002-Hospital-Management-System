@@ -1,11 +1,10 @@
 package Interfaces;
 
-import ApptTest.*;
+import AppointmentSystem.*;
 import MedicineInventorySystem.*;
 import SessionManager.Session;
 import UserSystem.AdminHospitalStaff;
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class AdminUI {
@@ -16,9 +15,6 @@ public class AdminUI {
         AdminInventory invSystem = new AdminInventory();
         AppointmentController appointmentController = new AppointmentController();
         AdminHospitalStaff staffSystem = new AdminHospitalStaff();
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-
         while (option != 5) {
             System.out.println(Session.getName());
             System.out.println("1) View and Manage Hospital Staff");
@@ -33,7 +29,7 @@ public class AdminUI {
                     break;
                 }
                 case 2 -> {
-                    appointmentController.viewAllRecords();
+                    appointmentController.adminViewAllRecords();
                     break;
                 }
                 case 3 -> {

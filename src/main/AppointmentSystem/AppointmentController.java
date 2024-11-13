@@ -1,4 +1,4 @@
-package ApptTest;
+package AppointmentSystem;
 
 import SessionManager.Session;
 import enums.Flag;
@@ -31,15 +31,17 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
+    //ADMIN
+    public void adminViewAllRecords() throws IOException {
+        viewer.adminViewAllRecords();
+    }
+    //DOCTOR
+
     //view all records
     public void viewAllRecords() throws IOException {
         viewer.viewAllRecords();
     }
 
-    //ADMIN
-    public void adminViewAllRecords() throws IOException {
-        viewer.adminViewAllRecords();
-    }
 
     //Doctor
     public void viewPendingRecords() throws IOException {

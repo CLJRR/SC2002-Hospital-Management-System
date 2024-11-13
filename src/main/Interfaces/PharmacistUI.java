@@ -2,7 +2,6 @@ package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import MedicineInventorySystem.InventoryController;
-import RequestSystem.SHITRequestSystem;
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.Scanner;

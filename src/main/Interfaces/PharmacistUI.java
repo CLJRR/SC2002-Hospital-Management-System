@@ -2,6 +2,7 @@ package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import MedicineInventorySystem.InventoryController;
+import RequestSystem.SHITRequestSystem;
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.Scanner;
@@ -36,7 +37,10 @@ public class PharmacistUI {
                     break;
                 }
                 case 4 -> {
+                    // SHITRequestSystem requestSystem = new SHITRequestSystem();
+                    // SubmitRequest.submitRequest();
                     break;
+
                 }
                 case 5 -> {
                     System.out.println("Logged Out User " + Session.getName());

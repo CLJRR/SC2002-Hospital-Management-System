@@ -37,10 +37,16 @@ public class InventoryController {
         inventoryViewer.viewInventory();
     }
 
-    public void increaseStock(String medicationName, int quantity) {
-        inventoryLoader.loadInitialInventory();
-        stockAdjuster.increaseStock(medicationName, quantity);
+    public boolean increaseStock(String medicationName, int quantity) {
+        // Removed inventoryLoader.loadInitialInventory() to prevent overwriting recent changes.
+        if (stockAdjuster.increaseStock(medicationName, quantity)) {
+            inventorySaver.saveInventory();  // Save only if stock increase is successful.
+            return true;
+        } else {
+            return false;
+        }
     }
+    
 
     public boolean decreaseStock(String medicationName, int quantity) {
         inventoryLoader.loadInitialInventory();

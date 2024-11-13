@@ -14,8 +14,12 @@ public class Timeslot {
         timeslot.add("9:00");
         timeslot.add("10:00");
         timeslot.add("11:00");
-        timeslot.add("12:00");
+
         timeslot.add("13:00");
+        timeslot.add("14:00");
+        timeslot.add("15:00");
+        timeslot.add("16:00");
+        timeslot.add("17:00");
     }
 
     // Return an unmodifiable list to prevent external modifications

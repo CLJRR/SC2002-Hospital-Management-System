@@ -1,6 +1,6 @@
 package AppointmentSystem;
 
-import enums.Availability;
+import enums.Type;
 import enums.Flag;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -42,18 +42,18 @@ public class DoctorAppointmentScheduler {
         System.out.println("Set flag for each slot:");
         for (LocalTime slot : allSlots) {
             // Check if there is an existing appointment or timeslot for the slot
-            Availability currentAvailability = getAvailabilityFlag(date, slot);
+            Type currentAvailability = getAvailabilityFlag(date, slot);
 
             System.out.println(slot + " - " + slot.plusHours(1) + " is currently " + currentAvailability);
             System.out.print("Enter 'leave' to mark as leave, 'available' to mark as available, or press Enter to keep as is: ");
             String input = sc.nextLine().toLowerCase();
 
             // Determine flag based on input
-            Availability newAvailability;
+            Type newAvailability;
             if ("leave".equals(input)) {
-                newAvailability = Availability.CANCELLED;
+                newAvailability = Type.CANCELLED;
             } else if ("available".equals(input)) {
-                newAvailability = Availability.AVAILABLE;
+                newAvailability = Type.AVAILABLE;
             } else {
                 continue; // Skip updating if the input is empty or not recognized
             }
@@ -65,14 +65,14 @@ public class DoctorAppointmentScheduler {
         try {
             // Save the updated flag to the file
             service.save(new ArrayList<>(appointmentRecords.values()));
-            System.out.println("Availability set successfully for " + date);
+            System.out.println("Type set successfully for " + date);
         } catch (IOException e) {
             System.err.println("Error saving flag: " + e.getMessage());
         }
     }
 
     // Method to create or update a timeslot for a given date and time
-    private void createOrUpdateTimeslot(LocalDate date, LocalTime slot, Availability flag) {
+    private void createOrUpdateTimeslot(LocalDate date, LocalTime slot, Type flag) {
         // Check if an appointment entry exists for this timeslot
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equals(doctorId) && appointment.getDate().equals(date) && appointment.getTimeSlot().equals(slot.toString())) {
@@ -96,13 +96,13 @@ public class DoctorAppointmentScheduler {
     }
 
     // Method to retrieve the current flag Flag of a timeslot for a given date
-    private Availability getAvailabilityFlag(LocalDate date, LocalTime slot) {
+    private Type getAvailabilityFlag(LocalDate date, LocalTime slot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equals(doctorId) && appointment.getDate().equals(date) && appointment.getTimeSlot().equals(slot.toString())) {
                 return appointment.getAvailability(); // Return existing flag Flag if found
             }
         }
-        return Availability.AVAILABLE; // Default to AVAILABLE if no entry exists
+        return Type.AVAILABLE; // Default to AVAILABLE if no entry exists
     }
 
     // Helper method to generate time slots from 9 AM to 5 PM, excluding lunch hour (12 PM - 1 PM)

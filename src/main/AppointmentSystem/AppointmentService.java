@@ -87,7 +87,7 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
         } catch (DateTimeParseException e) {
             throw new IOException("Invalid date format in the date field.", e);
         } catch (IllegalArgumentException e) {
-            throw new IOException("Invalid enum value in the Availability or Flag field.", e);
+            throw new IOException("Invalid enum value in the Type or Flag field.", e);
         }
     }
 }

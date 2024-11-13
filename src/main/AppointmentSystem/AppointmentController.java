@@ -42,7 +42,6 @@ public class AppointmentController {
         viewer.viewAllRecords();
     }
 
-
     //Doctor
     public void viewPendingRecords() throws IOException {
         viewer.viewPendingRecords();
@@ -92,7 +91,7 @@ public class AppointmentController {
     //         System.out.println("Enter new flag (AVAILABLE/BOOKED/CANCELLED): ");
     //         String availabilityInput = sc.next().toUpperCase();
     //         try {
-    //             Availability flag = Availability.valueOf(availabilityInput);
+    //             Type flag = Type.valueOf(availabilityInput);
     //             appointment.setAvailability(flag);
     //             appointmentRecords.put(apptId, appointment);
     //             saver.saveRecords();

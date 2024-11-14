@@ -43,8 +43,14 @@ public class AppointmentOutcomeRecordsViewer {
             }
             //by patient id 
             if (Id.equalsIgnoreCase((medicalRecord.getPatientId()))) {
-                System.out.println(medicalRecord.toString());
-                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.println("Appointment Id: "+medicalRecord.getApptId());
+                System.out.println("Doctor Id: "+medicalRecord.getDoctorId());
+                System.out.println("Appointment Date: "+medicalRecord.getAppointmentDate());
+                System.out.println("Service Provided: "+medicalRecord.getServiceProvided());
+                System.out.println("Diagnosis: "+medicalRecord.getDiagnoses());
+                System.out.println(medicalRecord.getPrescription());
+
+                System.out.println("\n");
                 count++;
             }
         }

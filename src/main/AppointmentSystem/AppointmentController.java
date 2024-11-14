@@ -53,6 +53,8 @@ public class AppointmentController {
         String date = sc.next();
         doctorScheduleViewer.viewDoctorScheduleForNextThreeDays(Session.getLoginID(), LocalDate.parse(date));
         saver.saveRecords();
+        System.out.println("Press Enter to go back");
+        sc.nextLine();
     }
 
     //view Schedule for day

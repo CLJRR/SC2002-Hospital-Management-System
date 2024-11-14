@@ -4,6 +4,7 @@ import AppointmentOutcomeSystem.AppointmentOutcomeRecord;
 import java.util.*;
 
 public class DoctorMedicalRecordViewer {
+
     private User doctor;
     private GetUser getUser;
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
@@ -43,7 +44,11 @@ public class DoctorMedicalRecordViewer {
                 }
                 System.out.println("Diagnoses: " + diagnoses);
                 System.out.println("Treatments: " + treatments);
+                System.out.println("\n");
             }
         }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Press Enter to go back");
+        sc.nextLine();
     }
 }

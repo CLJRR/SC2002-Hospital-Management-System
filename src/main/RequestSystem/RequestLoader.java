@@ -15,6 +15,7 @@ public class RequestLoader {
 
     public void loadInitialRequests() {
         try {
+            @SuppressWarnings("unchecked")
             List<Request> records = (List<Request>) requestService.load();
             for (Request request : records) {
                 requestRecords.put(request.getRequestId(), request);

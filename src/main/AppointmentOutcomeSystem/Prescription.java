@@ -58,12 +58,11 @@ public class Prescription {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Prescription{");
-        sb.append("medName=").append(medName);
-        sb.append(", flag=").append(flag);
-        sb.append(", amount=").append(amount);
-        sb.append(", dosage=").append(dosage);
-        sb.append('}');
+        sb.append("Prescription: ");
+        sb.append("Medication =").append(medName);
+        sb.append(", dosage =").append(dosage);
+        sb.append(", amount =").append(amount);
+        sb.append(", flag =").append(flag);
         return sb.toString();
     }
 }

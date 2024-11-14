@@ -21,7 +21,7 @@ public class AppointmentOutcomeRecordController {
         this.viewer = new AppointmentOutcomeRecordsViewer(appointmentOutcomeRecords);
         this.prescriptionFlagUpdater = new PrescriptionFlagUpdater(appointmentOutcomeRecords);
         loader.loadInitialAppointmentOutcomes();
-        this.recordAppointmentOutcome = new RecordAppointmentOutcomePrompts();
+        this.recordAppointmentOutcome = new RecordAppointmentOutcomePrompts(appointmentOutcomeRecords);
 
     }
 

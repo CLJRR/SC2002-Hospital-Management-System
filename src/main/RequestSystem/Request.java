@@ -9,14 +9,17 @@ public class Request {
     private String medicationName;
     private int increaseStockBy;
     private String notes;
+    private String approvedBy;
     private Flag flag;
 
-    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, String notes, Flag flag) {
+    public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, String notes,
+            String approvedBy, Flag flag) {
         this.requestId = requestId;
         this.pharmId = pharmId;
         this.medicationName = medicationName;
         this.increaseStockBy = increaseStockBy;
         this.notes = notes;
+        this.approvedBy = approvedBy;
         this.flag = flag;
     }
 
@@ -26,6 +29,8 @@ public class Request {
         this.medicationName = medicationName;
         this.increaseStockBy = increaseStockBy;
         this.notes = notes;
+        this.approvedBy = null;
+        this.flag = Flag.PENDING;
     }
 
     public String getRequestId() {
@@ -79,7 +84,15 @@ public class Request {
     @Override
     public String toString() {
         return "Request [requestId=" + requestId + ", pharmId=" + pharmId + ", medicationName=" + medicationName
-                + ", increaseStockBy=" + increaseStockBy + ", notes=" + notes + ", flag=" + flag + "]";
+                + ", increaseStockBy=" + increaseStockBy + ", notes=" + notes + ", ApprovedBy=" + approvedBy + ", flag=" + flag + "]";
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
     }
 
 }

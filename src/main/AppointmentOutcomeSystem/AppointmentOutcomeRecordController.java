@@ -1,8 +1,6 @@
 package AppointmentOutcomeSystem;
 
-import MedicineInventorySystem.InventoryController;
 import SessionManager.Session;
-import enums.Flag;
 import java.io.IOException;
 import java.util.*;
 
@@ -12,18 +10,18 @@ public class AppointmentOutcomeRecordController {
     private AppointmentOutcomeRecordLoader loader;
     private AppointmentOutcomeRecordSaver saver;
     private AppointmentOutcomeRecordsViewer viewer;
-    private InventoryController invController;
+    private PrescriptionFlagUpdater prescriptionFlagUpdater;
     static final Scanner sc = new Scanner(System.in);
-    private RecordAppointmentOutcomePrompts prompts;
+    private RecordAppointmentOutcomePrompts recordAppointmentOutcome;
 
     public AppointmentOutcomeRecordController() {
         this.appointmentOutcomeRecords = new HashMap<>();
         this.loader = new AppointmentOutcomeRecordLoader(appointmentOutcomeRecords);
         this.saver = new AppointmentOutcomeRecordSaver(appointmentOutcomeRecords);
         this.viewer = new AppointmentOutcomeRecordsViewer(appointmentOutcomeRecords);
-        this.invController = new InventoryController();
+        this.prescriptionFlagUpdater = new PrescriptionFlagUpdater(appointmentOutcomeRecords);
         loader.loadInitialAppointmentOutcomes();
-        this.prompts = new RecordAppointmentOutcomePrompts();
+        this.recordAppointmentOutcome = new RecordAppointmentOutcomePrompts();
 
     }
 
@@ -36,67 +34,42 @@ public class AppointmentOutcomeRecordController {
     }
 
     public void viewAllRecords() {
+        loadRecords();
         viewer.viewAllRecords();
     }
 
     public void viewPendingRecords() throws IOException {
+        loadRecords();
         viewer.viewPendingRecords();
     }
 
     public void patientViewPastRecords() throws IOException {
-        loader.loadInitialAppointmentOutcomes();
+        loadRecords();
         viewer.viewRecordsById(Session.getLoginID());
 
     }
 
     public boolean adminViewRecords(String apptId) throws IOException {
-        loader.loadInitialAppointmentOutcomes();
+        loadRecords();
         return (viewer.viewRecordsById(apptId));
     }
 
     public void recordAppointmentOutcome() throws IOException {
-        AppointmentOutcomeRecord newRecord = prompts.prompts();
-        appointmentOutcomeRecords.put(newRecord.getApptId(), newRecord);
-        saver.saveRecords();
+        AppointmentOutcomeRecord newRecord = recordAppointmentOutcome.prompts();
+
+        if (newRecord != null) {
+            appointmentOutcomeRecords.put(newRecord.getApptId(), newRecord);
+            saveRecords(); // Save after adding the new record
+            System.out.println("New appointment outcome record saved successfully.");
+        } else {
+            System.out.println("Record creation skipped due to duplicate Appointment ID.");
+        }
+
     }
 
     public void updatePrescriptionFlag() throws IOException {
-        System.out.println("Pending Records:");
-        viewPendingRecords();
-        System.out.println("1) Update Record");
-        System.out.println("2) Go back");
-        int option = 0;
-        while (option != 2) {
-            while (!sc.hasNextInt()) { // Loop until an integer is entered
-                System.out.println("Invalid input. Please enter an integer.");
-                sc.next(); // Clear the invalid input
-            }
-            option = sc.nextInt(); // Read the integer after validation
-            switch (option) {
-                case 1 -> {
-                    System.out.println("Please enter Appt Id: ");
-                    String apptId = sc.next().toUpperCase();
-                    AppointmentOutcomeRecord record = appointmentOutcomeRecords.get(apptId);
-                    if (invController.decreaseStock(record.getPrescription().getMedName(), record.getPrescription().getAmount())) {
-                        appointmentOutcomeRecords.remove(apptId);
-                        record.setFlag(Flag.DISPENSED);
-                        appointmentOutcomeRecords.put(apptId, record);
-
-                        saver.saveRecords();
-
-                    }
-                    viewPendingRecords();
-                    System.out.println("1) Update Record");
-                    System.out.println("2) Go back");
-                    break;
-                }
-                case 2 -> {
-                    break;
-                }
-                default -> {
-                    System.err.println("Invalid key");
-                }
-            }
-        }
+        loadRecords();
+        prescriptionFlagUpdater.updatePrescriptionFlag();
+        saveRecords(); // Save updates after modifying flags
     }
 }

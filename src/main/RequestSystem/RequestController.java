@@ -1,21 +1,24 @@
 package RequestSystem;
 
-import enums.Flag;
-import java.io.IOException;
-import java.util.*;
+import SessionManager.Session;
+import java.util.HashMap;
 
 public class RequestController {
 
-    private Map<String, Request> requestRecords;
+    private HashMap<String, Request> requestRecords;
     private RequestLoader loader;
     private RequestSaver saver;
     private RequestViewer viewer;
+    private NewRequestCreator newRequestCreator;
+    private RequestFlagUpdater requestFlagUpdater;
 
     public RequestController() {
         this.requestRecords = new HashMap<>();
         this.loader = new RequestLoader(requestRecords);
         this.saver = new RequestSaver(requestRecords);
         this.viewer = new RequestViewer(requestRecords);
+        this.newRequestCreator = new NewRequestCreator(requestRecords);
+        this.requestFlagUpdater = new RequestFlagUpdater(requestRecords);
         loader.loadInitialRequests();
     }
 
@@ -28,21 +31,31 @@ public class RequestController {
     }
 
     public void viewAllRequests() {
+        loadRequests();
         viewer.viewAllRequests();
     }
 
     public void viewPendingRequests() {
+        loadRequests();
         viewer.viewPendingRequests();
     }
 
-    public void updateRequestFlag(String requestId, Flag newFlag) {
-        Request request = requestRecords.get(requestId);
-        if (request != null) {
-            request.setFlag(newFlag);
-            System.out.println("Request " + requestId + " updated to " + newFlag);
-            saveRequests();
-        } else {
-            System.out.println("Request not found.");
-        }
+    // Method for pharm to create a new request by calling NewRequestCreator
+    public void createNewRequest() {
+        loadRequests();
+        newRequestCreator.createNewRequest(Session.getLoginID());
+        saveRequests(); // Save the updated records after adding the new request
+    }
+    //pharm view his requests:
+
+    public void PharmViewRequests() {
+        loadRequests();
+        viewer.pharmViewPendingRequestsById(Session.getLoginID());
+    }
+
+    public void updateRequestFlag() {
+        loadRequests();
+        requestFlagUpdater.updateRequestFlagPrompt();
+        saveRequests();
     }
 }

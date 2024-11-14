@@ -28,4 +28,14 @@ public class RequestViewer {
         }
         System.out.println();
     }
+
+    public void pharmViewPendingRequestsById(String PharmId) {
+        System.out.println("Requests made by you:");
+        for (Request request : requestRecords.values()) {
+            if (request.getPharmId().equalsIgnoreCase(PharmId)) {
+                System.out.println(request.toString());
+            }
+        }
+        System.out.println();
+    }
 }

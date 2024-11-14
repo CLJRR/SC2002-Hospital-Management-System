@@ -8,4 +8,5 @@ public enum Flag {
     COMPLETED,
     DISPENSED,
     AVAILABLE,
+    APPROVED,
 }

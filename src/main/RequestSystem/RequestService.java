@@ -1,6 +1,7 @@
 package RequestSystem;
+
 import FileManager.*;
-import enums.*;
+import enums.Flag;
 import java.io.*;
 import java.util.*;
 
@@ -53,6 +54,7 @@ public class RequestService implements Load, Format, Save, Write, toObject {
                     request.getMedicationName(),
                     String.valueOf(request.getIncreaseStockBy()),
                     request.getNotes(),
+                    request.getApprovedBy() == null ? "" : request.getApprovedBy(),
                     request.getFlag().toString()
             );
         } else {
@@ -63,7 +65,8 @@ public class RequestService implements Load, Format, Save, Write, toObject {
     @Override
     public Object toObject(String string) throws IOException {
         String[] parts = string.split(",");
-        if (parts.length != 6) {
+        
+        if (parts.length != 7) {
             throw new IOException("Invalid format.");
         }
 
@@ -72,8 +75,9 @@ public class RequestService implements Load, Format, Save, Write, toObject {
         String medicationName = parts[2];
         int increaseStockBy = Integer.parseInt(parts[3]);
         String notes = parts[4];
-        Flag flag = Flag.valueOf(parts[5].toUpperCase());
+        String approvedBy = parts[5].isEmpty() ? null : parts[5];
+        Flag flag = Flag.valueOf(parts[6].toUpperCase());
 
-        return new Request(requestId, pharmId, medicationName, increaseStockBy, notes, flag);
+        return new Request(requestId, pharmId, medicationName, increaseStockBy, notes, approvedBy, flag);
     }
 }

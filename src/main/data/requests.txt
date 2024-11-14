@@ -1,2 +1,1 @@
-REQ002,PHARM002,MedicationB,15,Regular restock,PENDING
-REQ003,PHARM003,MedicationC,20,Special restock,PENDING
+REQ1,P001,Paracetamol,10,normal restock,P001,APPROVED

@@ -1,10 +1,8 @@
 package RequestSystem;
 
-import java.util.*;
-
 import MedicineInventorySystem.InventoryController;
-import MedicineInventorySystem.Request;
 import enums.Flag;
+import java.util.*;
 
 public class SHITRequestSystem {
     private Map<String, Request> requests;

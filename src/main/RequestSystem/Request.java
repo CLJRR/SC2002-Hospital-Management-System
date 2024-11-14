@@ -1,4 +1,4 @@
-package MedicineInventorySystem;
+package RequestSystem;
 
 import enums.Flag;
 

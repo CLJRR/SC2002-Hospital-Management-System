@@ -35,13 +35,16 @@ public class PrescriptionFlagUpdater {
                 sc.next(); // Clear the invalid input
             }
             option = sc.nextInt(); // Read the integer after validation
+            sc.nextLine(); // Consumes Newline
+
             switch (option) {
                 case 1 -> {
                     System.out.println("Please enter Appt Id: ");
                     String apptId = sc.next().toUpperCase();
                     AppointmentOutcomeRecord record = appointmentOutcomeRecords.get(apptId);
 
-                    if (record != null && invController.decreaseStock(record.getPrescription().getMedName(), record.getPrescription().getAmount())) {
+                    if (record != null && invController.decreaseStock(record.getPrescription().getMedName(),
+                            record.getPrescription().getAmount())) {
                         record.setFlag(Flag.DISPENSED);
                         System.out.println("Prescription for " + apptId + " updated to DISPENSED.");
                     } else {

@@ -26,19 +26,42 @@ public class AdminInventory {
             System.out.println("4. View inventory");
             System.out.println("5. Save and exit");
 
+            while (!scanner.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                scanner.next(); // Clear the invalid input
+            }
+
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); // Consumes Newline
 
             switch (choice) {
                 case 1:
                     // Add a new medication to test saving
-                    System.out.print("Enter medication name to add: ");
-                    String name = scanner.nextLine();
+                    String name;
+                    do {
+                        System.out.print("Enter medication name to add: ");
+                        name = scanner.nextLine();
+                        if (name.trim().isEmpty()) {
+                            System.out.println("Medication name cannot be empty. Please try again.");
+                        }
+                    } while (name.trim().isEmpty());
+
                     System.out.print("Enter stock quantity: ");
+                    while (!scanner.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Quantity not valid. Please try again:");
+                        scanner.next(); // Clear the invalid input
+                    }
                     int stock = scanner.nextInt();
+                    scanner.nextLine(); // Consumes Newline
+
                     System.out.print("Enter alert level: ");
+                    while (!scanner.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Alert level not valid. Please try again:");
+                        scanner.next(); // Clear the invalid input
+                    }
+
                     int alertLevel = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); // Consumes Newline
 
                     MedicationInventory newMedication = new MedicationInventory(name, stock, alertLevel);
                     inventoryManager.addMedication(newMedication);
@@ -63,15 +86,25 @@ public class AdminInventory {
                     }
 
                     System.out.print("Enter the number corresponding to the medication: ");
+                    while (!scanner.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Option not valid. Please try again:");
+                        scanner.next(); // Clear the invalid input
+                    }
+
                     int selectedChoice = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
+                    scanner.nextLine(); // Consumes Newline
 
                     // Validate the choice and get medication name
                     if (selectedChoice > 0 && selectedChoice <= medicationNames.size()) {
                         String medicationName = medicationNames.get(selectedChoice - 1);
                         System.out.print("Enter quantity to " + action + ": ");
+                        while (!scanner.hasNextInt()) { // Check if input is an integer
+                            System.out.println("Option not valid. Please try again:");
+                            scanner.next(); // Clear the invalid input
+                        }
+
                         int quantity = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline
+                        scanner.nextLine(); // Consumes Newline
 
                         if (choice == 2) {
                             inventoryManager.increaseStock(medicationName, quantity);
@@ -103,4 +136,3 @@ public class AdminInventory {
         }
     }
 }
-

@@ -23,11 +23,16 @@ public class HospitalStaffUpdater {
                 System.out.println("5) Update Role");
                 System.out.println("6) Quit");
                 System.out.print("Select Option: ");
-                
-                int option = sc.nextInt();
-                sc.nextLine(); // Consumes NewLine
 
-                switch(option) {
+                while (!sc.hasNextInt()) { // Check if input is an integer
+                    System.out.println("Option not valid. Please try again:");
+                    sc.next(); // Clear the invalid input
+                }
+
+                int option = sc.nextInt();
+                sc.nextLine(); // Consumes Newline
+
+                switch (option) {
                     case 1 -> {
                         System.out.println("Enter new ID: ");
                         String newId = sc.nextLine();

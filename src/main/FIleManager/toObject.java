@@ -1,4 +1,4 @@
-package FileManager;
+package FIleManager;
 
 import java.io.IOException;
 

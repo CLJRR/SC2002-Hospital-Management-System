@@ -15,7 +15,8 @@ public class DoctorUI {
         int option = 0;
 
         AppointmentController appointmentController = new AppointmentController();
-        DoctorMedicalRecordController doctorMedicalRecordController = new DoctorMedicalRecordController(Session.getLoginID());
+        DoctorMedicalRecordController doctorMedicalRecordController = new DoctorMedicalRecordController(
+                Session.getLoginID());
 
         while (option != 8) {
             System.out.println(Session.getName());
@@ -27,8 +28,14 @@ public class DoctorUI {
             System.out.println("6) View Upcoming Appointments");
             System.out.println("7) Record Appointment Outcome");
             System.out.println("8) Logout");
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             option = sc.nextInt();
-            sc.nextLine(); // Consumes NewLine
+            sc.nextLine(); // Consumes Newline
+
             switch (option) {
                 case 1 -> {
                     doctorMedicalRecordController.viewRecords();
@@ -52,10 +59,10 @@ public class DoctorUI {
                     break;
                 }
                 case 5 -> {
-                    appointmentController.viewPendingRecords(); //prints pending reecords for tht doctor
+                    appointmentController.viewPendingRecords(); // prints pending reecords for tht doctor
                     // choice 2: update by ID
                     appointmentController.updateAppointmentFlag();
-                    
+
                     break;
                 }
                 case 6 -> {

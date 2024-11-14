@@ -1,6 +1,6 @@
 package UserSystem;
 
-import FileManager.*;
+import FIleManager.*;
 import enums.Gender;
 import enums.Role;
 import java.io.*;
@@ -63,8 +63,7 @@ public class UserService implements Load, Format, Save, Write, toObject {
                     user.getPhoneNumber() == null ? "null" : user.getPhoneNumber(),
                     user.getEmail() == null ? "null" : user.getEmail(),
                     user.getBloodType() == null ? "null" : user.getBloodType(),
-                    user.getRole().name()
-            );
+                    user.getRole().name());
 
         } else {
             throw new IOException("Invalid object type");

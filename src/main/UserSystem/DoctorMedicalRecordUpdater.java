@@ -26,10 +26,15 @@ public class DoctorMedicalRecordUpdater {
                     System.out.println("3) Exit");
                     System.out.println("Select Option: ");
 
-                    int option = sc.nextInt();
-                    sc.nextLine(); // Consumes NewLine
+                    while (!sc.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Option not valid. Please try again:");
+                        sc.next(); // Clear the invalid input
+                    }
 
-                    switch(option) {
+                    int option = sc.nextInt();
+                    sc.nextLine(); // Consumes Newline
+
+                    switch (option) {
                         case 1 -> {
                             System.out.print("Enter new diagnoses: ");
                             String diagnoses = sc.nextLine();
@@ -42,13 +47,18 @@ public class DoctorMedicalRecordUpdater {
                             String prescriptionName = sc.nextLine();
                             System.out.println("Enter new prescription Amount: ");
                             int prescriptionAmount = 0;
-                            while (!sc.hasNextInt()) {
-                                prescriptionAmount = sc.nextInt();
+                            while (!sc.hasNextInt()) { // Check if input is an integer
+                                System.out.println("Option not valid. Please try again:");
+                                sc.next(); // Clear the invalid input
                             }
+
+                            prescriptionAmount = sc.nextInt();
                             sc.nextLine(); // Consumes New Line
+
                             System.out.println("Enter new prescription Dosage: ");
                             String prescriptionDosage = sc.nextLine();
-                            Prescription prescription = new Prescription(prescriptionName, prescriptionAmount, prescriptionDosage);
+                            Prescription prescription = new Prescription(prescriptionName, prescriptionAmount,
+                                    prescriptionDosage);
                             record.setPrescription(prescription);
                             System.out.println("Medical Record updated successfully.");
                             break;
@@ -62,12 +72,10 @@ public class DoctorMedicalRecordUpdater {
                         }
                     }
                 }
-            }
-            else {
+            } else {
                 System.out.println("Error updating appointment.");
             }
-        }
-        else {
+        } else {
             System.out.println("Error updating appointment.");
         }
     }

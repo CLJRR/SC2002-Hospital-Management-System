@@ -1,6 +1,6 @@
 package RequestSystem;
 
-import FileManager.*;
+import FIleManager.*;
 import enums.Flag;
 import java.io.*;
 import java.util.*;
@@ -55,8 +55,7 @@ public class RequestService implements Load, Format, Save, Write, toObject {
                     String.valueOf(request.getIncreaseStockBy()),
                     request.getNotes(),
                     request.getApprovedBy() == null ? "" : request.getApprovedBy(),
-                    request.getFlag().toString()
-            );
+                    request.getFlag().toString());
         } else {
             throw new IOException("Invalid object type");
         }
@@ -65,7 +64,7 @@ public class RequestService implements Load, Format, Save, Write, toObject {
     @Override
     public Object toObject(String string) throws IOException {
         String[] parts = string.split(",");
-        
+
         if (parts.length != 7) {
             throw new IOException("Invalid format.");
         }

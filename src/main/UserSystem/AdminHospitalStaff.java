@@ -13,7 +13,7 @@ public class AdminHospitalStaff {
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\nChoose an option: "); 
+            System.out.println("\nChoose an option: ");
             System.out.println("1) View Staff");
             System.out.println("2) Add Staff");
             System.out.println("3) Remove Staff");
@@ -21,8 +21,13 @@ public class AdminHospitalStaff {
             System.out.println("5) Filter Staff");
             System.out.println("6) Save and exit");
 
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             int choice = sc.nextInt();
-            sc.nextLine();
+            sc.nextLine(); // Consumes Newline
 
             switch (choice) {
                 case 1:
@@ -84,13 +89,11 @@ public class AdminHospitalStaff {
 
                     if (staffs.get(staffId) == null) {
                         System.out.println("Invalid selection. Please try again.");
-                    }
-                    else {
+                    } else {
                         staff = staffs.get(staffId);
                         if (choice == 3) {
                             hospitalStaffController.removeStaff(staff);
-                        }
-                        else {
+                        } else {
                             hospitalStaffController.updateStaff(staff);
                         }
                     }

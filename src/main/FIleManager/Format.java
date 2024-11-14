@@ -1,4 +1,5 @@
-package FileManager;
+package FIleManager;
+
 import java.io.IOException;
 
 public interface Format {

@@ -1,6 +1,6 @@
 package AppointmentSystem;
 
-import FileManager.*;
+import FIleManager.*;
 import enums.*;
 import java.io.*;
 import java.time.*;

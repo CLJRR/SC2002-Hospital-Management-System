@@ -79,8 +79,13 @@ public class LoginUI {
                 int option = 0;
                 while (!(option == 1 || option == 2)) {
                     System.out.print("Please select option: ");
+                    while (!sc.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Option not valid. Please try again:");
+                        sc.next(); // Clear the invalid input
+                    }
+
                     option = sc.nextInt();
-                    sc.nextLine(); // Consumes NewLine
+                    sc.nextLine(); // Consumes Newline
                 }
                 if (option == 1)
                     action.run(); // Run the UI action associated with the role

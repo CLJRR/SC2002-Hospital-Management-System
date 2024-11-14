@@ -21,18 +21,19 @@ public class UpdateInformation {
         if (user != null) {
             Scanner sc = new Scanner(System.in);
             int option = 0;
-            boolean valid = false;
-            while (valid == false) {
+            while (!(option == 1 || option == 2)) {
                 System.out.println("Select option: ");
                 System.out.println("[1] Update PhoneNo. ");
                 System.out.println("[2] Update email ");
-                option = sc.nextInt();
-                @SuppressWarnings("unused")
-                String temp = sc.nextLine();
-                if (option == 1 || option == 2) {
-                    valid = true;
+                while (!sc.hasNextInt()) { // Check if input is an integer
+                    System.out.println("Option not valid. Please try again:");
+                    sc.next(); // Clear the invalid input
                 }
+
+                option = sc.nextInt();
+                sc.nextLine(); // Consumes Newline
             }
+
             switch (option) {
                 case 1 -> {
                     System.out.println("Enter new PhoneNo.: ");

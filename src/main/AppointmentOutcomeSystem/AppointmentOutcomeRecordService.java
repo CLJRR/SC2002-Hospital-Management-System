@@ -1,6 +1,6 @@
 package AppointmentOutcomeSystem;
 
-import FileManager.*;
+import FIleManager.*;
 import enums.*;
 import java.io.*;
 import java.time.*;
@@ -91,7 +91,8 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
             int amount = Integer.parseInt(parts[8]);
             String dosage = parts[9];
             Prescription prescription = new Prescription(medName, flag, amount, dosage);
-            return new AppointmentOutcomeRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided, diagnoses, prescription);
+            return new AppointmentOutcomeRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided,
+                    diagnoses, prescription);
 
         } catch (DateTimeParseException e) {
             throw new IOException("Invalid date format in the appointmentDate field.", e);

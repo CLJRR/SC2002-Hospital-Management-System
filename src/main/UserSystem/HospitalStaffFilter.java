@@ -21,8 +21,13 @@ public class HospitalStaffFilter {
             System.out.println("3) Age");
             System.out.println("4) Exit");
             System.out.println("Select Option: ");
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             int option = sc.nextInt();
-            sc.nextLine(); // Consumes NewLine
+            sc.nextLine(); // Consumes Newline
             switch (option) {
                 case 1 -> {
                     Role role = Role.DOCTOR;
@@ -40,7 +45,8 @@ public class HospitalStaffFilter {
                     }
                     for (User user : staffs.values()) {
                         if (user.getRole() == role) {
-                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: " + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
+                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: "
+                                    + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
                         }
                     }
                     System.out.println();
@@ -60,7 +66,8 @@ public class HospitalStaffFilter {
                     }
                     for (User user : staffs.values()) {
                         if (user.getGender() == gender) {
-                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: " + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
+                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: "
+                                    + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
                         }
                     }
                     System.out.println();
@@ -69,7 +76,7 @@ public class HospitalStaffFilter {
                 case 3 -> {
                     Integer age = 0;
                     boolean validAge = false;
-                    while (!validAge) { 
+                    while (!validAge) {
                         try {
                             System.out.println("Enter Age: ");
                             age = Integer.valueOf(sc.nextLine());
@@ -80,7 +87,8 @@ public class HospitalStaffFilter {
                     }
                     for (User user : staffs.values()) {
                         if (Objects.equals(user.getAge(), age)) {
-                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: " + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
+                            System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: "
+                                    + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
                         }
                     }
                     System.out.println();

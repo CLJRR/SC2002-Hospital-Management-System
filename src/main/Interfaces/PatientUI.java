@@ -26,9 +26,15 @@ public class PatientUI {
             System.out.println("7) View Scheduled Appointments");
             System.out.println("8) View Past Appointment Outcome Records");
             System.out.println("9) Logout");
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             option = sc.nextInt();
-            sc.nextLine(); // Consumes NewLine
-            // PatientController patientController = new PatientController(appointmentService);
+            sc.nextLine(); // Consumes Newline
+            // PatientController patientController = new
+            // PatientController(appointmentService);
             AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
             UpdateInformation updateInformation = new UpdateInformation();
             PatientMedicalRecord patientMedicalRecord = new PatientMedicalRecord(patientId);

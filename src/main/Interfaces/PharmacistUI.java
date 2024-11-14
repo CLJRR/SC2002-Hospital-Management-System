@@ -21,7 +21,13 @@ public class PharmacistUI {
             System.out.println("3) View Medication Inventory");
             System.out.println("4) Submit Replenishment Requests");
             System.out.println("5) Logout");
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             option = sc.nextInt();
+            sc.nextLine(); // Consumes Newline
             switch (option) {
                 case 1 -> {
                     appointmentOutcomeRecordController.viewPendingRecords();

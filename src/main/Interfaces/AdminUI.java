@@ -24,7 +24,16 @@ public class AdminUI {
             System.out.println("3) View and Manage Medication Inventory");
             System.out.println("4) Approve Replenishment Requests");
             System.out.println("5) Logout");
+            System.out.print("Please select an option: ");
+
+            while (!sc.hasNextInt()) { // Check if input is an integer
+                System.out.println("Option not valid. Please try again:");
+                sc.next(); // Clear the invalid input
+            }
+
             option = sc.nextInt();
+            sc.nextLine(); // Consumes Newline
+
             switch (option) {
                 case 1 -> {
                     staffSystem.adminHospitalStaff();

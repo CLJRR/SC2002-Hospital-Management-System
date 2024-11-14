@@ -2,9 +2,13 @@ package Interfaces;
 
 import LoginSystem.InputPrompt;
 import LoginSystem.Login;
+import UserSystem.GetUser;
+import UserSystem.PasswordChanger;
+import UserSystem.User;
 import enums.Role;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class LoginUI {
 
@@ -61,7 +65,29 @@ public class LoginUI {
         Runnable action = roleActions.get(role);
 
         if (action != null) {
-            action.run(); // Run the UI action associated with the role
+            GetUser getUser = new GetUser();
+            String userId = a.getLoginIDAttempt().toUpperCase();
+            User user = getUser.getUser(userId);
+            PasswordChanger passwordChanger = new PasswordChanger();
+            if (user.getPassword().equals("password")) {
+                passwordChanger.passwordChanger(userId);
+                action.run();
+            } else {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("1) Login.");
+                System.out.println("2) Change Password.");
+                int option = 0;
+                while (!(option == 1 || option == 2)) {
+                    System.out.print("Please select option: ");
+                    option = sc.nextInt();
+                    sc.nextLine(); // Consumes NewLine
+                }
+                if (option == 1)
+                    action.run(); // Run the UI action associated with the role
+                else if (option == 2) {
+                    passwordChanger.passwordChanger(userId);
+                }
+            }
         } else {
             System.out.println("No action defined for role: " + role);
         }

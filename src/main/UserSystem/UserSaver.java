@@ -16,7 +16,6 @@ public class UserSaver {
         List<User> userList = new ArrayList<>(users.values());
         try {
             userService.save(userList);
-            System.out.println("Staffs saved successfully.");
         } catch (IOException e) {
             System.err.println("Error saving staffs: " + e.getMessage());
         }

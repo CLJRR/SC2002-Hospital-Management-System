@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.*;
 
 public class UpdateInformation {
-    private Map<String, User> users;
-    private UserLoader userLoader;
-    private UserSaver userSavers;
+    private final Map<String, User> users;
+    private final UserLoader userLoader;
+    private final UserSaver userSaver;
 
     public UpdateInformation() {
         this.users = new HashMap<>();
         this.userLoader = new UserLoader(this.users);
-        this.userSavers = new UserSaver(this.users);
+        this.userSaver = new UserSaver(this.users);
 
         userLoader.loadInitialUsers();
     }
@@ -21,8 +21,8 @@ public class UpdateInformation {
         if (user != null) {
             Scanner sc = new Scanner(System.in);
             int option = 0;
-            int valid = 0;
-            while (valid == 0) {
+            boolean valid = false;
+            while (valid == false) {
                 System.out.println("Select option: ");
                 System.out.println("[1] Update PhoneNo. ");
                 System.out.println("[2] Update email ");
@@ -30,8 +30,7 @@ public class UpdateInformation {
                 @SuppressWarnings("unused")
                 String temp = sc.nextLine();
                 if (option == 1 || option == 2) {
-                    valid = 1;
-                    break;
+                    valid = true;
                 }
             }
             switch (option) {
@@ -46,7 +45,7 @@ public class UpdateInformation {
                         v = vPhoneNo.validatePhoneNo(newPhoneNo);
                     }
                     user.setPhoneNumber(newPhoneNo);
-                    userSavers.saveUsers();
+                    userSaver.saveUsers();
                     System.out.println("New Phone Number set to " + user.getPhoneNumber());
                 }
                 case 2 -> {
@@ -60,7 +59,7 @@ public class UpdateInformation {
                         temp = vemail.validateEmail(newEmail);
                     }
                     user.setEmail(newEmail);
-                    userSavers.saveUsers();
+                    userSaver.saveUsers();
                     System.out.println("New Email set to " + user.getEmail());
                 }
             }

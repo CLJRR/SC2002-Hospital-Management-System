@@ -15,6 +15,8 @@ public class ApptSaver {
 
     public void saveRecords() {
         List<Appointment> recordList = new ArrayList<>(appointmentRecords.values());
+        recordList.sort(Comparator.comparing(Appointment::getAppointmentId));
+
         try {
             appointmentService.save(recordList); // Ensure `save` method exists in `AppointmentService`
             System.out.println("Appointments saved successfully.");

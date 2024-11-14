@@ -1,8 +1,8 @@
 package AppointmentSystem;
 
 import SessionManager.Session;
-import enums.Flag;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class AppointmentController {
@@ -11,6 +11,9 @@ public class AppointmentController {
     private ApptLoader loader;
     private ApptSaver saver;
     private ApptViewer viewer;
+    private DoctorScheduleViewer doctorScheduleViewer;
+    private DoctorLeaveSetter doctorLeaveSetter;
+    private AppointmentFlagUpdater appointmentFlagUpdater;
     static final Scanner sc = new Scanner(System.in);
 
     public AppointmentController() {
@@ -18,6 +21,9 @@ public class AppointmentController {
         this.loader = new ApptLoader(appointmentRecords);
         this.saver = new ApptSaver(appointmentRecords);
         this.viewer = new ApptViewer(appointmentRecords);
+        this.doctorScheduleViewer = new DoctorScheduleViewer(appointmentRecords);
+        this.doctorLeaveSetter = new DoctorLeaveSetter(appointmentRecords);
+        this.appointmentFlagUpdater = new AppointmentFlagUpdater(appointmentRecords);
         loader.loadInitialAppointments();
     }
 
@@ -33,74 +39,83 @@ public class AppointmentController {
 
     //ADMIN
     public void adminViewAllRecords() throws IOException {
+        loader.loadInitialAppointments();
         viewer.adminViewAllRecords();
-    }
-    //DOCTOR
+        saver.saveRecords();
 
-    //view all records
+    }
+
+    //DOCTOR
+    //view Schedule for 3 days
+    public void doctorScheduleViewer() {
+        loader.loadInitialAppointments();
+        System.out.println("Please enter date in yyyy-mm-dd format");
+        String date = sc.next();
+        doctorScheduleViewer.viewDoctorScheduleForNextThreeDays(Session.getLoginID(), LocalDate.parse(date));
+        saver.saveRecords();
+    }
+
+    //view Schedule for day
+    public void doctorScheduleViewerByDay() {
+        loader.loadInitialAppointments();
+        System.out.println("Please enter date in yyyy-mm-dd format");
+        String date = sc.next();
+        doctorScheduleViewer.viewDoctorScheduleForDate(Session.getLoginID(), LocalDate.parse(date));
+        saver.saveRecords();
+    }
+
+    //update Personal Schedule
+    // set leave for all time slots of a day
+    public void doctorSetLeave() {
+        loader.loadInitialAppointments();
+        System.out.println("Please enter date in yyyy-mm-dd format");
+        String date = sc.next();
+        doctorLeaveSetter.setLeaveForAllTimeslots(Session.getLoginID(), LocalDate.parse(date));
+        saver.saveRecords();
+
+    }
+
+    // cancels leave for all time slots of a day
+    public void doctorCancelLeave() {
+        loader.loadInitialAppointments();
+        System.out.println("Please enter date in yyyy-mm-dd format");
+        String date = sc.next();
+        doctorLeaveSetter.cancelLeaveForAllTimeslots(Session.getLoginID(), LocalDate.parse(date));
+        saver.saveRecords();
+
+    }
+
+    // set leave for a specefic time slot
+    public void doctorSetLeaveByTimeslot() {
+        loader.loadInitialAppointments();
+
+        //    public void setLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
+        saver.saveRecords();
+
+    }
+
+    // cancel leave for a specefic time slot
+    public void doctorCancelLeaveByTimeslot() {
+        loader.loadInitialAppointments();
+        //    public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
+        saver.saveRecords();
+    }
+
+    public void updateAppointmentFlag() {
+        loader.loadInitialAppointments();
+        appointmentFlagUpdater.promptUpdateAppointmentFlag(Session.getLoginID());
+        saver.saveRecords();
+    }
+
     public void viewAllRecords() throws IOException {
+        loader.loadInitialAppointments();
         viewer.viewAllRecords();
     }
 
     //Doctor
     public void viewPendingRecords() throws IOException {
-        viewer.viewPendingRecords();
-    }
-
-    // Method for a patient to view their past appointment records
-    public void patientViewPastRecords() throws IOException {
         loader.loadInitialAppointments();
-        viewer.viewRecordsById(Session.getLoginID());
+        viewer.viewPendingRecords(Session.getLoginID());
     }
 
-    // Method for a doctor to record a new appointment outcome
-    public void recordAppointmentOutcome() throws IOException {
-        System.out.println("Recording a new appointment outcome:");
-        System.out.print("Enter appointment ID: ");
-        String apptId = sc.next().toUpperCase();
-
-        if (appointmentRecords.containsKey(apptId)) {
-            Appointment appointment = appointmentRecords.get(apptId);
-            System.out.println("Enter new Flag (CONFIRMED/PENDING/COMPLETED): ");
-            String newFlag = sc.next().toUpperCase();
-
-            try {
-                Flag flag = Flag.valueOf(newFlag);
-                appointment.setFlag(flag);
-                appointmentRecords.put(apptId, appointment);
-                saver.saveRecords();
-                System.out.println("Appointment outcome recorded successfully.");
-            } catch (IllegalArgumentException e) {
-                System.err.println("Invalid Flag entered.");
-            }
-        } else {
-            System.out.println("Appointment ID not found.");
-        }
-    }
-
-    public void AdminViewAllAppointments() throws IOException {
-
-    }
-
-    // Method for an admin to update appointment details
-    // public void updateAppointmentDetails() throws IOException {
-    //     System.out.println("Enter the appointment ID to update: ");
-    //     String apptId = sc.next().toUpperCase();
-    //     if (appointmentRecords.containsKey(apptId)) {
-    //         Appointment appointment = appointmentRecords.get(apptId);
-    //         System.out.println("Enter new flag (AVAILABLE/BOOKED/CANCELLED): ");
-    //         String availabilityInput = sc.next().toUpperCase();
-    //         try {
-    //             Type flag = Type.valueOf(availabilityInput);
-    //             appointment.setAvailability(flag);
-    //             appointmentRecords.put(apptId, appointment);
-    //             saver.saveRecords();
-    //             System.out.println("Appointment updated successfully.");
-    //         } catch (IllegalArgumentException e) {
-    //             System.err.println("Invalid flag entered.");
-    //         }
-    //     } else {
-    //         System.out.println("Appointment ID not found.");
-    //     }
-    // }
 }

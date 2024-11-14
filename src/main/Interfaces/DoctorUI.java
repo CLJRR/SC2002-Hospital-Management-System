@@ -1,7 +1,7 @@
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
-import AppointmentSystem.AppointmentService;
+import AppointmentSystem.AppointmentController;
 import SessionManager.Session;
 import UserSystem.*;
 import java.io.IOException;
@@ -13,7 +13,8 @@ public class DoctorUI {
         Scanner sc = new Scanner(System.in);
         AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
         int option = 0;
-        AppointmentService appointmentService = new AppointmentService();
+
+        AppointmentController appointmentController = new AppointmentController();
         DoctorMedicalRecordController doctorMedicalRecordController = new DoctorMedicalRecordController(Session.getLoginID());
 
         while (option != 8) {
@@ -21,7 +22,7 @@ public class DoctorUI {
             System.out.println("1) View Patient Medical Records");
             System.out.println("2) Update Patient Medical Records");
             System.out.println("3) View Personal Schedule");
-            System.out.println("4) Set Type for Appointments");
+            System.out.println("4) Set Availability for Appointments");
             System.out.println("5) Accept or Decline Appointment Requests");
             System.out.println("6) View Upcoming Appointments");
             System.out.println("7) Record Appointment Outcome");
@@ -40,15 +41,26 @@ public class DoctorUI {
                     break;
                 }
                 case 3 -> {
+                    appointmentController.doctorScheduleViewer();
                     break;
                 }
                 case 4 -> {
+                    appointmentController.doctorCancelLeave();
+                    appointmentController.doctorCancelLeaveByTimeslot();
+                    appointmentController.doctorSetLeave();
+                    appointmentController.doctorSetLeaveByTimeslot();
                     break;
                 }
                 case 5 -> {
+                    appointmentController.viewPendingRecords(); //prints pending reecords for tht doctor
+                    // choice 2: update by ID
+                    appointmentController.updateAppointmentFlag();
+                    
                     break;
                 }
                 case 6 -> {
+                    appointmentController.doctorScheduleViewerByDay();
+
                     break;
                 }
                 case 7 -> {

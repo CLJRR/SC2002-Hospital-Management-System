@@ -11,7 +11,7 @@ public class Timeslot {
     // Static initializer block to initialize timeslots only once
     static {
         timeslot = new ArrayList<>();
-        timeslot.add("9:00");
+        timeslot.add("09:00");
         timeslot.add("10:00");
         timeslot.add("11:00");
 

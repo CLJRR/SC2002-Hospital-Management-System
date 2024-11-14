@@ -1,6 +1,6 @@
 package MedicineInventorySystem;
 
-import FileManager.Format;
+import FleManager.Format;
 import FileManager.Load;
 import FileManager.Save;
 import FileManager.Write;

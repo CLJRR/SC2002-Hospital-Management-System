@@ -14,6 +14,7 @@ public class PatientUI {
     public void patientUI() throws IOException {
         String patientId = Session.getLoginID();
 
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         int option = 0;
         while (option != 9) {
@@ -41,6 +42,7 @@ public class PatientUI {
             PatientMedicalRecord patientMedicalRecord = new PatientMedicalRecord(patientId);
             AppointmentController appointmentController = new AppointmentController();
 
+            @SuppressWarnings("unused")
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             switch (option) {

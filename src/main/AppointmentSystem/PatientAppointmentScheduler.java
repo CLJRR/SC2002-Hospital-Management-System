@@ -2,34 +2,36 @@ package AppointmentSystem;
 
 import enums.Type;
 import enums.Flag;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.*;
 
 public class PatientAppointmentScheduler {
 
     private Map<String, Appointment> appointmentRecords;
-    private AppointmentService service;
-    private static final Scanner sc = new Scanner(System.in);
-    private String patientId; // The ID of the logged-in patient
-
-    public PatientAppointmentScheduler(Map<String, Appointment> appointmentRecords, String patientId) {
+    public PatientAppointmentScheduler(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
-        this.service = new AppointmentService();
-        this.patientId = patientId;
-
-        try {
-            // Load initial appointments into the map
-            @SuppressWarnings("unchecked")
-            List<Appointment> loadedAppointments = (List<Appointment>) service.load();
-            for (Appointment appointment : loadedAppointments) {
-                appointmentRecords.put(appointment.getAppointmentId(), appointment);
-            }
-        } catch (IOException e) {
-            System.err.println("Error loading initial appointments: " + e.getMessage());
-        }
     }
+    private static final Scanner sc = new Scanner(System.in);
+    private PatientApptViewer patientApptViewer;
+    //private String patientId; // The ID of the logged-in patient
+    private String doctorId;
+
+    // public PatientAppointmentScheduler(Map<String, Appointment> appointmentRecords, String patientId) {
+    //     this.appointmentRecords = appointmentRecords;
+    //     this.service = new AppointmentService();
+    //     this.patientId = patientId;
+
+    //     try {
+    //         // Load initial appointments into the map
+    //         @SuppressWarnings("unchecked")
+    //         List<Appointment> loadedAppointments = (List<Appointment>) service.load();
+    //         for (Appointment appointment : loadedAppointments) {
+    //             appointmentRecords.put(appointment.getAppointmentId(), appointment);
+    //         }
+    //     } catch (IOException e) {
+    //         System.err.println("Error loading initial appointments: " + e.getMessage());
+    //     }
+    // }
 
     // // Method to create a new appointment
     // public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
@@ -81,8 +83,13 @@ public class PatientAppointmentScheduler {
     //     }
     // }
 
+    // System.out.print("Enter Doctor ID: ");
+    // String doctorId = sc.nextLine();
+
+
     // Method to schedule a new appointment using a selected timeslot
-    public void scheduleAppointment(List<LocalTime> availableSlots, LocalDate date) {
+    public void scheduleAppointment(String patientId, LocalDate date) {
+        List<String> availableSlots = getAvailableSlots(date); 
         if (availableSlots == null || availableSlots.isEmpty()) {
             System.out.println("No slots available to schedule.");
             return;
@@ -97,25 +104,23 @@ public class PatientAppointmentScheduler {
             return;
         }
 
-        LocalTime selectedSlot = availableSlots.get(slotChoice - 1);
+        String selectedSlot = availableSlots.get(slotChoice);
 
-        System.out.print("Enter Doctor ID: ");
-        String doctorId = sc.nextLine();
+        String appointmentId = generateAppointmentId();
 
         // Schedule appointment
-        Appointment appointment = appointmentService.createAppointment(patientId, doctorId, date, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
+        Appointment appointment = new Appointment(appointmentId, patientId, doctorId, date, selectedSlot.toString(), Type.APPOINTMENT, Flag.PENDING);
         appointmentRecords.put(appointment.getAppointmentId(), appointment);
 
-        appointmentService.saveAppointments();
         System.out.println("Appointment scheduled successfully for " + date + " at " + selectedSlot);
     }
 
     // Method to reschedule an existing appointment
-    public void rescheduleAppointment() {
-        // Step 1: View current appointments and select one to reschedule
-        viewAllScheduledAppointments();
+    public void rescheduleAppointment(String patientId) {
+        //View current appointments and select one to reschedule
+        patientApptViewer.viewAllScheduledAppointments(patientId);
         System.out.print("Enter the Appointment ID to reschedule: ");
-        String appointmentId = sc.nextLine();
+        String appointmentId = sc.next();
 
         if (!appointmentRecords.containsKey(appointmentId)) {
             System.out.println("Appointment not found.");
@@ -124,19 +129,19 @@ public class PatientAppointmentScheduler {
 
         Appointment existingAppointment = appointmentRecords.get(appointmentId);
 
-        // Step 2: Display available slots for rescheduling
-        System.out.print("Enter new date for rescheduling (yyyy-MM-dd): ");
+        // Display available slots for rescheduling
+        System.out.print("Enter new date for rescheduling in yyyy-mm-dd format): ");
         LocalDate newDate = LocalDate.parse(sc.nextLine());
 
         System.out.println("Available slots for " + newDate + ":");
-        List<LocalTime> availableSlots = getAvailableSlots(newDate);
+        List<String> availableSlots = getAvailableSlots(newDate);
 
         for (int i = 0; i < availableSlots.size(); i++) {
-            LocalTime slot = availableSlots.get(i);
-            System.out.println((i + 1) + ") " + slot + " - " + slot.plusHours(1));
+            String slot = availableSlots.get(i);
+            System.out.println((i + 1) + ") " + slot );
         }
 
-        // Step 3: Select a new slot and reschedule
+        //Select a new slot and reschedule
         System.out.print("Select a slot number to reschedule: ");
         int slotChoice = sc.nextInt();
         sc.nextLine(); // Consume newline
@@ -146,32 +151,26 @@ public class PatientAppointmentScheduler {
             return;
         }
 
-        LocalTime selectedSlot = availableSlots.get(slotChoice - 1);
+        String selectedSlot = availableSlots.get(slotChoice - 1);
 
         // Step 4: Remove old appointment and create a new one
         appointmentRecords.remove(appointmentId);
-        Appointment newAppointment = createAppointment(patientId, existingAppointment.getDoctorId(), newDate, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
-        appointmentRecords.put(newAppointment.getAppointmentId(), newAppointment);
+        Appointment appointment = new Appointment(appointmentId, patientId, existingAppointment.getDoctorId(), newDate, selectedSlot.toString(), Type.APPOINTMENT, Flag.PENDING);
+        appointmentRecords.put(appointment.getAppointmentId(), appointment);
 
-        try {
-            // Save the updated list of appointments
-            service.save(new ArrayList<>(appointmentRecords.values()));
-            System.out.println("Appointment rescheduled successfully to " + newDate + " at " + selectedSlot);
-        } catch (IOException e) {
-            System.err.println("Error saving rescheduled appointment: " + e.getMessage());
-        }
+        //updated list of appointments
+        System.out.println("Appointment rescheduled successfully to " + newDate + " at " + selectedSlot);
     }
- 
 
     // Method to cancel a scheduled appointment
-    public void cancelAppointment() {
-        // Step 1: View all scheduled appointments for the patient
-        viewAllScheduledAppointments();
+    public void cancelAppointment(String patientId) {
+        //View all scheduled appointments for the patient
+        patientApptViewer.viewAllScheduledAppointments(patientId);
 
         System.out.print("Enter the Appointment ID to cancel: ");
-        String appointmentId = sc.nextLine();
+        String appointmentId = sc.next();
 
-        // Step 2: Check if the appointment exists and belongs to the patient
+        //Check if the appointment exists and belongs to the patient
         if (!appointmentRecords.containsKey(appointmentId)) {
             System.out.println("Appointment not found.");
             return;
@@ -180,36 +179,36 @@ public class PatientAppointmentScheduler {
         Appointment appointmentToCancel = appointmentRecords.get(appointmentId);
 
         if (!appointmentToCancel.getPatientId().equals(patientId)) {
-            System.out.println("You are not authorized to cancel this appointment.");
+            System.out.println("You cannot cancel this appointment.");
             return;
         }
 
-        // Step 3: Cancel the appointment by removing it from the records
+        //Cancel appointment by removing it from records
         appointmentRecords.remove(appointmentId);
 
-        try {
-            // Save the updated list of appointments
-            service.save(new ArrayList<>(appointmentRecords.values()));
-            System.out.println("Appointment canceled successfully.");
-        } catch (IOException e) {
-            System.err.println("Error saving updated appointments: " + e.getMessage());
-        }
+        // Save the updated list of appointments
+        System.out.println("Appointment canceled successfully.");
     }
 
-    // // Helper method to get available slots for a specific date
-    // private List<LocalTime> getAvailableSlots(LocalDate date) {
-    //     List<LocalTime> allSlots = generateTimeSlots();
-    //     List<LocalTime> bookedSlots = new ArrayList<>();
+    // Helper method to generate an appointment ID
+    private String generateAppointmentId() {
+        int nextId = appointmentRecords.size() + 1;
+        return "A" + nextId;
+    }
+    // Helper method to get available slots for a specific date
+    public List<String> getAvailableSlots(LocalDate date) {
+        List<String> allSlots = Timeslot.getTimeslot();
+        List<String> bookedSlots = new ArrayList<>();
 
-    //     for (Appointment appointment : appointmentRecords.values()) {
-    //         if (appointment.getDate().equals(date) && appointment.getAvailability() == Type.BOOKED) {
-    //             bookedSlots.add(LocalTime.parse(appointment.getTimeSlot()));
-    //         }
-    //     }
+        for (Appointment appointment : appointmentRecords.values()) {
+            if (appointment.getDate().equals(date) && appointment.getType() == Type.APPOINTMENT) {
+                bookedSlots.add(appointment.getTimeSlot());
+            }
+        }
 
-    //     allSlots.removeAll(bookedSlots);
-    //     return allSlots;
-    // }
+        allSlots.removeAll(bookedSlots);
+        return allSlots;
+    }
 
     // // Generates time slots from 9 AM to 5 PM, excluding lunch hour (12 PM - 1 PM)
     // private List<LocalTime> generateTimeSlots() {
@@ -225,6 +224,7 @@ public class PatientAppointmentScheduler {
     //     }
     //     return slots;
     // }
+
 }
 
 //Schedule

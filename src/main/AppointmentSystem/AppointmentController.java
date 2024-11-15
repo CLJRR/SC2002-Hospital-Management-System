@@ -15,6 +15,7 @@ public class AppointmentController {
     private DoctorLeaveSetter doctorLeaveSetter;
     private AppointmentFlagUpdater appointmentFlagUpdater;
     private PatientApptViewer patientApptViewer;
+    private PatientAppointmentScheduler patientAppointmentScheduler;
     static final Scanner sc = new Scanner(System.in);
 
     public AppointmentController() {
@@ -26,6 +27,7 @@ public class AppointmentController {
         this.doctorLeaveSetter = new DoctorLeaveSetter(appointmentRecords);
         this.appointmentFlagUpdater = new AppointmentFlagUpdater(appointmentRecords);
         this.patientApptViewer = new PatientApptViewer(appointmentRecords);
+        this. patientAppointmentScheduler = new PatientAppointmentScheduler(appointmentRecords);
         loader.loadInitialAppointments();
     }
 
@@ -234,21 +236,30 @@ public class AppointmentController {
     //Patient Appointment Scheduler
     public void patientScheduleAppointment(){
         loader.loadInitialAppointments();
-        
+        System.out.print("Please enter date in yyyy-mm-dd format");
+        String dateInput = sc.nextLine();
+        LocalDate date;
+        try {
+            date = LocalDate.parse(dateInput);
+        } catch (Exception e) {
+            System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
+            return;
+        }
+        patientAppointmentScheduler.scheduleAppointment(Session.getLoginID(), date);
         saver.saveRecords();
     }
 
     //Patient Re-Schedule Appointment
     public void patientReScheduleAppointment(){
         loader.loadInitialAppointments();
-        
+        patientAppointmentScheduler.rescheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 
     //Patient Cancel Appointment
     public void patientCancelAppointment(){
         loader.loadInitialAppointments();
-        
+        patientAppointmentScheduler.cancelAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 

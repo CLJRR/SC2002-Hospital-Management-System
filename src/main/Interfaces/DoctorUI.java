@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class DoctorUI {
 
     public void doctorUI() throws IOException {
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
         int option = 0;

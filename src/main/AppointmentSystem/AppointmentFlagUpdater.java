@@ -14,6 +14,7 @@ public class AppointmentFlagUpdater {
     }
 
     public void promptUpdateAppointmentFlag(String doctorId) {
+        @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter Appointment Id to update:");
         String appointmentId = sc.next();

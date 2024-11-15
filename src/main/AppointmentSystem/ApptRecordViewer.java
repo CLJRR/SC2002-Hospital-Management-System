@@ -5,13 +5,13 @@ import enums.Flag;
 import java.io.IOException;
 import java.util.*;
 
-public class ApptViewer {
+public class ApptRecordViewer {
 
     private Map<String, Appointment> appointmentRecords;
     static final Scanner sc = new Scanner(System.in);
     private AppointmentOutcomeRecordController outcomeController = new AppointmentOutcomeRecordController();
 
-    public ApptViewer(Map<String, Appointment> appointmentRecords) {
+    public ApptRecordViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
 

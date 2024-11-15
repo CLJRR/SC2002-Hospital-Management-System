@@ -31,27 +31,61 @@ public class PatientAppointmentScheduler {
         }
     }
 
-    // Method to create a new appointment
-    public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
-        String appointmentId = UUID.randomUUID().toString(); // Generates a unique ID
-        return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, type, flag);
-    }
+    // // Method to create a new appointment
+    // public Appointment createAppointment(String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
+    //     String appointmentId = UUID.randomUUID().toString(); // Generates a unique ID
+    //     return new Appointment(appointmentId, patientId, doctorId, date, timeSlot, type, flag);
+    // }
 
-    // Method to view available slots and schedule a new appointment
-    public void viewAndScheduleAppointment() {
-        System.out.print("Enter the desired date for the appointment (yyyy-MM-dd): ");
-        LocalDate date = LocalDate.parse(sc.nextLine());
+    // // Method to view available slots and schedule a new appointment
+    // public void viewAndScheduleAppointment() {
+    //     System.out.print("Enter the desired date for the appointment (yyyy-MM-dd): ");
+    //     LocalDate date = LocalDate.parse(sc.nextLine());
 
-        List<LocalTime> availableSlots = getAvailableSlots(date);
-        if (availableSlots.isEmpty()) {
-            System.out.println("No available slots for " + date);
+    //     List<LocalTime> availableSlots = getAvailableSlots(date);
+    //     if (availableSlots.isEmpty()) {
+    //         System.out.println("No available slots for " + date);
+    //         return;
+    //     }
+
+    //     System.out.println("Available slots for " + date + ":");
+    //     for (int i = 0; i < availableSlots.size(); i++) {
+    //         LocalTime slot = availableSlots.get(i);
+    //         System.out.println((i + 1) + ") " + slot + " - " + slot.plusHours(1));
+    //     }
+
+    //     System.out.print("Select a slot number to schedule: ");
+    //     int slotChoice = sc.nextInt();
+    //     sc.nextLine(); // Consume newline
+
+    //     if (slotChoice < 1 || slotChoice > availableSlots.size()) {
+    //         System.out.println("Invalid slot selection.");
+    //         return;
+    //     }
+
+    //     LocalTime selectedSlot = availableSlots.get(slotChoice - 1);
+
+    //     System.out.print("Enter Doctor ID: ");
+    //     String doctorId = sc.nextLine();
+
+    //     // Schedule appointment
+    //     Appointment appointment = createAppointment(patientId, doctorId, date, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
+    //     appointmentRecords.put(appointment.getAppointmentId(), appointment);
+
+    //     try {
+    //         // Save the updated list of appointments
+    //         service.save(new ArrayList<>(appointmentRecords.values()));
+    //         System.out.println("Appointment scheduled successfully for " + date + " at " + selectedSlot);
+    //     } catch (IOException e) {
+    //         System.err.println("Error saving appointment: " + e.getMessage());
+    //     }
+    // }
+
+    // Method to schedule a new appointment using a selected timeslot
+    public void scheduleAppointment(List<LocalTime> availableSlots, LocalDate date) {
+        if (availableSlots == null || availableSlots.isEmpty()) {
+            System.out.println("No slots available to schedule.");
             return;
-        }
-
-        System.out.println("Available slots for " + date + ":");
-        for (int i = 0; i < availableSlots.size(); i++) {
-            LocalTime slot = availableSlots.get(i);
-            System.out.println((i + 1) + ") " + slot + " - " + slot.plusHours(1));
         }
 
         System.out.print("Select a slot number to schedule: ");
@@ -69,16 +103,11 @@ public class PatientAppointmentScheduler {
         String doctorId = sc.nextLine();
 
         // Schedule appointment
-        Appointment appointment = createAppointment(patientId, doctorId, date, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
+        Appointment appointment = appointmentService.createAppointment(patientId, doctorId, date, selectedSlot.toString(), Type.BOOKED, Flag.PENDING);
         appointmentRecords.put(appointment.getAppointmentId(), appointment);
 
-        try {
-            // Save the updated list of appointments
-            service.save(new ArrayList<>(appointmentRecords.values()));
-            System.out.println("Appointment scheduled successfully for " + date + " at " + selectedSlot);
-        } catch (IOException e) {
-            System.err.println("Error saving appointment: " + e.getMessage());
-        }
+        appointmentService.saveAppointments();
+        System.out.println("Appointment scheduled successfully for " + date + " at " + selectedSlot);
     }
 
     // Method to reschedule an existing appointment
@@ -132,27 +161,7 @@ public class PatientAppointmentScheduler {
             System.err.println("Error saving rescheduled appointment: " + e.getMessage());
         }
     }
-
-    // Method to view all scheduled appointments for the logged-in patient
-    public void viewAllScheduledAppointments() {
-        System.out.println("Your scheduled appointments:");
-        boolean hasAppointments = false;
-
-        for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getPatientId().equals(patientId)) {
-                System.out.println("Appointment ID: " + appointment.getAppointmentId()
-                        + ", Date: " + appointment.getDate()
-                        + ", Time: " + appointment.getTimeSlot()
-                        + ", Doctor ID: " + appointment.getDoctorId()
-                        + ", Flag: " + appointment.getFlag());
-                hasAppointments = true;
-            }
-        }
-
-        if (!hasAppointments) {
-            System.out.println("You have no scheduled appointments.");
-        }
-    }
+ 
 
     // Method to cancel a scheduled appointment
     public void cancelAppointment() {
@@ -187,33 +196,37 @@ public class PatientAppointmentScheduler {
         }
     }
 
-    // Helper method to get available slots for a specific date
-    private List<LocalTime> getAvailableSlots(LocalDate date) {
-        List<LocalTime> allSlots = generateTimeSlots();
-        List<LocalTime> bookedSlots = new ArrayList<>();
+    // // Helper method to get available slots for a specific date
+    // private List<LocalTime> getAvailableSlots(LocalDate date) {
+    //     List<LocalTime> allSlots = generateTimeSlots();
+    //     List<LocalTime> bookedSlots = new ArrayList<>();
 
-        for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getAvailability() == Type.BOOKED) {
-                bookedSlots.add(LocalTime.parse(appointment.getTimeSlot()));
-            }
-        }
+    //     for (Appointment appointment : appointmentRecords.values()) {
+    //         if (appointment.getDate().equals(date) && appointment.getAvailability() == Type.BOOKED) {
+    //             bookedSlots.add(LocalTime.parse(appointment.getTimeSlot()));
+    //         }
+    //     }
 
-        allSlots.removeAll(bookedSlots);
-        return allSlots;
-    }
+    //     allSlots.removeAll(bookedSlots);
+    //     return allSlots;
+    // }
 
-    // Generates time slots from 9 AM to 5 PM, excluding lunch hour (12 PM - 1 PM)
-    private List<LocalTime> generateTimeSlots() {
-        List<LocalTime> slots = new ArrayList<>();
-        LocalTime startTime = LocalTime.of(9, 0);
-        LocalTime endTime = LocalTime.of(17, 0);
+    // // Generates time slots from 9 AM to 5 PM, excluding lunch hour (12 PM - 1 PM)
+    // private List<LocalTime> generateTimeSlots() {
+    //     List<LocalTime> slots = new ArrayList<>();
+    //     LocalTime startTime = LocalTime.of(9, 0);
+    //     LocalTime endTime = LocalTime.of(17, 0);
 
-        while (startTime.isBefore(endTime)) {
-            if (!startTime.equals(LocalTime.of(12, 0))) { // Exclude 12 PM - 1 PM lunch hour
-                slots.add(startTime);
-            }
-            startTime = startTime.plusHours(1);
-        }
-        return slots;
-    }
+    //     while (startTime.isBefore(endTime)) {
+    //         if (!startTime.equals(LocalTime.of(12, 0))) { // Exclude 12 PM - 1 PM lunch hour
+    //             slots.add(startTime);
+    //         }
+    //         startTime = startTime.plusHours(1);
+    //     }
+    //     return slots;
+    // }
 }
+
+//Schedule
+//Reschedule
+//Cancel

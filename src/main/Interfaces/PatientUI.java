@@ -1,6 +1,7 @@
 package Interfaces;
 
 import AppointmentOutcomeSystem.*;
+import AppointmentSystem.AppointmentController;
 import SessionManager.Session;
 import UserSystem.PatientMedicalRecord;
 import UserSystem.UpdateInformation;
@@ -38,6 +39,7 @@ public class PatientUI {
             AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
             UpdateInformation updateInformation = new UpdateInformation();
             PatientMedicalRecord patientMedicalRecord = new PatientMedicalRecord(patientId);
+            AppointmentController appointmentController = new AppointmentController();
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -51,19 +53,22 @@ public class PatientUI {
                     break;
                 }
                 case 3 -> {
+                    appointmentController.viewAllAvailableAppointments();
                     break;
                 }
                 case 4 -> {
-
+                    appointmentController.patientScheduleAppointment();
                     break;
                 }
                 case 5 -> {
+                    appointmentController.patientReScheduleAppointment();
 
                 }
                 case 6 -> {
-
+                    appointmentController.patientCancelAppointment();
                 }
                 case 7 -> {
+                    appointmentController.viewAllScheduledAppointments();
                     break;
                 }
                 case 8 -> {

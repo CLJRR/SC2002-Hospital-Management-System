@@ -52,10 +52,28 @@ public class DoctorUI {
                     break;
                 }
                 case 4 -> {
-                    appointmentController.doctorCancelLeave();
-                    appointmentController.doctorCancelLeaveByTimeslot();
-                    appointmentController.doctorSetLeave();
-                    appointmentController.doctorSetLeaveByTimeslot();
+                    System.out.println("1) Set Leave for the day");
+                    System.out.println("2) Cancel Leave for the day");
+                    System.out.println("3) Set Leave for one timeslot");
+                    System.out.println("4) Cancel Leave for one timeslot");
+                    
+                    while (!sc.hasNextInt()) { // Check if input is an integer
+                        System.out.println("Option not valid. Please try again:");
+                        sc.next(); // Clear the invalid input
+                    }
+                    option = sc.nextInt();
+                    sc.nextLine(); // Consumes Newline
+                    if (option ==1){
+                        appointmentController.doctorSetLeave();}
+                    if (option ==2){
+                        appointmentController.doctorCancelLeave();}
+                    if (option ==3){
+                        appointmentController.doctorSetLeaveByTimeslot();}
+                    if (option ==4){
+                        appointmentController.doctorCancelLeaveByTimeslot();}
+                    if (option < 1 || option >4){
+                        System.out.println("Invalid Input.");
+                    }
                     break;
                 }
                 case 5 -> {

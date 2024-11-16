@@ -42,14 +42,14 @@ public class ApptRecordViewer {
         }
     }
 
-    public void viewRecordsById(String Id) throws IOException {
+    public Appointment viewRecordsById(String Id) throws IOException {
         System.out.println("For ID " + Id);
         System.out.println("----------------------------------------------------------------------------------------------------------------");
         for (Appointment appointment : appointmentRecords.values()) {
             // by appointment ID
             if (Id.equalsIgnoreCase(appointment.getAppointmentId())) {
                 System.out.println(appointment.toString());
-                return;
+                return appointment;
             }
             // by patient ID
             if (Id.equalsIgnoreCase(appointment.getPatientId())) {
@@ -59,5 +59,7 @@ public class ApptRecordViewer {
         }
         System.out.println("Press Enter to go back");
         sc.nextLine();
+        return null;
     }
+    
 }

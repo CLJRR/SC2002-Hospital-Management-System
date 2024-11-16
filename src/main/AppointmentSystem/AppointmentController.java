@@ -27,7 +27,7 @@ public class AppointmentController {
         this.doctorLeaveSetter = new DoctorLeaveSetter(appointmentRecords);
         this.appointmentFlagUpdater = new AppointmentFlagUpdater(appointmentRecords);
         this.patientApptViewer = new PatientApptViewer(appointmentRecords);
-        this. patientAppointmentScheduler = new PatientAppointmentScheduler(appointmentRecords);
+        this.patientAppointmentScheduler = new PatientAppointmentScheduler(appointmentRecords);
         loader.loadInitialAppointments();
     }
 
@@ -91,7 +91,7 @@ public class AppointmentController {
         System.out.println("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.next();
         LocalDate date;
-        
+
         try {
             date = LocalDate.parse(dateInput);
         } catch (Exception e) {
@@ -109,7 +109,7 @@ public class AppointmentController {
         System.out.println("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.next();
         LocalDate date;
-        
+
         try {
             date = LocalDate.parse(dateInput);
         } catch (Exception e) {
@@ -127,7 +127,7 @@ public class AppointmentController {
         System.out.println("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.next();
         LocalDate date;
-        
+
         try {
             date = LocalDate.parse(dateInput);
         } catch (Exception e) {
@@ -140,7 +140,7 @@ public class AppointmentController {
         for (int i = 0; i < availableTimeslots.size(); i++) {
             System.out.println((i + 1) + ". " + availableTimeslots.get(i));
         }
-        
+
         System.out.print("Choose a timeslot number to set as leave: ");
         int timeslotChoice;
         try {
@@ -153,10 +153,10 @@ public class AppointmentController {
             System.out.println("Invalid input.");
             return;
         }
-        
+
         doctorLeaveSetter.setLeaveForTimeslot(Session.getLoginID(), date, availableTimeslots.get(timeslotChoice));
         saver.saveRecords();
-    };
+    }
 
     // cancel leave for a specific time slot
     public void doctorCancelLeaveByTimeslot() {
@@ -166,21 +166,21 @@ public class AppointmentController {
         System.out.print("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.nextLine();
         LocalDate date;
-    
+
         try {
             date = LocalDate.parse(dateInput);
         } catch (Exception e) {
             System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
             return;
         }
-    
+
         // Display available timeslots and prompt 
         List<String> availableTimeslots = Timeslot.getTimeslot();
         System.out.println("Available timeslots:");
         for (int i = 0; i < availableTimeslots.size(); i++) {
             System.out.println((i + 1) + ". " + availableTimeslots.get(i));
         }
-    
+
         System.out.print("Choose a timeslot number to cancel leave: ");
         int timeslotChoice;
         try {
@@ -204,6 +204,11 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
+    public Appointment getAppointmentById(String Id) throws IOException {
+        loader.loadInitialAppointments();
+        return viewer.viewRecordsById(Id);
+    }
+
     public void viewAllRecords() throws IOException {
         loader.loadInitialAppointments();
         viewer.viewAllRecords();
@@ -216,9 +221,8 @@ public class AppointmentController {
     }
 
     //PATIENT
-
     //view all available appointment slots
-    public void viewAllAvailableAppointments(){
+    public void viewAllAvailableAppointments() {
         loader.loadInitialAppointments();
         System.out.print("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.nextLine();
@@ -234,7 +238,7 @@ public class AppointmentController {
     }
 
     //Patient Appointment Scheduler
-    public void patientScheduleAppointment(){
+    public void patientScheduleAppointment() {
         loader.loadInitialAppointments();
         System.out.print("Please enter date in yyyy-mm-dd format");
         String dateInput = sc.nextLine();
@@ -250,28 +254,24 @@ public class AppointmentController {
     }
 
     //Patient Re-Schedule Appointment
-    public void patientReScheduleAppointment(){
+    public void patientReScheduleAppointment() {
         loader.loadInitialAppointments();
         patientAppointmentScheduler.rescheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 
     //Patient Cancel Appointment
-    public void patientCancelAppointment(){
+    public void patientCancelAppointment() {
         loader.loadInitialAppointments();
         patientAppointmentScheduler.cancelAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 
     //view all the scheduled appointments by patient
-    public void viewAllScheduledAppointments(){
+    public void viewAllScheduledAppointments() {
         loader.loadInitialAppointments();
         patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
         saver.saveRecords();
     }
-
-
-
-
 
 }

@@ -12,7 +12,7 @@ public class AppointmentOutcomeRecordController {
     private AppointmentOutcomeRecordsViewer viewer;
     private PrescriptionFlagUpdater prescriptionFlagUpdater;
     static final Scanner sc = new Scanner(System.in);
-    private RecordAppointmentOutcomePrompts recordAppointmentOutcome;
+    private RecordOutcome recordAppointmentOutcome;
 
     public AppointmentOutcomeRecordController() {
         this.appointmentOutcomeRecords = new HashMap<>();
@@ -21,7 +21,7 @@ public class AppointmentOutcomeRecordController {
         this.viewer = new AppointmentOutcomeRecordsViewer(appointmentOutcomeRecords);
         this.prescriptionFlagUpdater = new PrescriptionFlagUpdater(appointmentOutcomeRecords);
         loader.loadInitialAppointmentOutcomes();
-        this.recordAppointmentOutcome = new RecordAppointmentOutcomePrompts(appointmentOutcomeRecords);
+        this.recordAppointmentOutcome = new RecordOutcome(appointmentOutcomeRecords);
 
     }
 
@@ -55,16 +55,9 @@ public class AppointmentOutcomeRecordController {
     }
 
     public void recordAppointmentOutcome() throws IOException {
-        AppointmentOutcomeRecord newRecord = recordAppointmentOutcome.prompts();
-
-        if (newRecord != null) {
-            appointmentOutcomeRecords.put(newRecord.getApptId(), newRecord);
-            saveRecords(); // Save after adding the new record
-            System.out.println("New appointment outcome record saved successfully.");
-        } else {
-            System.out.println("Record creation skipped due to duplicate Appointment ID.");
-        }
-
+        loadRecords();
+        recordAppointmentOutcome.recordOutcome();
+        saveRecords();
     }
 
     public void updatePrescriptionFlag() throws IOException {

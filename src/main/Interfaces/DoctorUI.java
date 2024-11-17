@@ -56,7 +56,7 @@ public class DoctorUI {
                             }
                             case 2 -> {
                                 System.out.print("Enter patient ID to view records: ");
-                                String patientId = sc.nextLine();
+                                String patientId = sc.nextLine().toUpperCase();
                                 doctorMedicalRecordController.viewRecordsById(patientId); // View records by patient ID
                             }
                             case 3 -> {

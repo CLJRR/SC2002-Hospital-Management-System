@@ -1,6 +1,9 @@
 package UserSystem;
 
 import AppointmentOutcomeSystem.*;
+import MedicineInventorySystem.InventoryController;
+import MedicineInventorySystem.MedicationInventory;
+import SessionManager.Session;
 import java.util.*;
 
 public class DoctorMedicalRecordUpdater {
@@ -9,25 +12,28 @@ public class DoctorMedicalRecordUpdater {
     private GetUser getUser;
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
     AppointmentOutcomeRecordSaver recordSaver;
+    static final Scanner sc = new Scanner(System.in);
+    private InventoryController inventoryController;
 
     public DoctorMedicalRecordUpdater(String UserId, Map<String, AppointmentOutcomeRecord> appointOutcomeRecords) {
         this.getUser = new GetUser();
         this.doctor = getUser.getUser(UserId);
         this.appointmentOutcomeRecords = appointOutcomeRecords;
         this.recordSaver = new AppointmentOutcomeRecordSaver(appointmentOutcomeRecords);
+        this.inventoryController = new InventoryController();
     }
 
     public void updateRecord(String apptId) {
-        Scanner sc = new Scanner(System.in);
         AppointmentOutcomeRecord record = appointmentOutcomeRecords.get(apptId);
+        Map<String, MedicationInventory> inventory = inventoryController.getInventory();
         if (record != null) {
-            if (record.getDoctorId().equalsIgnoreCase(doctor.getId())) {
+            if (record.getDoctorId().equalsIgnoreCase(Session.getLoginID())) { // Validate doctor access
                 boolean exit = false;
                 while (!exit) {
                     System.out.println("1) Update Diagnoses");
                     System.out.println("2) Update Prescriptions");
                     System.out.println("3) Exit");
-                    System.out.println("Select Option: ");
+                    System.out.print("Select Option: ");
 
                     while (!sc.hasNextInt()) { // Check if input is an integer
                         System.out.println("Option not valid. Please try again:");
@@ -35,7 +41,7 @@ public class DoctorMedicalRecordUpdater {
                     }
 
                     int option = sc.nextInt();
-                    sc.nextLine(); // Consumes Newline
+                    sc.nextLine(); // Consumes newline
 
                     switch (option) {
                         case 1 -> {
@@ -58,13 +64,24 @@ public class DoctorMedicalRecordUpdater {
                             } else {
                                 System.out.println("No diagnosis entered. Please provide a valid input.");
                             }
-
                         }
                         case 2 -> {
                             List<Prescription> updatedPrescriptions = record.getPrescriptions(); // This returns a copy
-                            System.out.println("Enter new prescription Name: ");
-                            String prescriptionName = sc.nextLine();
 
+                            System.out.println("Current Medications:");
+                            inventoryController.viewInventory(); // Display available inventory
+
+                            String prescriptionName = null;
+                            while (true) {
+                                System.out.println("Enter prescription Name: ");
+                                prescriptionName = sc.nextLine().trim();
+
+                                if (inventory.containsKey(prescriptionName)) { // Check if medication exists
+                                    break; // Exit loop if the medication exists in inventory
+                                }
+
+                                System.out.println("Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
+                            }
                             System.out.println("Enter new prescription Amount: ");
                             int prescriptionAmount = 0;
                             while (!sc.hasNextInt()) { // Check if input is an integer
@@ -75,11 +92,10 @@ public class DoctorMedicalRecordUpdater {
                             sc.nextLine(); // Consume newline
 
                             System.out.println("Enter new prescription Dosage: ");
-                            String prescriptionDosage = sc.nextLine();
+                            String prescriptionDosage = sc.nextLine().trim();
 
                             // Create and add the new prescription
-                            Prescription newPrescription = new Prescription(prescriptionName, prescriptionAmount,
-                                    prescriptionDosage);
+                            Prescription newPrescription = new Prescription(prescriptionName, prescriptionAmount, prescriptionDosage);
                             updatedPrescriptions.add(newPrescription);
                             record.setPrescriptions(updatedPrescriptions);
                             recordSaver.saveRecords();
@@ -88,7 +104,7 @@ public class DoctorMedicalRecordUpdater {
                         }
                         case 3 -> {
                             exit = true;
-                            break;
+                            System.out.println("Exiting update menu...");
                         }
                         default -> {
                             System.out.println("Option not valid. Please try again.");
@@ -102,4 +118,5 @@ public class DoctorMedicalRecordUpdater {
             System.out.println("Error: Appointment not found.");
         }
     }
+
 }

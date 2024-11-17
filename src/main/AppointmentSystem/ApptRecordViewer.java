@@ -18,6 +18,7 @@ public class ApptRecordViewer {
 
     public void viewAllRecords() {
         System.out.println("All Appointment Records:");
+        System.out.println(" ");
         for (Appointment record : appointmentRecords.values()) {
             System.out.println(record.toString());
             System.out.println(
@@ -30,12 +31,14 @@ public class ApptRecordViewer {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             if (record.getType().equals(Type.APPOINTMENT)) {
+                System.out.println("----------------------------------------------------------------------------------------------------------------");
                 System.out.println(record.toString());
                 System.out.println(" ");
                 outcomeController.adminViewRecords(record.getAppointmentId());
             }
         }
         System.out.println(); // Adds a new line after the last record
+        System.out.println(" ");
     }
 
     // For doctor to view pending records

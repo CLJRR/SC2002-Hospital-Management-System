@@ -39,11 +39,12 @@ public class PharmacistUI {
                 }
                 case 3 -> {
                     inventoryManager.viewInventory();
+                    System.out.println("\nPress enter to return to menu");
+                    sc.nextLine();
                     break;
                 }
                 case 4 -> {
-                    // SHITRequestSystem requestSystem = new SHITRequestSystem();
-                    // SubmitRequest.submitRequest();
+                    
                     break;
 
                 }

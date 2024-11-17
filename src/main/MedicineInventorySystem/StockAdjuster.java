@@ -14,10 +14,10 @@ public class StockAdjuster {  // Declares the StockAdjuster class, responsible f
         if (medication != null) {
             int newStock = medication.getStock() + quantity;
             medication.setStock(newStock);
-            System.out.println("Stock increased for " + medicationName + " | Quantity added: " + quantity);
+            System.out.println("\nStock increased for " + medicationName + " | Quantity added: " + quantity);
             return true;  // Return true to indicate successful stock increase.
         } else {
-            System.out.println("Medication not found in inventory: " + medicationName);
+            System.out.println("\nMedication not found in inventory: " + medicationName);
             return false;
         }
     }
@@ -32,17 +32,17 @@ public class StockAdjuster {  // Declares the StockAdjuster class, responsible f
 
             if (currentStock >= quantity) {  // If there is enough stock to decrease by the specified quantity...
                 medication.setStock(currentStock - quantity);  // Subtracts the specified quantity from the current stock and updates the medication’s stock.
-                System.out.println("Stock decreased for " + medicationName + " | Quantity removed: " + quantity);  // Prints a message indicating the stock decrease for the medication.
+                System.out.println("\nStock decreased for " + medicationName + " | Quantity removed: " + quantity);  // Prints a message indicating the stock decrease for the medication.
 
                 return true;
             } else {
                 // If there is insufficient stock, prints a message showing the current stock and the attempted decrease quantity.
-                System.out.println("Insufficient stock to decrease " + medicationName + " by " + quantity
+                System.out.println("\nInsufficient stock to decrease " + medicationName + " by " + quantity
                         + " | Current stock: " + currentStock);
                 return false;
             }
         } else {
-            System.out.println("Medication not found in inventory: " + medicationName);  // If the medication is not found in the inventory, prints an error message.
+            System.out.println("\nMedication not found in inventory: " + medicationName);  // If the medication is not found in the inventory, prints an error message.
             return false;
         }
     }

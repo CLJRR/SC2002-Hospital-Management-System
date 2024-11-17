@@ -35,6 +35,7 @@ public class InventoryController {
     public void viewInventory() {
         inventoryLoader.loadInitialInventory();
         inventoryViewer.viewInventory();
+
     }
 
     public boolean increaseStock(String medicationName, int quantity) {

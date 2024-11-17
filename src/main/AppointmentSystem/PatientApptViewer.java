@@ -116,7 +116,21 @@ public class PatientApptViewer {
         allSlots.removeAll(bookedSlots);
         return allSlots;
     }
+    private String getDoctorNameById(String doctorId) {
+        // Fetch all doctors using GetUser
+        GetUser getUser = new GetUser();
+        List<User> doctors = getUser.getAllDoctors();
 
+        // Iterate through the list of doctors to find the matching ID
+        for (User doctor : doctors) {
+            if (doctor.getId().equals(doctorId)) {
+                return doctor.getName();
+            }
+        }
+
+        // Return "Unknown Doctor" if no match is found
+        return "Unknown Doctor";
+    }
     //viewScheduledApppointments
     //need to test check
     // Method to view all scheduled appointments for the logged-in patient
@@ -129,7 +143,7 @@ public class PatientApptViewer {
                 System.out.println("Appointment ID: " + appointment.getAppointmentId()
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()
-                        + ", Doctor ID: " + appointment.getDoctorId()
+                        + ", Doctor name: " + getDoctorNameById(appointment.getDoctorId())
                         + ", Flag: " + appointment.getFlag());
                 hasAppointments = true;
             }

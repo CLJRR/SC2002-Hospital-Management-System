@@ -35,7 +35,12 @@ public class HospitalStaffUpdater {
                 switch (option) {
                     case 1 -> {
                         System.out.println("Enter new ID: ");
-                        String newId = sc.nextLine();
+                        String newId = sc.nextLine().toUpperCase();
+                        while (staffs.containsKey(newId)) {
+                            System.out.println("Staff already exists. Please try again.");
+                            System.out.println("Enter new ID: ");
+                            newId = sc.nextLine();
+                        }
                         staff.setId(newId);
                         break;
                     }

@@ -29,6 +29,7 @@ public class ApptRecordViewer {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             System.out.println(record.toString());
+            System.out.println(" ");
             outcomeController.adminViewRecords(record.getAppointmentId());
         }
         System.out.println(); // Adds a new line after the last record

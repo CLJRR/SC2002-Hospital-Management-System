@@ -44,6 +44,7 @@ public class AppointmentController {
     //ADMIN
     public void adminViewAllRecords() throws IOException {
         loader.loadInitialAppointments();
+        System.out.println(" ");
         viewer.adminViewAllRecords();
         saver.saveRecords();
 

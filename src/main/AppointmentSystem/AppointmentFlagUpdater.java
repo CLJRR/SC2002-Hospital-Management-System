@@ -1,6 +1,8 @@
 package AppointmentSystem;
 
 import enums.Flag;
+import enums.Type;
+
 import java.util.Map;
 import java.util.Scanner;
 
@@ -59,8 +61,12 @@ public class AppointmentFlagUpdater {
             System.out.println("Appointment is not in PENDING status and cannot be updated.");
             return;
         }
+        if (appointment.getType() != Type.APPOINTMENT ){
+            System.out.println("You are not authorised to approve appointment.");
+            return;
+        }
 
-        // Update the appointment status to the selected new status (REJECTED or CONFIRME
+        // Update the appointment status to the selected new status REJECTED or CONFIRMED
         appointment.setFlag(newStatus);
     }
 }

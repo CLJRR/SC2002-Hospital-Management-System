@@ -30,11 +30,6 @@ public class AdminHospitalStaff {
             System.err.println("Users not loaded successfully.");
         }
 
-        List<String> IdList = new ArrayList<>();
-        for (int i = 0; i < userList.size(); i++) {
-            IdList.add(userList.get(i).getId());
-        }
-
         Scanner sc = new Scanner(System.in);
 
         // Display initial list of staff on startup
@@ -70,14 +65,6 @@ public class AdminHospitalStaff {
 
                 case 2:
                     // Add a new staff member
-
-                    System.out.print("Enter Staff ID to add: ");
-                    String staffId = sc.nextLine().toUpperCase();
-                    while (IdList.contains(staffId)) {
-                        System.out.println("Staff already exists. Please try again.");
-                        System.out.print("Enter Staff ID to add: ");
-                        staffId = sc.nextLine().toUpperCase();
-                    }
 
                     System.out.print("Enter Staff Name to add: ");
                     String name = sc.nextLine();
@@ -119,6 +106,15 @@ public class AdminHospitalStaff {
                         } catch (Exception e) {
                             System.err.println("Role not valid. Please try again.");
                         }
+                    }
+                    GetUser getUser = new GetUser();
+                    String staffId = "";
+                    if (role == Role.DOCTOR) {
+                        List<User> doctors = getUser.getAllDoctors();
+                        staffId = "D00" + (doctors.size() + 1);
+                    } else if (role == Role.PHARMACIST) {
+                        List<User> pharmacists = getUser.getAllPharmacists();
+                        staffId = "P00" + (pharmacists.size() + 1);
                     }
 
                     // Create and add staff member

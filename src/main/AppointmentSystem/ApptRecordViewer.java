@@ -19,7 +19,8 @@ public class ApptRecordViewer {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             System.out.println(record.toString());
-
+            System.out.println(
+                    "----------------------------------------------------------------------------------------------------------------");
         }
         System.out.println(); // Adds a new line after the last record
     }
@@ -33,7 +34,7 @@ public class ApptRecordViewer {
         System.out.println(); // Adds a new line after the last record
     }
 
-    //For doctor to view pending records
+    // For doctor to view pending records
     public void viewPendingRecords(String doctorId) throws IOException {
         for (Appointment record : appointmentRecords.values()) {
             if (doctorId.equalsIgnoreCase(record.getDoctorId()) && record.getFlag() == Flag.PENDING) {
@@ -44,7 +45,8 @@ public class ApptRecordViewer {
 
     public Appointment viewRecordsById(String Id) throws IOException {
         System.out.println("For ID " + Id);
-        System.out.println("----------------------------------------------------------------------------------------------------------------");
+        System.out.println(
+                "----------------------------------------------------------------------------------------------------------------");
         for (Appointment appointment : appointmentRecords.values()) {
             // by appointment ID
             if (Id.equalsIgnoreCase(appointment.getAppointmentId())) {
@@ -54,12 +56,13 @@ public class ApptRecordViewer {
             // by patient ID
             if (Id.equalsIgnoreCase(appointment.getPatientId())) {
                 System.out.println(appointment.toString());
-                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.println(
+                        "----------------------------------------------------------------------------------------------------------------");
             }
         }
         System.out.println("Press Enter to go back");
         sc.nextLine();
         return null;
     }
-    
+
 }

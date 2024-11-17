@@ -5,11 +5,12 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class DoctorScheduleViewer {
 
     private Map<String, Appointment> appointmentRecords;
-
+    private final Scanner sc = new Scanner(System.in);
     public DoctorScheduleViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
@@ -21,6 +22,8 @@ public class DoctorScheduleViewer {
             viewDoctorScheduleForDate(doctorId, date);
             System.out.println(); // Add spacing between days
         }
+        System.out.println("Press Enter to go back");
+        sc.nextLine();
     }
 
     public void viewDoctorScheduleForDate(String doctorId, LocalDate date) {

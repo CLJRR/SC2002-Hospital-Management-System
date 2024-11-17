@@ -1,4 +1,4 @@
-D003,Sally Newman,password,30,null,FEMALE,null,null,null,DOCTOR
+D003,Sally Newman,Test123!,30,null,FEMALE,null,null,null,DOCTOR
 D002,Emily Clarke,password,40,null,FEMALE,null,null,null,DOCTOR
 D001,John Smith,Test123!,45,null,MALE,null,null,null,DOCTOR
 P001,Mark Lee,password,29,null,MALE,null,null,null,PHARMACIST

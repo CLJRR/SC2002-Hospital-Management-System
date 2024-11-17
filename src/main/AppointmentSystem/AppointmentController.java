@@ -218,6 +218,7 @@ public class AppointmentController {
     public void viewPendingRecords() throws IOException {
         loader.loadInitialAppointments();
         viewer.viewPendingRecords(Session.getLoginID());
+
     }
 
     //PATIENT
@@ -233,7 +234,7 @@ public class AppointmentController {
             System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
             return;
         }
-        patientApptViewer.viewAvailableSlots(Session.getLoginID(), date);
+        patientApptViewer.viewpatientViewScheduleForNextThreeDays(date);
         saver.saveRecords();
     }
 

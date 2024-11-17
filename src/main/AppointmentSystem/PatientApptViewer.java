@@ -1,39 +1,104 @@
 package AppointmentSystem;
 
+import UserSystem.GetUser;
+import UserSystem.User;
+import enums.Flag;
+import enums.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
-//import java.time.LocalTime;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import enums.Type;
+import java.util.Scanner;
 
 public class PatientApptViewer {
+
     private Map<String, Appointment> appointmentRecords;
+    private final Scanner sc = new Scanner(System.in);
 
     public PatientApptViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
 
     }
 
-    //viewAvailableAppointmentSlots
-    //check how appt timeslots updated with filled
-    // Method to view available slots for a specific date
-    public List<String> viewAvailableSlots(String patientId, LocalDate date) {
-        //List<LocalTime> availableSlots = getAvailableSlots(date);
-        List<String> availableSlots = getAvailableSlots(date);
-        if (availableSlots.isEmpty()) {
-            System.out.println("No available slots for " + date);
-            return null; // Return null if no slots are available
+    public void viewpatientViewScheduleForNextThreeDays(LocalDate startDate) {
+
+        // Loop over the specified date and the next two days
+        for (int i = 0; i < 3; i++) {
+            LocalDate date = startDate.plusDays(i);
+            patientViewSchedule(date);
+            System.out.println("Press Enter for next day");
+            sc.nextLine();
+            System.out.println(); // Add spacing between days
+        }
+        System.out.println("Press Enter to exit");
+        sc.nextLine();
+    }
+
+    public void patientViewSchedule(LocalDate date) {
+        List<String> timeslots = Timeslot.getTimeslot(); // Fetch all timeslots
+        Map<String, Map<String, String>> schedule = new HashMap<>();
+
+        // Get all doctors
+        GetUser getUser = new GetUser();
+        List<User> doctors = getUser.getAllDoctors();
+
+        // Initialize the schedule for each timeslot with all doctors marked as "AVAILABLE"
+        for (String timeslot : timeslots) {
+            Map<String, String> doctorAvailability = new HashMap<>();
+            for (User doctor : doctors) {
+                doctorAvailability.put(doctor.getName(), "AVAILABLE");
+            }
+            schedule.put(timeslot, doctorAvailability);
         }
 
-        System.out.println("Available slots for " + date + ":");
-        for (int i = 0; i < availableSlots.size(); i++) {
-            String slot = availableSlots.get(i);
-            System.out.println((i + 1) + ") " + slot ); 
+        // Check appointments and update the schedule for unavailable times
+        for (Appointment appointment : appointmentRecords.values()) {
+            if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+                String timeSlot = appointment.getTimeSlot();
+                String doctorId = appointment.getDoctorId();
+
+                // Find the doctor and mark them as "UNAVAILABLE"
+                for (User doctor : doctors) {
+                    if (doctor.getId().equals(doctorId)) {
+                        schedule.get(timeSlot).put(doctor.getName(), "UNAVAILABLE");
+                        break;
+                    }
+                }
+            }
+
         }
 
-        return availableSlots; // Return available slots to be used in scheduling
+        // Print the schedule: Available timeslots and doctors
+        System.out.println("Available Timeslots for " + date + ":");
+
+// Sort the timeslots in ascending order
+        List<String> sortedTimeslots = new ArrayList<>(schedule.keySet());
+        Collections.sort(sortedTimeslots); // Sorts timeslots alphabetically (e.g., "09:00", "10:00", etc.)
+
+        boolean hasAvailableSlots = false;
+        for (String timeslot : sortedTimeslots) {
+            Map<String, String> doctorAvailability = schedule.get(timeslot);
+
+            // Check if at least one doctor is available
+            List<String> availableDoctors = new ArrayList<>();
+            for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
+                if (doctorEntry.getValue().equals("AVAILABLE")) {
+                    availableDoctors.add(doctorEntry.getKey());
+                }
+            }
+
+            // Print the timeslot and available doctors
+            if (!availableDoctors.isEmpty()) {
+                System.out.println("- " + timeslot + ": Available Doctors - " + String.join(", ", availableDoctors));
+                hasAvailableSlots = true;
+            }
+        }
+
+        if (!hasAvailableSlots) {
+            System.out.println("No available timeslots for this date.");
+        }
     }
 
     // Helper method to get available slots for a specific date
@@ -50,6 +115,7 @@ public class PatientApptViewer {
         allSlots.removeAll(bookedSlots);
         return allSlots;
     }
+
     //viewScheduledApppointments
     //need to test check
     // Method to view all scheduled appointments for the logged-in patient

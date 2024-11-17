@@ -72,7 +72,7 @@ public class AdminHospitalStaff {
                     // Add a new staff member
 
                     System.out.print("Enter Staff ID to add: ");
-                    String staffId = sc.nextLine();
+                    String staffId = sc.nextLine().toUpperCase();
                     while (IdList.contains(staffId)) {
                         System.out.println("Staff already exists. Please try again.");
                         System.out.print("Enter Staff ID to add: ");

@@ -1,47 +1,72 @@
 package RequestSystem;
 
+import MedicineInventorySystem.InventoryController;
+import MedicineInventorySystem.MedicationInventory;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class NewRequestCreator {
 
     private HashMap<String, Request> requestRecords;
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
+    private InventoryController inventoryController;
+    private Map<String, MedicationInventory> inventory;
 
     public NewRequestCreator(HashMap<String, Request> requestRecords) {
         this.requestRecords = requestRecords;
+        this.inventoryController = new InventoryController();
+        this.inventory = new HashMap<>();
+        this.inventory = inventoryController.getInventory();
     }
 
-    // Method to create a new request
     public void createNewRequest(String pharmId) {
+        String prescriptionName = null;
+        while (true) {
+            inventoryController.viewInventory();
+            System.out.println("Enter prescription Name (or type 'x' to quit): ");
+            prescriptionName = sc.nextLine().trim();
 
-        String medicationName;
-        do {
-            System.out.print("Enter medication name: ");
-            medicationName = scanner.nextLine();
-            if (medicationName.trim().isEmpty()) {
-                System.out.println("Medication name cannot be empty. Please try again.");
+            if (prescriptionName.equalsIgnoreCase("x")) {
+                System.out.println("Request creation canceled.");
+                return; // Exit the method
             }
-        } while (medicationName.trim().isEmpty());
 
-        System.out.println("Enter Quantity to Increase Stock By:");
+            if (inventory.containsKey(prescriptionName)) { // Check if medication exists
+                break; // Exit loop if the medication exists in inventory
+            }
+
+            System.out.println("Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
+        }
+
+        System.out.println("Enter Quantity to Increase Stock By (or type 'x' to quit):");
         int increaseStockBy;
         while (true) {
+            String input = sc.nextLine().trim();
+            if (input.equalsIgnoreCase("x")) {
+                System.out.println("Request creation canceled.");
+                return; // Exit the method
+            }
             try {
-                increaseStockBy = Integer.parseInt(scanner.nextLine());
+                increaseStockBy = Integer.parseInt(input);
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid input. Please enter a number for the quantity.");
             }
         }
-        System.out.println("Enter any notes:");
-        String notes = scanner.nextLine();
+
+        System.out.println("Enter any notes (or type 'x' to quit):");
+        String notes = sc.nextLine().trim();
+        if (notes.equalsIgnoreCase("x")) {
+            System.out.println("Request creation canceled.");
+            return; // Exit the method
+        }
 
         // Generate unique request ID
         String requestId = generateRequestId();
 
         // Create the new request with default flag as PENDING
-        Request newRequest = new Request(requestId, pharmId, medicationName, increaseStockBy, notes);
+        Request newRequest = new Request(requestId, pharmId, prescriptionName, increaseStockBy, notes);
 
         // Add the new request to the HashMap
         requestRecords.put(requestId, newRequest);

@@ -99,7 +99,6 @@ public class RecordOutcome {
             String service = sc.nextLine();
 
             System.out.println("Enter Diagnosis: ");
-            System.out.println("Enter Diagnoses (comma-separated): ");
             String diagnosis = sc.nextLine();
             List<String> diagnoses = Arrays.asList(diagnosis.split(", "));
 
@@ -109,6 +108,7 @@ public class RecordOutcome {
             while (true) {
                 System.out.println("Enter prescription Name: ");
                 prescriptionName = sc.nextLine().trim();
+                prescriptionName = prescriptionName.substring(0, 1).toUpperCase() + prescriptionName.substring(1).toLowerCase();
 
                 if (inventory.containsKey(prescriptionName)) { // Check if medication exists
                     break; // Exit loop if the medication exists in inventory

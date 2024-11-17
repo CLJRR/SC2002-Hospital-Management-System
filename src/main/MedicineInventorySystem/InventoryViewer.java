@@ -11,10 +11,11 @@ public class InventoryViewer {
     }
 
     public void viewInventory() {
-        System.out.println("Current Inventory:");
+        System.out.println("\nCurrent Inventory:");
         for (MedicationInventory med : inventory.values()) {
             System.out.println("Name: " + med.getName() + ", Stock: " + med.getStock() + ", Alert Level: " + med.getAlertlevel());
         }
         System.out.println(); // Adds a new line after the last medication
+
     }
 }

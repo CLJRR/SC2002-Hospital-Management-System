@@ -26,5 +26,6 @@ public class LowStockChecker {
         if (!lowStockFound) {
             System.out.println("All medicine up to stock");
         }
+
     }
 }

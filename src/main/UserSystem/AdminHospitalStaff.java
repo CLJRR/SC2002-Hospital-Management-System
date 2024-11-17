@@ -111,10 +111,28 @@ public class AdminHospitalStaff {
                     String staffId = "";
                     if (role == Role.DOCTOR) {
                         List<User> doctors = getUser.getAllDoctors();
-                        staffId = "D00" + (doctors.size() + 1);
+                        List<String> doctorids = new ArrayList<>();
+                        for (User doctor : doctors) {
+                            doctorids.add(doctor.getId());
+                        }
+                        int num = doctors.size() + 1;
+                        staffId = "D00" + num;
+                        while (doctorids.contains(staffId)) {
+                            num++;
+                            staffId = "D00" + num;
+                        }
                     } else if (role == Role.PHARMACIST) {
                         List<User> pharmacists = getUser.getAllPharmacists();
-                        staffId = "P00" + (pharmacists.size() + 1);
+                        List<String> pharmacistids = new ArrayList<>();
+                        for (User doctor : pharmacists) {
+                            pharmacistids.add(doctor.getId());
+                        }
+                        int num = pharmacists.size() + 1;
+                        staffId = "P00" + num;
+                        while (pharmacistids.contains(staffId)) {
+                            num++;
+                            staffId = "P00" + num;
+                        }
                     }
 
                     // Create and add staff member

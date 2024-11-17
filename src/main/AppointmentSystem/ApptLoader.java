@@ -18,9 +18,9 @@ public class ApptLoader {
             @SuppressWarnings("unchecked")
             List<Appointment> records = (List<Appointment>) appointmentService.load(); // Load method to get records
             for (Appointment record : records) {
-                appointmentRecords.put(record.getAppointmentId(), record); // Put each record into the map using appointmentId
+                appointmentRecords.put(record.getAppointmentId(), record); // Put each record into the map using
+                                                                           // appointmentId
             }
-            System.out.println("Appointments loaded successfully.");
         } catch (IOException e) {
             System.err.println("Error loading appointments: " + e.getMessage());
         }

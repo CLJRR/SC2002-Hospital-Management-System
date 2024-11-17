@@ -16,12 +16,11 @@ public class HospitalStaffUpdater {
         if (staff != null) {
             boolean exit = false;
             while (!exit) {
-                System.out.println("1) Update ID");
-                System.out.println("2) Update Name");
-                System.out.println("3) Update Gender");
-                System.out.println("4) Update Age");
-                System.out.println("5) Update Role");
-                System.out.println("6) Quit");
+                System.out.println("1) Update Name");
+                System.out.println("2) Update Gender");
+                System.out.println("3) Update Age");
+                System.out.println("4) Update Role");
+                System.out.println("5) Quit");
                 System.out.print("Select Option: ");
 
                 while (!sc.hasNextInt()) { // Check if input is an integer
@@ -34,23 +33,12 @@ public class HospitalStaffUpdater {
 
                 switch (option) {
                     case 1 -> {
-                        System.out.println("Enter new ID: ");
-                        String newId = sc.nextLine().toUpperCase();
-                        while (staffs.containsKey(newId)) {
-                            System.out.println("Staff already exists. Please try again.");
-                            System.out.println("Enter new ID: ");
-                            newId = sc.nextLine().toUpperCase();
-                        }
-                        staff.setId(newId);
-                        break;
-                    }
-                    case 2 -> {
                         System.out.println("Enter new Name: ");
                         String newName = sc.nextLine();
                         staff.setName(newName);
                         break;
                     }
-                    case 3 -> {
+                    case 2 -> {
                         Gender newGender = Gender.OTHER;
                         boolean validGender = false;
                         while (!validGender) {
@@ -65,7 +53,7 @@ public class HospitalStaffUpdater {
                         staff.setGender(newGender);
                         break;
                     }
-                    case 4 -> {
+                    case 3 -> {
                         Integer age = 0;
                         boolean validAge = false;
                         while (!validAge) {
@@ -80,7 +68,7 @@ public class HospitalStaffUpdater {
                         staff.setAge(age);
                         break;
                     }
-                    case 5 -> {
+                    case 4 -> {
                         Role newRole = Role.DOCTOR;
                         boolean validRole = false;
                         while (!validRole) {
@@ -97,7 +85,7 @@ public class HospitalStaffUpdater {
                         staff.setRole(newRole);
                         break;
                     }
-                    case 6 -> {
+                    case 5 -> {
                         exit = true;
                         break;
                     }

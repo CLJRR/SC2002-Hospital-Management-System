@@ -7,6 +7,7 @@ import enums.Flag;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,15 +18,18 @@ public class RecordOutcome {
 
     private AppointmentService appointmentService = new AppointmentService();
     @SuppressWarnings("unchecked")
-
+    private Map<String, MedicationInventory> inventory;
     // private AppointmentController appointmentController;
     private InventoryController inventoryController;
     static final Scanner sc = new Scanner(System.in);
 
     public RecordOutcome(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
+        this.inventory = new HashMap<>();
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
         this.inventoryController = new InventoryController();
+        this.inventory  = inventoryController.getInventory();
     }
+    
 
     public void recordOutcome() throws IOException {
         AppointmentOutcomeRecord newRecord = prompts();
@@ -86,9 +90,17 @@ public class RecordOutcome {
 
             System.out.println("Current Medications: ");
             inventoryController.viewInventory();
-            System.out.println("Enter Medicine Prescribed: ");
-            String medName = sc.nextLine();
+            String prescriptionName = null;
+            while (true) {
+                System.out.println("Enter prescription Name: ");
+                prescriptionName = sc.nextLine().trim();
 
+                if (inventory.containsKey(prescriptionName)) { // Check if medication exists
+                    break; // Exit loop if the medication exists in inventory
+                }
+
+                System.out.println("Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
+            }
             System.out.println("Enter amount: ");
             while (!sc.hasNextInt()) { // Loop until an integer is entered
                 System.out.println("Invalid input. Please enter an integer.");
@@ -101,7 +113,7 @@ public class RecordOutcome {
             String dosage = sc.nextLine();
 
             // Create a Prescription object
-            Prescription prescription = new Prescription(medName, amt, dosage);
+            Prescription prescription = new Prescription(prescriptionName, amt, dosage);
             List<Prescription> prescriptions = new ArrayList<>();
             prescriptions.add(prescription);
 

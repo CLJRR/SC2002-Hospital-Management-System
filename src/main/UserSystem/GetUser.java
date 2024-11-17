@@ -39,4 +39,14 @@ public class GetUser {
         }
         return doctors;
     }
+
+    public List<User> getAllPharmacists() {
+        List<User> pharmacists = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getRole() == Role.PHARMACIST) {
+                pharmacists.add(user);
+            }
+        }
+        return pharmacists;
+    }
 }

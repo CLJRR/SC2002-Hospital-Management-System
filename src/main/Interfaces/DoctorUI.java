@@ -39,8 +39,42 @@ public class DoctorUI {
 
             switch (option) {
                 case 1 -> {
-                    doctorMedicalRecordController.viewRecords();
-                    break;
+                    while (true) {
+                        System.out.println("Menu:");
+                        System.out.println("1. View all medical records");
+                        System.out.println("2. View medical records by patient ID");
+                        System.out.println("3. Exit");
+                        System.out.print("Enter your choice: ");
+                        
+                        int choice = sc.nextInt();
+                        sc.nextLine(); // Consume newline
+                
+                        switch (choice) {
+                            case 1 -> {
+                                System.out.println("Fetching all medical records...");
+                                doctorMedicalRecordController.viewRecords(); // View all records
+                            }
+                            case 2 -> {
+                                System.out.print("Enter patient ID to view records: ");
+                                String patientId = sc.nextLine();
+                                doctorMedicalRecordController.viewRecordsById(patientId); // View records by patient ID
+                            }
+                            case 3 -> {
+                                System.out.println("Exiting...");
+                                break; // Exit the menu
+                            }
+                            default -> System.out.println("Invalid choice. Please try again.");
+                        }
+                
+                        // Exit the loop if the user selects option 3
+                        if (choice == 3) {
+                            break;
+                        }
+                
+                        System.out.println(); // Add a line break for better readability
+                    }
+                
+                    break; // Exit the main case
                 }
                 case 2 -> {
                     appointmentOutcomeRecordController.loadRecords();

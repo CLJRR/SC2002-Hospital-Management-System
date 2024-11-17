@@ -1,10 +1,10 @@
 package UserSystem;
 
+import AppointmentOutcomeSystem.*;
 import java.util.*;
 
-import AppointmentOutcomeSystem.*;
-
 public class DoctorMedicalRecordController {
+
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
     private AppointmentOutcomeRecordSaver appointmentOutcomeRecordSaver;
     private AppointmentOutcomeRecordLoader appointmentOutcomeRecordLoader;
@@ -33,5 +33,9 @@ public class DoctorMedicalRecordController {
 
     public void viewRecords() {
         doctorMedicalRecordViewer.viewMedicalRecords();
+    }
+
+    public void viewRecordsById(String Id) {
+        doctorMedicalRecordViewer.viewMedicalRecordsById(Id);
     }
 }

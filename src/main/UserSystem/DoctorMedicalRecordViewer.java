@@ -28,6 +28,8 @@ public class DoctorMedicalRecordViewer {
 
     public void viewMedicalRecords() {
         // Fetch all patients
+        System.out.println("");
+
         List<User> patients = getUser.getAllPatients();
 
         // Sort records by appointment date
@@ -45,7 +47,6 @@ public class DoctorMedicalRecordViewer {
             System.out.println("Phone Number: " + patient.getPhoneNumber());
             System.out.println("Email: " + patient.getEmail());
             System.out.println("Blood Type: " + patient.getBloodType());
-            System.out.println("----------------------------------------------");
             System.out.println("");
 
             boolean hasRecords = false;
@@ -96,4 +97,75 @@ public class DoctorMedicalRecordViewer {
         System.out.println("Press Enter to exit");
         sc.nextLine();
     }
+
+    public void viewMedicalRecordsById(String patientId) {
+        // Fetch patient details
+        User patient = getUser.getUser(patientId);
+
+        if (patient == null) {
+            System.out.println("No patient found with ID: " + patientId);
+            return;
+        }
+        System.out.println("");
+
+        // Display patient details
+        System.out.println("Patient: " + patient.getId());
+        System.out.println("Name: " + patient.getName());
+        System.out.println("Date of Birth: " + patient.getDateOfBirth());
+        System.out.println("Gender: " + patient.getGender());
+        System.out.println("Phone Number: " + patient.getPhoneNumber());
+        System.out.println("Email: " + patient.getEmail());
+        System.out.println("Blood Type: " + patient.getBloodType());
+        System.out.println("----------------------------------------------");
+
+        // Sort records by appointment date
+        List<AppointmentOutcomeRecord> sortedRecords = appointmentOutcomeRecords.values()
+                .stream()
+                .filter(record -> record.getPatientId().equalsIgnoreCase(patientId))
+                .sorted(Comparator.comparing(AppointmentOutcomeRecord::getAppointmentDate))
+                .collect(Collectors.toList());
+
+        // Display medical records
+        if (sortedRecords.isEmpty()) {
+            System.out.println("No records found for this patient.");
+        } else {
+            for (AppointmentOutcomeRecord record : sortedRecords) {
+                String diagnoses = String.join(", ", record.getDiagnoses());
+
+                System.out.println("Appointment: " + record.getApptId());
+
+                // Get and display doctor information
+                User doctor = getUser.getUser(record.getDoctorId());
+                String doctorName = (doctor != null) ? doctor.getName() : "Unknown";
+                System.out.println("By Doctor: " + doctorName);
+
+                // Display diagnoses
+                if (!diagnoses.isEmpty()) {
+                    System.out.println("Diagnoses: " + diagnoses);
+                } else {
+                    System.out.println("Diagnoses: None recorded.");
+                }
+
+                // Display all prescriptions
+                if (!record.getPrescriptions().isEmpty()) {
+                    System.out.println("Treatments:");
+                    for (Prescription prescription : record.getPrescriptions()) {
+                        System.out.println("  - " + prescription.getMedName() + ", "
+                                + prescription.getAmount() + ", " + prescription.getDosage());
+                    }
+                } else {
+                    System.out.println("Treatments: None prescribed.");
+                }
+                System.out.println("");
+            }
+        }
+
+        System.out.println("----------------------------------------------");
+
+        // Wait for user input to exit
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Press Enter to exit");
+        sc.nextLine();
+    }
+
 }

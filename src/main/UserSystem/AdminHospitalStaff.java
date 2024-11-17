@@ -30,11 +30,6 @@ public class AdminHospitalStaff {
             System.err.println("Users not loaded successfully.");
         }
 
-        List<String> IdList = new ArrayList<>();
-        for (int i = 0; i < userList.size(); i++) {
-            IdList.add(userList.get(i).getId());
-        }
-
         Scanner sc = new Scanner(System.in);
 
         // Display initial list of staff on startup
@@ -70,14 +65,6 @@ public class AdminHospitalStaff {
 
                 case 2:
                     // Add a new staff member
-
-                    System.out.print("Enter Staff ID to add: ");
-                    String staffId = sc.nextLine().toUpperCase();
-                    while (IdList.contains(staffId)) {
-                        System.out.println("Staff already exists. Please try again.");
-                        System.out.print("Enter Staff ID to add: ");
-                        staffId = sc.nextLine().toUpperCase();
-                    }
 
                     System.out.print("Enter Staff Name to add: ");
                     String name = sc.nextLine();
@@ -118,6 +105,33 @@ public class AdminHospitalStaff {
                             validRole = true;
                         } catch (Exception e) {
                             System.err.println("Role not valid. Please try again.");
+                        }
+                    }
+                    GetUser getUser = new GetUser();
+                    String staffId = "";
+                    if (role == Role.DOCTOR) {
+                        List<User> doctors = getUser.getAllDoctors();
+                        List<String> doctorids = new ArrayList<>();
+                        for (User doctor : doctors) {
+                            doctorids.add(doctor.getId());
+                        }
+                        int num = doctors.size() + 1;
+                        staffId = "D00" + num;
+                        while (doctorids.contains(staffId)) {
+                            num++;
+                            staffId = "D00" + num;
+                        }
+                    } else if (role == Role.PHARMACIST) {
+                        List<User> pharmacists = getUser.getAllPharmacists();
+                        List<String> pharmacistids = new ArrayList<>();
+                        for (User doctor : pharmacists) {
+                            pharmacistids.add(doctor.getId());
+                        }
+                        int num = pharmacists.size() + 1;
+                        staffId = "P00" + num;
+                        while (pharmacistids.contains(staffId)) {
+                            num++;
+                            staffId = "P00" + num;
                         }
                     }
 

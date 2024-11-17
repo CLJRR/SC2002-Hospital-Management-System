@@ -15,8 +15,14 @@ public class NewRequestCreator {
     // Method to create a new request
     public void createNewRequest(String pharmId) {
 
-        System.out.println("Enter Medication Name:");
-        String medicationName = scanner.nextLine();
+        String medicationName;
+        do {
+            System.out.print("Enter medication name: ");
+            medicationName = scanner.nextLine();
+            if (medicationName.trim().isEmpty()) {
+                System.out.println("Medication name cannot be empty. Please try again.");
+            }
+        } while (medicationName.trim().isEmpty());
 
         System.out.println("Enter Quantity to Increase Stock By:");
         int increaseStockBy;

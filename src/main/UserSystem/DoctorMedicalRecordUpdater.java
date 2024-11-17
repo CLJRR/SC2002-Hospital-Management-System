@@ -21,7 +21,7 @@ public class DoctorMedicalRecordUpdater {
         Scanner sc = new Scanner(System.in);
         AppointmentOutcomeRecord record = appointmentOutcomeRecords.get(apptId);
         if (record != null) {
-            if (record.getDoctorId().equals(doctor.getId())) {
+            if (record.getDoctorId().equalsIgnoreCase(doctor.getId())) {
                 boolean exit = false;
                 while (!exit) {
                     System.out.println("1) Update Diagnoses");
@@ -41,7 +41,7 @@ public class DoctorMedicalRecordUpdater {
                         case 1 -> {
                             System.out.print("Enter a new diagnosis: ");
                             String newDiagnosis = sc.nextLine().trim(); // Trim to avoid unnecessary spaces
-                            
+
                             if (!newDiagnosis.isEmpty()) {
                                 // Get the current diagnoses, append the new one, and update the list
                                 List<String> updatedDiagnoses = record.getDiagnoses(); // This returns a copy
@@ -77,7 +77,8 @@ public class DoctorMedicalRecordUpdater {
                             String prescriptionDosage = sc.nextLine();
 
                             // Create and add the new prescription
-                            Prescription newPrescription = new Prescription(prescriptionName, prescriptionAmount, prescriptionDosage);
+                            Prescription newPrescription = new Prescription(prescriptionName, prescriptionAmount,
+                                    prescriptionDosage);
                             record.getPrescriptions().add(newPrescription);
                             recordSaver.saveRecords();
 

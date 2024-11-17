@@ -20,7 +20,7 @@ public class ApptLoader {
             for (Appointment record : records) {
                 appointmentRecords.put(record.getAppointmentId(), record); // Put each record into the map using appointmentId
             }
-            System.out.println("Appointments loaded successfully.");
+            //System.out.println("Appointments loaded successfully.");
         } catch (IOException e) {
             System.err.println("Error loading appointments: " + e.getMessage());
         }

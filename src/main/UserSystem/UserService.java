@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class UserService implements Load, Format, Save, Write, toObject {
 
-    private static final String FILENAME = "./data/users.txt";
+    private static final String FILENAME = "src/main/data/users.txt";
 
     @Override
     public List<User> load() throws IOException {

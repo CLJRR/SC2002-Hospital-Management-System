@@ -7,7 +7,7 @@ import java.util.*;
 
 public class RequestService implements Load, Format, Save, Write, toObject {
 
-    private static final String fileName = "./data/requests.txt";
+    private static final String fileName = "src/main/data/requests.txt";
 
     @Override
     public List<?> load() throws IOException {

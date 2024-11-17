@@ -16,13 +16,13 @@ public class AppointmentOutcomeRecordLoader {
     public void loadInitialAppointmentOutcomes() {
         try {
             @SuppressWarnings("unchecked")
-            List<AppointmentOutcomeRecord> records = (List<AppointmentOutcomeRecord>) appointmentOutcomeRecordService
-                    .load(); // Load method to get records
+            List<AppointmentOutcomeRecord> records = (List<AppointmentOutcomeRecord>) appointmentOutcomeRecordService.load(); // Load method to get records
             for (AppointmentOutcomeRecord record : records) {
                 appointmentOutcomeRecords.put(record.getApptId(), record); // Put each record into the map using apptId
             }
+            System.out.println("Inventory loaded successfully.");
         } catch (IOException e) {
-            System.err.println("Error loading appointments: " + e.getMessage());
+            System.err.println("Error loading inventory: " + e.getMessage());
         }
     }
 }

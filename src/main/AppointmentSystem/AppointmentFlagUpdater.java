@@ -23,14 +23,7 @@ public class AppointmentFlagUpdater {
         System.out.println("1. Reject");
         System.out.println("2. Confirm");
 
-        System.out.println("Enter amount: ");
-        while (!sc.hasNextInt()) { // Loop until an integer is entered
-            System.out.println("Invalid input. Please enter an integer.");
-            sc.next(); // Clear the invalid input
-        }
         int choice = sc.nextInt();
-        sc.nextLine(); // Consumes newline
-
         Flag newStatus = null;
 
         switch (choice) {
@@ -53,8 +46,7 @@ public class AppointmentFlagUpdater {
     public void updateAppointmentStatus(String appointmentId, String doctorId, Flag newStatus) {
         Appointment appointment = appointmentRecords.get(appointmentId);
 
-        // Validate that the appointment exists, belongs to the specified doctor, and is
-        // PENDING
+        // Validate that the appointment exists, belongs to the specified doctor, and is PENDING
         if (appointment == null) {
             System.out.println("Appointment not found.");
             return;
@@ -68,8 +60,7 @@ public class AppointmentFlagUpdater {
             return;
         }
 
-        // Update the appointment status to the selected new status (REJECTED or
-        // CONFIRMED
+        // Update the appointment status to the selected new status (REJECTED or CONFIRME
         appointment.setFlag(newStatus);
     }
 }

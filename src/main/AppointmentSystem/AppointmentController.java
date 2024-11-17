@@ -225,8 +225,8 @@ public class AppointmentController {
     //view all available appointment slots
     public void viewAllAvailableAppointments() {
         loader.loadInitialAppointments();
-        System.out.print("Please enter date in yyyy-mm-dd format");
-        String dateInput = sc.nextLine();
+        System.out.print("Please enter date in yyyy-mm-dd format: ");
+        String dateInput = sc.next();
         LocalDate date;
         try {
             date = LocalDate.parse(dateInput);
@@ -241,8 +241,8 @@ public class AppointmentController {
     //Patient Appointment Scheduler
     public void patientScheduleAppointment() {
         loader.loadInitialAppointments();
-        System.out.print("Please enter date in yyyy-mm-dd format");
-        String dateInput = sc.nextLine();
+        System.out.print("Please enter date in yyyy-mm-dd format: ");
+        String dateInput = sc.next();
         LocalDate date;
         try {
             date = LocalDate.parse(dateInput);
@@ -250,13 +250,14 @@ public class AppointmentController {
             System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
             return;
         }
-        patientAppointmentScheduler.scheduleAppointment(Session.getLoginID(), date);
+        patientAppointmentScheduler.scheduleAppointment(date, Session.getLoginID());
         saver.saveRecords();
     }
 
     //Patient Re-Schedule Appointment
     public void patientReScheduleAppointment() {
         loader.loadInitialAppointments();
+        patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
         patientAppointmentScheduler.rescheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
@@ -264,6 +265,7 @@ public class AppointmentController {
     //Patient Cancel Appointment
     public void patientCancelAppointment() {
         loader.loadInitialAppointments();
+        patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
         patientAppointmentScheduler.cancelAppointment(Session.getLoginID());
         saver.saveRecords();
     }

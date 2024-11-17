@@ -1,16 +1,17 @@
+
 package AppointmentOutcomeSystem;
 
 import AppointmentSystem.Appointment;
 import AppointmentSystem.AppointmentService;
 import MedicineInventorySystem.InventoryController;
 import SessionManager.Session;
-import enums.Flag;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 
 public class RecordOutcome {
 
@@ -51,7 +52,7 @@ public class RecordOutcome {
             findRecord = containsAppointmentId(appointmentList, apptId);
 
             if (apptId.equalsIgnoreCase("x")) {
-                return null;
+                break;
             }
             if (findRecord == null) {
                 System.out.println("Appointment ID " + apptId + " does not exist.");
@@ -70,18 +71,17 @@ public class RecordOutcome {
             break;
         }
 
-        if (findRecord.getFlag() == Flag.CONFIRMED) {
-            System.out.println("Enter Service Provided: ");
-            String service = sc.nextLine();
+        System.out.println("Enter Service Provided: ");
+        String service = sc.next();
 
             System.out.println("Enter Diagnoses (comma-separated): ");
             String diagnosisInput = sc.nextLine();
             List<String> diagnoses = Arrays.asList(diagnosisInput.split(", "));
 
-            System.out.println("Current Medications: ");
-            inventoryController.viewInventory();
-            System.out.println("Enter Medicine Prescribed: ");
-            String medName = sc.nextLine();
+        System.out.println("Current Medications: ");
+        inventoryController.viewInventory();
+        System.out.println("Enter Medicine Prescribed: ");
+        String medName = sc.next();
 
             System.out.println("Enter amount: ");
             while (!sc.hasNextInt()) {
@@ -91,8 +91,8 @@ public class RecordOutcome {
             int amt = sc.nextInt();
             sc.nextLine();
 
-            System.out.println("Enter dosage: ");
-            String dosage = sc.nextLine();
+        System.out.println("Enter dosage: ");
+        String dosage = sc.next();
 
             // Create a Prescription object
             Prescription prescription = new Prescription(medName, amt, dosage);

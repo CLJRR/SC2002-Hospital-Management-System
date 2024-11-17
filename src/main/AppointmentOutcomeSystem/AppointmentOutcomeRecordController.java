@@ -51,7 +51,7 @@ public class AppointmentOutcomeRecordController {
 
     public boolean adminViewRecords(String apptId) throws IOException {
         loadRecords();
-        return (viewer.viewRecordsById(apptId));
+        return (viewer.viewRecordsByIdnoNewline(apptId));
     }
 
     public void recordAppointmentOutcome() throws IOException {

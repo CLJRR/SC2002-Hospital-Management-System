@@ -74,4 +74,46 @@ public class AppointmentOutcomeRecordsViewer {
         sc.nextLine();
         return true;
     }
+    public boolean viewRecordsByIdnoNewline(String Id) throws IOException {
+        List<AppointmentOutcomeRecord> matchingRecords = new ArrayList<>();
+        System.out.println("For Id " + Id);
+
+        // Collect matching records
+        for (AppointmentOutcomeRecord medicalRecord : appointmentOutcomeRecords.values()) {
+            if (Id.equalsIgnoreCase(medicalRecord.getApptId()) || Id.equalsIgnoreCase(medicalRecord.getPatientId())) {
+                matchingRecords.add(medicalRecord);
+            }
+        }
+
+        // Sort records in ascending order by appointment date
+        matchingRecords.sort(Comparator.comparing(AppointmentOutcomeRecord::getAppointmentDate));
+
+        // Display sorted records
+        if (!matchingRecords.isEmpty()) {
+            for (AppointmentOutcomeRecord medicalRecord : matchingRecords) {
+                if (Id.equalsIgnoreCase(medicalRecord.getApptId())) {
+                    System.out.println(medicalRecord.toString());
+                } else if (Id.equalsIgnoreCase(medicalRecord.getPatientId())) {
+                    System.out.println("Appointment Id: " + medicalRecord.getApptId());
+                    System.out.println("Doctor Id: " + medicalRecord.getDoctorId());
+                    System.out.println("Appointment Date: " + medicalRecord.getAppointmentDate());
+                    System.out.println("Service Provided: " + medicalRecord.getServiceProvided());
+                    System.out.println("Diagnoses: " + String.join(", ", medicalRecord.getDiagnoses()));
+
+                    // Display prescriptions
+                    for (Prescription prescription : medicalRecord.getPrescriptions()) {
+                        System.out.println("Prescription: " + prescription.getMedName() + ", " +
+                                prescription.getAmount() + ", " + prescription.getDosage());
+                    }
+                    System.out.println("\n");
+                }
+            }
+        } else {
+            System.out.println("No Outcome Records found");
+            return false;
+        }
+
+
+        return true;
+    }
 }

@@ -3,7 +3,6 @@ package AppointmentSystem;
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import enums.Flag;
 import enums.Type;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -30,9 +29,11 @@ public class ApptRecordViewer {
     public void adminViewAllRecords() throws IOException {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
-            System.out.println(record.toString());
-            System.out.println(" ");
-            outcomeController.adminViewRecords(record.getAppointmentId());
+            if (record.getType().equals(Type.APPOINTMENT)) {
+                System.out.println(record.toString());
+                System.out.println(" ");
+                outcomeController.adminViewRecords(record.getAppointmentId());
+            }
         }
         System.out.println(); // Adds a new line after the last record
     }

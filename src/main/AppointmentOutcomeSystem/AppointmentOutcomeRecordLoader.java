@@ -20,7 +20,7 @@ public class AppointmentOutcomeRecordLoader {
             for (AppointmentOutcomeRecord record : records) {
                 appointmentOutcomeRecords.put(record.getApptId(), record); // Put each record into the map using apptId
             }
-            System.out.println("Inventory loaded successfully.");
+            //System.out.println("Inventory loaded successfully.");
         } catch (IOException e) {
             System.err.println("Error loading inventory: " + e.getMessage());
         }

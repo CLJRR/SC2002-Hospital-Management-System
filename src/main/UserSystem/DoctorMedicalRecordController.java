@@ -23,19 +23,33 @@ public class DoctorMedicalRecordController {
         appointmentOutcomeRecordLoader.loadInitialAppointmentOutcomes();
     }
 
+    public void loadRecords() {
+        appointmentOutcomeRecordLoader.loadInitialAppointmentOutcomes();
+    }
+
     public void saveRecords() {
         appointmentOutcomeRecordSaver.saveRecords();
     }
 
     public void updateRecords(String apptId) {
+        loadRecords();
         doctorMedicalRecordUpdater.updateRecord(apptId);
+        saveRecords();
     }
 
     public void viewRecords() {
+        loadRecords();
+
         doctorMedicalRecordViewer.viewMedicalRecords();
+        saveRecords();
+
     }
 
     public void viewRecordsById(String Id) {
+        loadRecords();
+
         doctorMedicalRecordViewer.viewMedicalRecordsById(Id);
+        saveRecords();
+
     }
 }

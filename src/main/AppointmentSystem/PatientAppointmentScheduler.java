@@ -27,33 +27,57 @@ public class PatientAppointmentScheduler {
         this.appointmentRecords = appointmentRecords;
     }
 
-    //cancel appointment
     public void cancelAppointment(String patientId) {
-        System.out.print("Enter the Appointment ID to cancel: ");
-        String appointmentId = sc.nextLine().toUpperCase();
-
-        if (!appointmentRecords.containsKey(appointmentId)) {
-            System.out.println("Appointment not found.");
+        while (true) {
+            System.out.print("Enter the Appointment ID to cancel (or type 'x' to exit): ");
+            String appointmentId = sc.nextLine().toUpperCase();
+    
+            // Allow the user to exit
+            if (appointmentId.equalsIgnoreCase("x")) {
+                System.out.println("Cancel appointment process exited.");
+                return;
+            }
+    
+            // Check if the appointment exists
+            if (!appointmentRecords.containsKey(appointmentId)) {
+                System.out.println("Error: Appointment not found. Please try again.");
+                continue;
+            }
+    
+            Appointment appointmentToCancel = appointmentRecords.get(appointmentId);
+    
+            // Check if the appointment belongs to the patient
+            if (!appointmentToCancel.getPatientId().equals(patientId)) {
+                System.out.println("Error: You are not authorized to cancel this appointment.");
+                return;
+            }
+    
+            // Check if the patient has any scheduled appointments
+            if (appointmentToCancel.getPatientId() == null) {
+                System.out.println("Error: No scheduled appointments found.");
+                return;
+            }
+    
+            // Confirm cancellation
+            System.out.println("Appointment Details:");
+            System.out.println("Appointment ID: " + appointmentToCancel.getAppointmentId());
+            System.out.println("Date: " + appointmentToCancel.getDate());
+            System.out.println("Time: " + appointmentToCancel.getTimeSlot());
+            System.out.println("Doctor ID: " + appointmentToCancel.getDoctorId());
+            System.out.print("Are you sure you want to cancel this appointment? (yes/no): ");
+            String confirmation = sc.nextLine().toLowerCase();
+    
+            if (!confirmation.equals("yes")) {
+                System.out.println("Cancellation aborted.");
+                return;
+            }
+    
+            // Remove the appointment
+            appointmentRecords.remove(appointmentId);
+            System.out.println("Appointment canceled successfully.");
             return;
         }
-
-        Appointment appointmentToCancel = appointmentRecords.get(appointmentId);
-
-        if (!appointmentToCancel.getPatientId().equals(patientId)) {
-            System.out.println("You cannot cancel this appointment.");
-            return;
-        }
-
-        if (appointmentToCancel.getPatientId() == null) {
-            System.out.println("You have no scheduled appointments.");
-            return;
-        }
-
-        
-
-        appointmentRecords.remove(appointmentId);
-        System.out.println("Appointment canceled successfully.");
-    }
+    }    
 
     // Helper method to generate the next sequential appointment ID
     private String generateAppointmentId() {

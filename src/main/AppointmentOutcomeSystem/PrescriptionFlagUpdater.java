@@ -24,7 +24,7 @@ public class PrescriptionFlagUpdater {
         System.out.println("Pending Records:");
         viewer.viewPendingRecords();
 
-        System.out.println("1) Update Record");
+        System.out.println("1) Dispense Prescription");
         System.out.println("2) Reject Prescription");
         System.out.println("3) Go back");
         int option = 0;

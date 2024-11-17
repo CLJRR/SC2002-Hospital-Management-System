@@ -99,6 +99,8 @@ public class DoctorUI {
                     Session.logout();
                     break;
                 }
+                
+                default -> System.out.println("Invalid choice. Please select a number between 1 and 9.");
             }
         }
     }

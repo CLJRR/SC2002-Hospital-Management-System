@@ -19,8 +19,7 @@ public class HospitalStaffUpdater {
                 System.out.println("1) Update Name");
                 System.out.println("2) Update Gender");
                 System.out.println("3) Update Age");
-                System.out.println("4) Update Role");
-                System.out.println("5) Quit");
+                System.out.println("4) Quit");
                 System.out.print("Select Option: ");
 
                 while (!sc.hasNextInt()) { // Check if input is an integer
@@ -69,23 +68,6 @@ public class HospitalStaffUpdater {
                         break;
                     }
                     case 4 -> {
-                        Role newRole = Role.DOCTOR;
-                        boolean validRole = false;
-                        while (!validRole) {
-                            try {
-                                System.out.println("Enter new Role: ");
-                                newRole = Role.valueOf(sc.nextLine().trim().toUpperCase());
-                                if (newRole == Role.DOCTOR || newRole == Role.PHARMACIST) {
-                                    validRole = true;
-                                }
-                            } catch (Exception e) {
-                                System.err.println("Role not valid. Please try again. ");
-                            }
-                        }
-                        staff.setRole(newRole);
-                        break;
-                    }
-                    case 5 -> {
                         exit = true;
                         break;
                     }

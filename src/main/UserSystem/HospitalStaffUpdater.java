@@ -39,7 +39,7 @@ public class HospitalStaffUpdater {
                         while (staffs.containsKey(newId)) {
                             System.out.println("Staff already exists. Please try again.");
                             System.out.println("Enter new ID: ");
-                            newId = sc.nextLine();
+                            newId = sc.nextLine().toUpperCase();
                         }
                         staff.setId(newId);
                         break;

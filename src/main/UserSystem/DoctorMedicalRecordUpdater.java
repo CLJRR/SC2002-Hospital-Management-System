@@ -61,6 +61,7 @@ public class DoctorMedicalRecordUpdater {
 
                         }
                         case 2 -> {
+                            List<Prescription> updatedPrescriptions = record.getPrescriptions(); // This returns a copy
                             System.out.println("Enter new prescription Name: ");
                             String prescriptionName = sc.nextLine();
 
@@ -79,7 +80,8 @@ public class DoctorMedicalRecordUpdater {
                             // Create and add the new prescription
                             Prescription newPrescription = new Prescription(prescriptionName, prescriptionAmount,
                                     prescriptionDosage);
-                            record.getPrescriptions().add(newPrescription);
+                            updatedPrescriptions.add(newPrescription);
+                            record.setPrescriptions(updatedPrescriptions);
                             recordSaver.saveRecords();
 
                             System.out.println("Prescription updated successfully.");

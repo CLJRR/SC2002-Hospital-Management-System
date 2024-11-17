@@ -1,6 +1,6 @@
 A010,P1001,D001,2024-12-08,consult,hay fever,Paracetamol|DISPENSED|14|20mg per day
 A007,P007,D001,2024-11-07,Consultation,Cancer,Ibuprofen|PENDING|2|2mg per day
 A004,P004,D001,2024-11-05,consult,N/A,Amoxicillin|DISPENSED|11|5mg per day
-A001,P1001,D001,1975-11-22,General Checkup,fever,Ibuprofen|PENDING|5|8mg per day
+A001,P1001,D001,1975-11-22,General Checkup,fever;test,Ibuprofen|DISPENSED|5|8mg per day;Paracetamol|DISPENSED|10|10;Ibuprofen|DISPENSED|10|10;d|PENDING|10|10
 A012,P1001,D001,2024-11-11,checkup,cancer;Test,Paracetamol|DISPENSED|7|14mg per day;Ibuprofen|DISPENSED|4|10mg per day
 A002,P1002,D002,1975-11-22,General Checkup,flu,Amoxicillin|PENDING|11|7mg per day

@@ -2,6 +2,8 @@ package AppointmentOutcomeSystem;
 
 import enums.Flag;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppointmentOutcomeRecord {
 
@@ -10,18 +12,28 @@ public class AppointmentOutcomeRecord {
     private String doctorId;
     private LocalDate appointmentDate;
     private String serviceProvided;
-    private Prescription prescription;
-    private String diagnoses;
+    private List<Prescription> prescriptions;
+    private List<String> diagnoses;
 
+    // Constructor
     public AppointmentOutcomeRecord(String apptId, String patientId, String doctorId, LocalDate appointmentDate,
-            String serviceProvided, String diagnoses, Prescription prescription) {
+                                     String serviceProvided, List<String> diagnoses, List<Prescription> prescriptions) {
         this.apptId = apptId;
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.appointmentDate = appointmentDate;
         this.serviceProvided = serviceProvided;
-        this.prescription = prescription;
-        this.diagnoses = diagnoses;
+        this.diagnoses = diagnoses != null ? new ArrayList<>(diagnoses) : new ArrayList<>();
+        this.prescriptions = prescriptions != null ? new ArrayList<>(prescriptions) : new ArrayList<>();
+    }
+
+    // Getters and Setters
+    public String getApptId() {
+        return apptId;
+    }
+
+    public void setApptId(String apptId) {
+        this.apptId = apptId;
     }
 
     public String getPatientId() {
@@ -40,14 +52,6 @@ public class AppointmentOutcomeRecord {
         this.doctorId = doctorId;
     }
 
-    public String getApptId() {
-        return apptId;
-    }
-
-    public void setApptId(String apptId) {
-        this.apptId = apptId;
-    }
-
     public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
@@ -64,39 +68,50 @@ public class AppointmentOutcomeRecord {
         this.serviceProvided = serviceProvided;
     }
 
-    public Prescription getPrescription() {
-        return prescription;
+    public List<String> getDiagnoses() {
+        return new ArrayList<>(diagnoses); // Return a copy to maintain encapsulation
     }
 
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
+    public void setDiagnoses(List<String> diagnoses) {
+        this.diagnoses = diagnoses != null ? new ArrayList<>(diagnoses) : new ArrayList<>();
     }
 
-    public String getDiagnoses() {
-        return diagnoses;
+    public List<Prescription> getPrescriptions() {
+        return new ArrayList<>(prescriptions); // Return a copy to maintain encapsulation
     }
 
-    public void setDiagnoses(String diagnoses) {
-        this.diagnoses = diagnoses;
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions != null ? new ArrayList<>(prescriptions) : new ArrayList<>();
     }
 
+    // Update the flag for all prescriptions
     public void setFlag(Flag flag) {
-        prescription.setFlag(flag);
+        for (Prescription prescription : prescriptions) {
+            prescription.setFlag(flag);
+        }
     }
 
+    // Override toString for detailed printing
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("MedicalOutcomeRecord:");
+        sb.append("AppointmentOutcomeRecord:");
         sb.append("\napptId: ").append(apptId);
         sb.append("\npatientId: ").append(patientId);
         sb.append("\ndoctorId: ").append(doctorId);
         sb.append("\nappointmentDate: ").append(appointmentDate);
         sb.append("\nserviceProvided: ").append(serviceProvided);
-        sb.append("\ndiagnoses: ").append(diagnoses);
-        sb.append("\nprescription: ").append(prescription);
-
+        sb.append("\ndiagnoses: ").append(String.join(", ", diagnoses));
+        sb.append("\nprescriptions: ").append(formatPrescriptions());
         return sb.toString();
     }
 
+    // Helper method to format prescriptions
+    private String formatPrescriptions() {
+        StringBuilder sb = new StringBuilder();
+        for (Prescription prescription : prescriptions) {
+            sb.append("\n  ").append(prescription.toString());
+        }
+        return sb.toString();
+    }
 }

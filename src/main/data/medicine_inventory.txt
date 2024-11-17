@@ -1,3 +1,3 @@
 Paracetamol,145,20
-Ibuprofen,50,10
-Amoxicillin,100,15
+Ibuprofen,30,10
+Amoxicillin,70,15

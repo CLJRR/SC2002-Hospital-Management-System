@@ -23,44 +23,55 @@ public class AppointmentOutcomeRecordsViewer {
 
     public void viewPendingRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
-            if (record.getPrescription().getFlag() == Flag.PENDING) {
-                System.out.println(record.getApptId() + " " + record.getPrescription());
+            for (Prescription prescription : record.getPrescriptions()) {
+                if (prescription.getFlag() == Flag.PENDING) {
+                    System.out.println(record.getApptId() + " " + prescription);
+                }
             }
         }
     }
 
     public boolean viewRecordsById(String Id) throws IOException {
-        // List<MedicalOutcomeRecord> medicalRecords = new ArrayList<MedicalOutcomeRecord>();
-        Integer count = 0;
+        List<AppointmentOutcomeRecord> matchingRecords = new ArrayList<>();
         System.out.println("For Id " + Id);
-        // System.out.println("----------------------------------------------------------------------------------------------------------------");
-        for (AppointmentOutcomeRecord medicalRecord : appointmentOutcomeRecords.values()) {
-            //by appt id 
-            if (Id.equalsIgnoreCase((medicalRecord.getApptId()))) {
-                System.out.println(medicalRecord.toString());
-                count++;
-                return true;
-            }
-            //by patient id 
-            if (Id.equalsIgnoreCase((medicalRecord.getPatientId()))) {
-                System.out.println("Appointment Id: "+medicalRecord.getApptId());
-                System.out.println("Doctor Id: "+medicalRecord.getDoctorId());
-                System.out.println("Appointment Date: "+medicalRecord.getAppointmentDate());
-                System.out.println("Service Provided: "+medicalRecord.getServiceProvided());
-                System.out.println("Diagnosis: "+medicalRecord.getDiagnoses());
-                System.out.println(medicalRecord.getPrescription());
 
-                System.out.println("\n");
-                count++;
+        // Collect matching records
+        for (AppointmentOutcomeRecord medicalRecord : appointmentOutcomeRecords.values()) {
+            if (Id.equalsIgnoreCase(medicalRecord.getApptId()) || Id.equalsIgnoreCase(medicalRecord.getPatientId())) {
+                matchingRecords.add(medicalRecord);
             }
         }
-        if (count == 0) {
+
+        // Sort records in ascending order by appointment date
+        matchingRecords.sort(Comparator.comparing(AppointmentOutcomeRecord::getAppointmentDate));
+
+        // Display sorted records
+        if (!matchingRecords.isEmpty()) {
+            for (AppointmentOutcomeRecord medicalRecord : matchingRecords) {
+                if (Id.equalsIgnoreCase(medicalRecord.getApptId())) {
+                    System.out.println(medicalRecord.toString());
+                } else if (Id.equalsIgnoreCase(medicalRecord.getPatientId())) {
+                    System.out.println("Appointment Id: " + medicalRecord.getApptId());
+                    System.out.println("Doctor Id: " + medicalRecord.getDoctorId());
+                    System.out.println("Appointment Date: " + medicalRecord.getAppointmentDate());
+                    System.out.println("Service Provided: " + medicalRecord.getServiceProvided());
+                    System.out.println("Diagnoses: " + String.join(", ", medicalRecord.getDiagnoses()));
+
+                    // Display prescriptions
+                    for (Prescription prescription : medicalRecord.getPrescriptions()) {
+                        System.out.println("Prescription: " + prescription.getMedName() + ", " +
+                                prescription.getAmount() + ", " + prescription.getDosage());
+                    }
+                    System.out.println("\n");
+                }
+            }
+        } else {
             System.out.println("No Outcome Records found");
             return false;
         }
+
         System.out.println("Press Enter to go back");
         sc.nextLine();
         return true;
-
     }
 }

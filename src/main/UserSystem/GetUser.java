@@ -20,6 +20,16 @@ public class GetUser {
         return user;
     }
 
+    public List<User> getAllPatients() {
+        List<User> patients = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getRole() == Role.PATIENT) {
+                patients.add(user); // Add user to the list if their role is DOCTOR
+            }
+        }
+        return patients;
+    }
+
     public List<User> getAllDoctors() {
         List<User> doctors = new ArrayList<>();
         for (User user : users.values()) {

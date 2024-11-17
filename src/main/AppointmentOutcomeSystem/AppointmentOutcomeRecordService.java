@@ -18,8 +18,15 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
         try (Scanner scanner = new Scanner(new FileInputStream(fileName))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                AppointmentOutcomeRecord medicalRecord = (AppointmentOutcomeRecord) toObject(line);
-                data.add(medicalRecord);
+                if (!line.trim().isEmpty()) { // Ignore empty lines
+                    try {
+                        AppointmentOutcomeRecord medicalRecord = (AppointmentOutcomeRecord) toObject(line);
+                        data.add(medicalRecord);
+                    } catch (IOException e) {
+                        System.err.println("Skipping invalid record: " + line);
+                        e.printStackTrace();
+                    }
+                }
             }
         }
         return data;
@@ -37,7 +44,6 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
             }
         }
         write(data);
-
     }
 
     @Override
@@ -58,13 +64,19 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
                     .append(medicalRecord.getDoctorId()).append(",")
                     .append(medicalRecord.getAppointmentDate().format(DATE_FORMATTER)).append(",")
                     .append(medicalRecord.getServiceProvided()).append(",")
-                    .append(medicalRecord.getDiagnoses()).append(",");
+                    .append(String.join(";", medicalRecord.getDiagnoses())).append(",");
 
-            Prescription prescription = medicalRecord.getPrescription();
-            sb.append(prescription.getMedName()).append(",")
-                    .append(prescription.getFlag()).append(",")
-                    .append(prescription.getAmount()).append(",")
-                    .append(prescription.getDosage());
+            List<Prescription> prescriptions = medicalRecord.getPrescriptions();
+            for (int i = 0; i < prescriptions.size(); i++) {
+                Prescription prescription = prescriptions.get(i);
+                sb.append(prescription.getMedName()).append("|")
+                        .append(prescription.getFlag()).append("|")
+                        .append(prescription.getAmount()).append("|")
+                        .append(prescription.getDosage());
+                if (i < prescriptions.size() - 1) {
+                    sb.append(";");
+                }
+            }
             return sb.toString();
         } else {
             throw new IOException("Invalid object type");
@@ -73,26 +85,43 @@ public class AppointmentOutcomeRecordService implements Load, Format, Save, Writ
 
     @Override
     public Object toObject(String string) throws IOException {
-        String[] parts = string.split(",");
-
-        // Validate the format by checking the number of fields
-        if (parts.length != 10) {
-            throw new IOException("Invalid format.");
+        String[] parts = string.split(",", -1); // Use -1 to keep empty fields
+        if (parts.length < 6) {
+            throw new IOException("Invalid format: " + string);
         }
         try {
-            String apptId = parts[0];
-            String patientId = parts[1];
-            String doctorId = parts[2];
-            LocalDate appointmentDate = LocalDate.parse(parts[3], DATE_FORMATTER);
-            String serviceProvided = parts[4];
-            String diagnoses = parts[5];
-            String medName = parts[6];
-            Flag flag = Flag.valueOf(parts[7].toUpperCase());
-            int amount = Integer.parseInt(parts[8]);
-            String dosage = parts[9];
-            Prescription prescription = new Prescription(medName, flag, amount, dosage);
+            String apptId = parts[0].trim();
+            String patientId = parts[1].trim();
+            String doctorId = parts[2].trim();
+            LocalDate appointmentDate = LocalDate.parse(parts[3].trim(), DATE_FORMATTER);
+            String serviceProvided = parts[4].trim();
+
+            // Parse diagnoses
+            List<String> diagnoses = new ArrayList<>();
+            if (!parts[5].trim().isEmpty()) {
+                diagnoses = Arrays.asList(parts[5].trim().split(";"));
+            }
+
+            // Parse prescriptions
+            List<Prescription> prescriptions = new ArrayList<>();
+            if (parts.length > 6 && !parts[6].trim().isEmpty()) {
+                String[] prescriptionParts = parts[6].trim().split(";");
+                for (String p : prescriptionParts) {
+                    String[] pDetails = p.split("\\|", -1);
+                    if (pDetails.length == 4) {
+                        String medName = pDetails[0].trim();
+                        Flag flag = Flag.valueOf(pDetails[1].trim().toUpperCase());
+                        int amount = Integer.parseInt(pDetails[2].trim());
+                        String dosage = pDetails[3].trim();
+                        prescriptions.add(new Prescription(medName, flag, amount, dosage));
+                    } else {
+                        System.err.println("Skipping invalid prescription format: " + p);
+                    }
+                }
+            }
+
             return new AppointmentOutcomeRecord(apptId, patientId, doctorId, appointmentDate, serviceProvided,
-                    diagnoses, prescription);
+                    diagnoses, prescriptions);
 
         } catch (DateTimeParseException e) {
             throw new IOException("Invalid date format in the appointmentDate field.", e);

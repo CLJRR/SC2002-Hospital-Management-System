@@ -43,8 +43,9 @@ public class DoctorUI {
                     break;
                 }
                 case 2 -> {
+                    appointmentOutcomeRecordController.loadRecords();
                     System.out.println("Enter Appointment ID to update: ");
-                    String apptId = sc.nextLine();
+                    String apptId = sc.nextLine().toUpperCase();
                     doctorMedicalRecordController.updateRecords(apptId);
                     break;
                 }

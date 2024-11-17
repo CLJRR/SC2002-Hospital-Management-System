@@ -30,8 +30,14 @@ public class RequestFlagUpdater {
                 return; // Exit the method
             }
 
+            // Check if request ID exists and the flag is PENDING
             if (requestRecords.containsKey(requestId)) {
-                break; // Request ID is valid, proceed
+                Request request = requestRecords.get(requestId);
+                if (request.getFlag() == Flag.PENDING) {
+                    break; // Valid ID and flag is PENDING, proceed
+                } else {
+                    System.out.println("Request ID " + requestId + " has already been processed with flag: " + request.getFlag());
+                }
             } else {
                 System.out.println("Request ID " + requestId + " not found. Please try again.");
             }

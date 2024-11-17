@@ -185,6 +185,11 @@ public class PatientAppointmentScheduler {
                 System.out.print("Select an available timeslot (or type '99' to go back to enter a new date): ");
                 int slotChoice = sc.nextInt();
                 sc.nextLine(); // Consume newline
+
+                while(!sc.hasNextInt()) {
+                    System.out.println("Invalid input. Please enter an integer");
+                    continue;
+                }
     
                 if (slotChoice == 99) {
                     System.out.println("Going back to enter a new date.");
@@ -338,6 +343,11 @@ public class PatientAppointmentScheduler {
                     int slotChoice = sc.nextInt();
                     sc.nextLine(); // Consume newline
 
+                    while(!sc.hasNextInt()) {
+                        System.out.println("Invalid input. Please enter an integer");
+                        continue;
+                    }
+
                     if (slotChoice == 99) {
                         System.out.println("Going back to enter a new date.");
                         break; // Exit to re-enter a new date
@@ -346,7 +356,7 @@ public class PatientAppointmentScheduler {
                     if (slotChoice < 1 || slotChoice > sortedTimeslots.size()) {
                         System.out.println("Invalid slot selection. Please try again.");
                         continue; // Prompt again
-                    }
+                    } 
 
                     String selectedSlot = sortedTimeslots.get(slotChoice - 1);
 

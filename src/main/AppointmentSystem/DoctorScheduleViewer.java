@@ -37,7 +37,7 @@ public class DoctorScheduleViewer {
         }
         // Check appointments and leaves for the specified doctor and date
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDoctorId().equalsIgnoreCase(doctorId) && appointment.getDate().equalsIgnoreCase(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+            if (appointment.getDoctorId().equalsIgnoreCase(doctorId) && appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                 String timeSlot = appointment.getTimeSlot();
                 String details;
 

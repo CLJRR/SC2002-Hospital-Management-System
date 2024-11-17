@@ -87,7 +87,7 @@ public class HospitalStaffFilter {
                         }
                     }
                     for (User user : staffs.values()) {
-                        if (Objects.equalsIgnoreCase(user.getAge(), age)) {
+                        if (Objects.equals(user.getAge(), age)) {
                             System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: "
                                     + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
                         }

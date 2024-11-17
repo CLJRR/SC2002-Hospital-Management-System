@@ -56,7 +56,7 @@ public class PatientApptViewer {
 
         // Check appointments and update the schedule for unavailable times
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equalsIgnoreCase(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+            if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                 String timeSlot = appointment.getTimeSlot();
                 String doctorId = appointment.getDoctorId();
 
@@ -108,7 +108,7 @@ public class PatientApptViewer {
         List<String> bookedSlots = new ArrayList<>();
 
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equalsIgnoreCase(date) && appointment.getType() == Type.APPOINTMENT) {
+            if (appointment.getDate().equals(date) && appointment.getType() == Type.APPOINTMENT) {
                 bookedSlots.add(appointment.getTimeSlot());
             }
         }

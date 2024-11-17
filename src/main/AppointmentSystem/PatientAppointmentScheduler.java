@@ -294,7 +294,7 @@ public class PatientAppointmentScheduler {
 
                 // Check appointments and update the schedule for unavailable times
                 for (Appointment appointment : appointmentRecords.values()) {
-                    if (appointment.getDate().equalsIgnoreCase(newDate) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+                    if (appointment.getDate().equals(newDate) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                         String timeSlot = appointment.getTimeSlot();
                         String doctorId = appointment.getDoctorId();
 

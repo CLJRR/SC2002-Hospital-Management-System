@@ -17,6 +17,9 @@ public class RecordOutcome {
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
 
     private AppointmentService appointmentService = new AppointmentService();
+    private ApptLoader apptLoader;
+    private ApptSaver apptSaver;
+
     @SuppressWarnings("unchecked")
     private Map<String, MedicationInventory> inventory;
     // private AppointmentController appointmentController;
@@ -128,7 +131,8 @@ public class RecordOutcome {
             Prescription prescription = new Prescription(prescriptionName, amt, dosage);
             List<Prescription> prescriptions = new ArrayList<>();
             prescriptions.add(prescription);
-
+            changeFlagToCompleted(AppointmentList, apptId);
+            appointmentService.save(AppointmentList);
             // Create and return an AppointmentOutcomeRecord instance
             return new AppointmentOutcomeRecord(
                     apptId, // Appointment ID
@@ -152,5 +156,14 @@ public class RecordOutcome {
             }
         }
         return null; // Not found
+    }
+
+    private List<Appointment> changeFlagToCompleted(List<Appointment> appointments, String appointmentId) {
+        for (Appointment appointment : appointments) {
+            if (appointment.getAppointmentId().equalsIgnoreCase(appointmentId)) {
+                appointment.setFlag(Flag.COMPLETED);
+            }
+        }
+        return appointments; // Not found
     }
 }

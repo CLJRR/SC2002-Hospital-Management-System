@@ -1,9 +1,11 @@
 package AppointmentSystem;
 
 import SessionManager.Session;
+import enums.Flag;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AppointmentController {
 
@@ -85,6 +87,34 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
+    public void doctorViewConfirmedAppt() {
+        loader.loadInitialAppointments(); // Load all appointments
+
+        // Fetch and filter appointments for the logged-in doctor with CONFIRMED flag
+        List<Appointment> filteredAppointments = appointmentRecords.values().stream()
+                .filter(appt -> appt.getDoctorId().equalsIgnoreCase(Session.getLoginID()) // Match logged-in doctor
+                && appt.getFlag() == Flag.CONFIRMED) // Only confirmed appointments
+                .collect(Collectors.toList());
+
+        // Display filtered appointments
+        if (filteredAppointments.isEmpty()) {
+            System.out.println("No confirmed appointments for the logged-in doctor.");
+        } else {
+            System.out.println("Confirmed Appointments for Doctor " + Session.getLoginID() + ":");
+            for (Appointment appt : filteredAppointments) {
+                System.out.println("Appointment ID: " + appt.getAppointmentId());
+                System.out.println("Patient ID: " + appt.getPatientId());
+                System.out.println("Date: " + appt.getDate()); // Print the appointment date
+                System.out.println("Time: " + appt.getTimeSlot());
+                System.out.println("--------------------------------------------");
+            }
+        }
+
+        saver.saveRecords(); // Save updated records if needed
+        System.out.println("Press Enter to go back");
+        sc.nextLine();
+    }
+
     //update Personal Schedule
     // set leave for all time slots of a day
     public void doctorSetLeave() {
@@ -142,9 +172,9 @@ public class AppointmentController {
             System.out.println((i + 1) + ". " + availableTimeslots.get(i));
         }
 
-        System.out .println("Choose a timeslot number to set as leave: ");
+        System.out.println("Choose a timeslot number to set as leave: ");
         int timeslotChoice;
-        
+
         try {
             timeslotChoice = Integer.parseInt(sc.next()) - 1;
             if (timeslotChoice < 0 || timeslotChoice >= availableTimeslots.size()) {

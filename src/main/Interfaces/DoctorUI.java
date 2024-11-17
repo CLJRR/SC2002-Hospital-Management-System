@@ -120,7 +120,7 @@ public class DoctorUI {
                     break;
                 }
                 case 6 -> {
-                    appointmentController.doctorScheduleViewerByDay();
+                    appointmentController.doctorViewConfirmedAppt();
 
                     break;
                 }

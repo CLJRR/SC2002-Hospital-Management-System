@@ -19,7 +19,7 @@ public class AppointmentFlagUpdater {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
         System.out.println("Please enter Appointment Id to update:");
-        String appointmentId = sc.next();
+        String appointmentId = sc.next().toUpperCase();
 
         System.out.println("Choose an option to update appointment status:");
         System.out.println("1. Reject");

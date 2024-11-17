@@ -16,6 +16,7 @@ public class PatientApptViewer {
 
     private Map<String, Appointment> appointmentRecords;
     private final Scanner sc = new Scanner(System.in);
+    private Appointment appointment;
 
     public PatientApptViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
@@ -124,7 +125,7 @@ public class PatientApptViewer {
         boolean hasAppointments = false;
 
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getPatientId().equals(patientId)) {
+            if (appointment.getPatientId() != null && appointment.getPatientId().equals(patientId)) {
                 System.out.println("Appointment ID: " + appointment.getAppointmentId()
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()

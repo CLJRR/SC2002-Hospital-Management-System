@@ -27,9 +27,8 @@ public class RecordOutcome {
         this.inventory = new HashMap<>();
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
         this.inventoryController = new InventoryController();
-        this.inventory  = inventoryController.getInventory();
+        this.inventory = inventoryController.getInventory();
     }
-    
 
     public void recordOutcome() throws IOException {
         AppointmentOutcomeRecord newRecord = prompts();
@@ -56,27 +55,40 @@ public class RecordOutcome {
             System.out.println("Enter AppointmentId: ");
             apptId = sc.nextLine().toUpperCase();
             findRecord = containsAppointmentId(AppointmentList, apptId);
-            // Check if Id exists in appt database
+
+            // Check if the user wants to cancel
             if (apptId.equalsIgnoreCase("x")) {
-                return null;
+                return null; // Cancel operation
             }
+
+            // Check if the appointment exists
             if (findRecord == null) {
-                System.out.println("Appointment ID " + apptId + " does not exist .");
+                System.out.println("Appointment ID " + apptId + " does not exist.");
                 System.out.println("Press x to cancel");
                 continue;
             }
+
+            // Check if the appointment is assigned to the logged-in doctor
             if (!findRecord.getDoctorId().equalsIgnoreCase(Session.getLoginID())) {
                 System.out.println("Appointment is under Doctor " + findRecord.getDoctorId());
                 continue;
+            }
 
-            }
-            // Check for duplicate appointment ID
+            // Check if an outcome record already exists for this appointment
             if (appointmentOutcomeRecords.containsKey(apptId)) {
-                System.out.println("A Outcome record for Appointment ID " + apptId + " already exists.");
+                System.out.println("An Outcome record for Appointment ID " + apptId + " already exists.");
                 System.out.println("Press x to cancel");
-                continue; // Exit without creating a new record
+                continue;
             }
-            break;
+
+            // Check if the appointment is confirmed
+            if (findRecord.getFlag() != Flag.CONFIRMED) { // Ensure the appointment is confirmed
+                System.out.println("Appointment ID " + apptId + " is not confirmed.");
+                System.out.println("Press x to cancel");
+                continue; // Re-prompt the user
+            }
+
+            break; // Exit the loop if all checks pass
         }
 
         if (findRecord.getFlag() == Flag.CONFIRMED) {
@@ -135,7 +147,7 @@ public class RecordOutcome {
 
     private Appointment containsAppointmentId(List<Appointment> appointments, String appointmentId) {
         for (Appointment appointment : appointments) {
-            if (appointment.getAppointmentId().equals(appointmentId)) {
+            if (appointment.getAppointmentId().equalsIgnoreCase(appointmentId)) {
                 return appointment; // Found the appointment
             }
         }

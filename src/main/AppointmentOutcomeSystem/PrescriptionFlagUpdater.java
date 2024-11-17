@@ -92,7 +92,7 @@ public class PrescriptionFlagUpdater {
                                 System.out.println("Do you want to reject the prescription for " + prescription.getMedName() + "? (yes/no)");
                                 String response = sc.next().toLowerCase();
 
-                                if (response.equals("yes")) {
+                                if (response.equalsIgnoreCase("yes")) {
                                     prescription.setFlag(Flag.REJECTED);
                                     System.out.println("Prescription " + prescription.getMedName() + " for " + apptId + " has been rejected.");
                                 } else {

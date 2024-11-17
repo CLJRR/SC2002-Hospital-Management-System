@@ -83,15 +83,15 @@ public class UserService implements Load, Format, Save, Write, toObject {
             String name = parts[1];
             String password = parts[2];
             // Integer age = Integer.parseInt(parts[3]);
-            Integer age = "null".equals(parts[3]) ? null : Integer.parseInt(parts[3]);
+            Integer age = "null".equalsIgnoreCase(parts[3]) ? null : Integer.parseInt(parts[3]);
 
             // Handle nullable dateOfBirth field
-            LocalDate dateOfBirth = "null".equals(parts[4]) ? null : LocalDate.parse(parts[4]);
+            LocalDate dateOfBirth = "null".equalsIgnoreCase(parts[4]) ? null : LocalDate.parse(parts[4]);
             // Parse enum values with error handling
             Gender gender = Gender.valueOf(parts[5].toUpperCase());
-            String phoneNumber = "null".equals(parts[6]) ? null : parts[6];
-            String email = "null".equals(parts[7]) ? null : parts[7];
-            String bloodType = "null".equals(parts[8]) ? null : parts[8];
+            String phoneNumber = "null".equalsIgnoreCase(parts[6]) ? null : parts[6];
+            String email = "null".equalsIgnoreCase(parts[7]) ? null : parts[7];
+            String bloodType = "null".equalsIgnoreCase(parts[8]) ? null : parts[8];
             Role role = Role.valueOf(parts[9].trim().toUpperCase());
 
             return new User(id, name, password, age, dateOfBirth, gender, phoneNumber, email, bloodType, role);

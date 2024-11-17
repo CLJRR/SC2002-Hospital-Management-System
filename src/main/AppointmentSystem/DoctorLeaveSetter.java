@@ -52,8 +52,8 @@ public class DoctorLeaveSetter {
     public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equalsIgnoreCase(doctorId)
-                    && appointment.getDate().equals(date)
-                    && appointment.getTimeSlot().equals(timeslot)
+                    && appointment.getDate().equalsIgnoreCase(date)
+                    && appointment.getTimeSlot().equalsIgnoreCase(timeslot)
                     && appointment.getType() == Type.LEAVE
                     && appointment.getFlag() != Flag.CANCELLED) {
                 appointment.setFlag(Flag.CANCELLED);
@@ -69,7 +69,7 @@ public class DoctorLeaveSetter {
         boolean leaveFound = false;
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equalsIgnoreCase(doctorId)
-                    && appointment.getDate().equals(date)
+                    && appointment.getDate().equalsIgnoreCase(date)
                     && appointment.getType() == Type.LEAVE
                     && appointment.getFlag() != Flag.CANCELLED) {
                 appointment.setFlag(Flag.CANCELLED);
@@ -86,8 +86,8 @@ public class DoctorLeaveSetter {
     private boolean hasExistingNonCanceledAppointment(String doctorId, LocalDate date, String timeslot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equalsIgnoreCase(doctorId)
-                    && appointment.getDate().equals(date)
-                    && appointment.getTimeSlot().equals(timeslot)
+                    && appointment.getDate().equalsIgnoreCase(date)
+                    && appointment.getTimeSlot().equalsIgnoreCase(timeslot)
                     && appointment.getFlag() != Flag.CANCELLED) {
                 return true;
             }

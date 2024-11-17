@@ -141,10 +141,11 @@ public class AppointmentController {
             System.out.println((i + 1) + ". " + availableTimeslots.get(i));
         }
 
-        System.out.print("Choose a timeslot number to set as leave: ");
+        System.out .println("Choose a timeslot number to set as leave: ");
         int timeslotChoice;
+        
         try {
-            timeslotChoice = Integer.parseInt(sc.nextLine()) - 1;
+            timeslotChoice = Integer.parseInt(sc.next()) - 1;
             if (timeslotChoice < 0 || timeslotChoice >= availableTimeslots.size()) {
                 System.out.println("Invalid choice. Please select a valid timeslot.");
                 return;
@@ -163,7 +164,7 @@ public class AppointmentController {
         loader.loadInitialAppointments();
         //    public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
 
-        System.out.print("Please enter date in yyyy-mm-dd format");
+        System.out.println("Please enter date in yyyy-mm-dd format:");
         String dateInput = sc.nextLine();
         LocalDate date;
 

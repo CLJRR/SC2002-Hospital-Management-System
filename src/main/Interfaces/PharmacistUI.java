@@ -2,6 +2,7 @@ package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import MedicineInventorySystem.InventoryController;
+import RequestSystem.RequestController;
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class PharmacistUI {
         Scanner sc = new Scanner(System.in);
         InventoryController inventoryManager = new InventoryController();
         AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
+        RequestController requestController = new RequestController();
 
         int option = 0;
         while (option != 5) {
@@ -44,7 +46,8 @@ public class PharmacistUI {
                     break;
                 }
                 case 4 -> {
-                    
+                    requestController.PharmViewRequests();
+                    requestController.createNewRequest();
                     break;
 
                 }

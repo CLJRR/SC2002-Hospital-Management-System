@@ -48,7 +48,8 @@ public class AdminUI {
                     break;
                 }
                 case 4 -> {
-                    // requestController.u
+                    requestController.viewPendingRequests();
+                    requestController.updateRequestFlag();
                     break;
                 }
                 case 5 -> {

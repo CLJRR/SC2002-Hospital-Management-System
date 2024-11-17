@@ -10,7 +10,7 @@ import java.util.*;
 public class AppointmentService implements Load, Format, Save, Write, toObject {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    final String fileName = "src/main/data/appointments.txt";
+    final String fileName = "./data/appointments.txt";
 
     @Override
     public List<?> load() throws IOException {

@@ -56,13 +56,13 @@ public class PatientApptViewer {
 
         // Check appointments and update the schedule for unavailable times
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+            if (appointment.getDate().equalsIgnoreCase(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                 String timeSlot = appointment.getTimeSlot();
                 String doctorId = appointment.getDoctorId();
 
                 // Find the doctor and mark them as "UNAVAILABLE"
                 for (User doctor : doctors) {
-                    if (doctor.getId().equals(doctorId)) {
+                    if (doctor.getId().equalsIgnoreCase(doctorId)) {
                         schedule.get(timeSlot).put(doctor.getName(), "UNAVAILABLE");
                         break;
                     }
@@ -85,7 +85,7 @@ public class PatientApptViewer {
             // Check if at least one doctor is available
             List<String> availableDoctors = new ArrayList<>();
             for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
-                if (doctorEntry.getValue().equals("AVAILABLE")) {
+                if (doctorEntry.getValue().equalsIgnoreCase("AVAILABLE")) {
                     availableDoctors.add(doctorEntry.getKey());
                 }
             }
@@ -108,7 +108,7 @@ public class PatientApptViewer {
         List<String> bookedSlots = new ArrayList<>();
 
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getType() == Type.APPOINTMENT) {
+            if (appointment.getDate().equalsIgnoreCase(date) && appointment.getType() == Type.APPOINTMENT) {
                 bookedSlots.add(appointment.getTimeSlot());
             }
         }
@@ -116,6 +116,7 @@ public class PatientApptViewer {
         allSlots.removeAll(bookedSlots);
         return allSlots;
     }
+
     private String getDoctorNameById(String doctorId) {
         // Fetch all doctors using GetUser
         GetUser getUser = new GetUser();
@@ -123,7 +124,7 @@ public class PatientApptViewer {
 
         // Iterate through the list of doctors to find the matching ID
         for (User doctor : doctors) {
-            if (doctor.getId().equals(doctorId)) {
+            if (doctor.getId().equalsIgnoreCase(doctorId)) {
                 return doctor.getName();
             }
         }
@@ -131,6 +132,7 @@ public class PatientApptViewer {
         // Return "Unknown Doctor" if no match is found
         return "Unknown Doctor";
     }
+
     //viewScheduledApppointments
     //need to test check
     // Method to view all scheduled appointments for the logged-in patient
@@ -139,7 +141,7 @@ public class PatientApptViewer {
         boolean hasAppointments = false;
 
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getPatientId() != null && appointment.getPatientId().equals(patientId)) {
+            if (appointment.getPatientId() != null && appointment.getPatientId().equalsIgnoreCase(patientId)) {
                 System.out.println("Appointment ID: " + appointment.getAppointmentId()
                         + ", Date: " + appointment.getDate()
                         + ", Time: " + appointment.getTimeSlot()

@@ -4,6 +4,7 @@ import enums.*;
 import java.util.*;
 
 public class HospitalStaffFilter {
+
     private Map<String, User> staffs;
 
     public HospitalStaffFilter(Map<String, User> staffs) {
@@ -86,7 +87,7 @@ public class HospitalStaffFilter {
                         }
                     }
                     for (User user : staffs.values()) {
-                        if (Objects.equals(user.getAge(), age)) {
+                        if (Objects.equalsIgnoreCase(user.getAge(), age)) {
                             System.out.println("ID: " + user.getId() + ", Name: " + user.getName() + ", Gender: "
                                     + user.getGender() + ", Age: " + user.getAge() + ", Role: " + user.getRole());
                         }

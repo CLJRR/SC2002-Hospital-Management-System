@@ -31,33 +31,33 @@ public class PatientAppointmentScheduler {
         while (true) {
             System.out.print("Enter the Appointment ID to cancel (or type 'x' to exit): ");
             String appointmentId = sc.nextLine().toUpperCase();
-    
+
             // Allow the user to exit
             if (appointmentId.equalsIgnoreCase("x")) {
                 System.out.println("Cancel appointment process exited.");
                 return;
             }
-    
+
             // Check if the appointment exists
             if (!appointmentRecords.containsKey(appointmentId)) {
                 System.out.println("Error: Appointment not found. Please try again.");
                 continue;
             }
-    
+
             Appointment appointmentToCancel = appointmentRecords.get(appointmentId);
-    
+
             // Check if the appointment belongs to the patient
             if (!appointmentToCancel.getPatientId().equals(patientId)) {
                 System.out.println("Error: You are not authorized to cancel this appointment.");
                 return;
             }
-    
+
             // Check if the patient has any scheduled appointments
             if (appointmentToCancel.getPatientId() == null) {
                 System.out.println("Error: No scheduled appointments found.");
                 return;
             }
-    
+
             // Confirm cancellation
             System.out.println("Appointment Details:");
             System.out.println("Appointment ID: " + appointmentToCancel.getAppointmentId());
@@ -66,18 +66,18 @@ public class PatientAppointmentScheduler {
             System.out.println("Doctor ID: " + appointmentToCancel.getDoctorId());
             System.out.print("Are you sure you want to cancel this appointment? (yes/no): ");
             String confirmation = sc.nextLine().toLowerCase();
-    
+
             if (!confirmation.equals("yes")) {
                 System.out.println("Cancellation aborted.");
                 return;
             }
-    
+
             // Remove the appointment
             appointmentRecords.remove(appointmentId);
             System.out.println("Appointment canceled successfully.");
             return;
         }
-    }    
+    }
 
     // Helper method to generate the next sequential appointment ID
     private String generateAppointmentId() {
@@ -92,7 +92,7 @@ public class PatientAppointmentScheduler {
 
         // Iterate through the list of doctors to find the matching ID
         for (User doctor : doctors) {
-            if (doctor.getId().equals(doctorId)) {
+            if (doctor.getId().equalsIgnoreCase(doctorId)) {
                 return doctor.getName();
             }
         }
@@ -105,13 +105,13 @@ public class PatientAppointmentScheduler {
         while (true) {
             System.out.print("Enter the date for scheduling in yyyy-mm-dd format (or type 'x' to cancel): ");
             String input = sc.nextLine();
-    
+
             // Allow the user to exit
             if (input.equalsIgnoreCase("x")) {
                 System.out.println("Appointment scheduling canceled.");
                 return;
             }
-    
+
             LocalDate date;
             try {
                 date = LocalDate.parse(input);
@@ -119,14 +119,14 @@ public class PatientAppointmentScheduler {
                 System.out.println("Invalid date format. Please try again.");
                 continue;
             }
-    
+
             // Fetch available timeslots and doctors
             List<String> timeslots = Timeslot.getTimeslot();
             Map<String, Map<String, String>> schedule = new HashMap<>();
-    
+
             GetUser getUser = new GetUser();
             List<User> doctors = getUser.getAllDoctors();
-    
+
             // Initialize the schedule for each timeslot with all doctors marked as "AVAILABLE"
             for (String timeslot : timeslots) {
                 Map<String, String> doctorAvailability = new HashMap<>();
@@ -135,13 +135,13 @@ public class PatientAppointmentScheduler {
                 }
                 schedule.put(timeslot, doctorAvailability);
             }
-    
+
             // Check appointments and update the schedule for unavailable times
             for (Appointment appointment : appointmentRecords.values()) {
                 if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                     String timeSlot = appointment.getTimeSlot();
                     String doctorId = appointment.getDoctorId();
-    
+
                     // Find the doctor and mark them as "UNAVAILABLE"
                     for (User doctor : doctors) {
                         if (doctor.getId().equals(doctorId)) {
@@ -151,35 +151,35 @@ public class PatientAppointmentScheduler {
                     }
                 }
             }
-    
+
             // Display available timeslots and doctors
             System.out.println("Available Timeslots for " + date + ":");
             List<String> sortedTimeslots = new ArrayList<>(schedule.keySet());
             Collections.sort(sortedTimeslots);
-    
+
             boolean hasAvailableSlots = false;
             for (int i = 0; i < sortedTimeslots.size(); i++) {
                 String timeslot = sortedTimeslots.get(i);
                 Map<String, String> doctorAvailability = schedule.get(timeslot);
-    
+
                 List<String> availableDoctors = new ArrayList<>();
                 for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
                     if (doctorEntry.getValue().equals("AVAILABLE")) {
                         availableDoctors.add(doctorEntry.getKey());
                     }
                 }
-    
+
                 if (!availableDoctors.isEmpty()) {
                     System.out.println((i + 1) + ") " + timeslot + ": Available Doctors - " + String.join(", ", availableDoctors));
                     hasAvailableSlots = true;
                 }
             }
-    
+
             if (!hasAvailableSlots) {
                 System.out.println("No available timeslots for this date.");
                 continue; // Allow user to enter a new date
             }
-    
+
             while (true) {
                 // Ask the patient to select a timeslot
                 System.out.print("Select an available timeslot (or type '99' to go back to enter a new date): ");
@@ -195,42 +195,41 @@ public class PatientAppointmentScheduler {
                     System.out.println("Going back to enter a new date.");
                     break; // Exit to re-enter a new date
                 }
-    
+
                 if (slotChoice < 1 || slotChoice > sortedTimeslots.size()) {
                     System.out.println("Invalid slot selection. Please try again.");
                     continue;
                 }
-    
+
                 String selectedSlot = sortedTimeslots.get(slotChoice - 1);
-    
+
                 while (true) {
                     // Ask the patient to select a doctor
                     System.out.print("Select a doctor from the available list (or type 'x' to go back to select a new timeslot): ");
                     String selectedDoctorName = sc.nextLine().toLowerCase();
-    
+
                     if (selectedDoctorName.equals("x")) {
                         System.out.println("Going back to enter new timeslot.");
                         break; // Exit to re-enter a new date
                     }
-    
+
                     if (!schedule.get(selectedSlot).getOrDefault(selectedDoctorName, "").equals("AVAILABLE")) {
                         System.out.println("The selected doctor is not available for this timeslot. Please try again.");
                         continue; // Prompt again for a valid doctor
                     }
-    
+
                     // Create the appointment
                     String appointmentId = generateAppointmentId();
                     String doctorId = getDoctorIdByName(selectedDoctorName);
                     Appointment appointment = new Appointment(appointmentId, patientId, doctorId, date, selectedSlot, Type.APPOINTMENT, Flag.PENDING);
                     appointmentRecords.put(appointmentId, appointment);
-    
+
                     System.out.println("Appointment scheduled successfully for " + date + " at " + selectedSlot + " with Dr. " + selectedDoctorName);
                     return; // Exit after successful scheduling
                 }
             }
         }
     }
-    
 
     public void rescheduleAppointment(String patientId) {
         while (true) {
@@ -251,7 +250,7 @@ public class PatientAppointmentScheduler {
 
             Appointment existingAppointment = appointmentRecords.get(appointmentId);
 
-            if (!existingAppointment.getPatientId().equals(patientId)) {
+            if (!existingAppointment.getPatientId().equalsIgnoreCase(patientId)) {
                 System.out.println("You are not authorized to reschedule this appointment.");
                 return;
             }
@@ -295,13 +294,13 @@ public class PatientAppointmentScheduler {
 
                 // Check appointments and update the schedule for unavailable times
                 for (Appointment appointment : appointmentRecords.values()) {
-                    if (appointment.getDate().equals(newDate) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+                    if (appointment.getDate().equalsIgnoreCase(newDate) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
                         String timeSlot = appointment.getTimeSlot();
                         String doctorId = appointment.getDoctorId();
 
                         // Find the doctor and mark them as "UNAVAILABLE"
                         for (User doctor : doctors) {
-                            if (doctor.getId().equals(doctorId)) {
+                            if (doctor.getId().equalsIgnoreCase(doctorId)) {
                                 schedule.get(timeSlot).put(doctor.getName(), "UNAVAILABLE");
                                 break;
                             }
@@ -321,7 +320,7 @@ public class PatientAppointmentScheduler {
 
                     List<String> availableDoctors = new ArrayList<>();
                     for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
-                        if (doctorEntry.getValue().equals("AVAILABLE")) {
+                        if (doctorEntry.getValue().equalsIgnoreCase("AVAILABLE")) {
                             availableDoctors.add(doctorEntry.getKey());
                         }
                     }
@@ -370,7 +369,7 @@ public class PatientAppointmentScheduler {
                             break; // Exit to re-enter a new date
                         }
 
-                        if (!schedule.get(selectedSlot).getOrDefault(selectedDoctorName, "").equals("AVAILABLE")) {
+                        if (!schedule.get(selectedSlot).getOrDefault(selectedDoctorName, "").equalsIgnoreCase("AVAILABLE")) {
                             System.out.println("The selected doctor is not available for this timeslot. Please try again.");
                             continue; // Prompt again for a valid doctor
                         }

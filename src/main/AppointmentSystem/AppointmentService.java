@@ -75,8 +75,8 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
         }
         try {
             String appointmentId = parts[0];
-            String patientId = parts[1].equals("null") ? null : parts[1];
-            String doctorId = parts[2].equals("null") ? null : parts[2];
+            String patientId = parts[1].equalsIgnoreCase("null") ? null : parts[1];
+            String doctorId = parts[2].equalsIgnoreCase("null") ? null : parts[2];
             LocalDate date = LocalDate.parse(parts[3], DATE_FORMATTER);
             String timeSlot = parts[4];
             Type type = Type.valueOf(parts[5].toUpperCase());

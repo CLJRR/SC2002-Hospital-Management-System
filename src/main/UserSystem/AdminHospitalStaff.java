@@ -1,6 +1,7 @@
 package UserSystem;
 
 import enums.*;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -20,6 +21,20 @@ public class AdminHospitalStaff {
      */
     public void adminHospitalStaff() {
         HospitalStaffController hospitalStaffController = new HospitalStaffController();
+
+        UserService userService = new UserService();
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = userService.load();
+        } catch (IOException e) {
+            System.err.println("Users not loaded successfully.");
+        }
+
+        List<String> IdList = new ArrayList<>();
+        for (int i = 0; i < userList.size(); i++) {
+            IdList.add(userList.get(i).getId());
+        }
+
         Scanner sc = new Scanner(System.in);
 
         // Display initial list of staff on startup
@@ -55,8 +70,14 @@ public class AdminHospitalStaff {
 
                 case 2:
                     // Add a new staff member
+
                     System.out.print("Enter Staff ID to add: ");
                     String staffId = sc.nextLine();
+                    while (IdList.contains(staffId)) {
+                        System.out.println("Staff already exists. Please try again.");
+                        System.out.print("Enter Staff ID to add: ");
+                        staffId = sc.nextLine();
+                    }
 
                     System.out.print("Enter Staff Name to add: ");
                     String name = sc.nextLine();

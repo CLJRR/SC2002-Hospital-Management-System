@@ -2,6 +2,8 @@ package AppointmentSystem;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
 import enums.Flag;
+import enums.Type;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -38,7 +40,7 @@ public class ApptRecordViewer {
     // For doctor to view pending records
     public void viewPendingRecords(String doctorId) throws IOException {
         for (Appointment record : appointmentRecords.values()) {
-            if (doctorId.equalsIgnoreCase(record.getDoctorId()) && record.getFlag() == Flag.PENDING) {
+            if (doctorId.equalsIgnoreCase(record.getDoctorId()) && record.getFlag() == Flag.PENDING && record.getType() != Type.LEAVE) {
                 System.out.println(record.getAppointmentId() + " " + record.getFlag());
             }
         }

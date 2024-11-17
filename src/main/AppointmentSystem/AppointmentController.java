@@ -243,16 +243,7 @@ public class AppointmentController {
     //Patient Appointment Scheduler
     public void patientScheduleAppointment() {
         loader.loadInitialAppointments();
-        System.out.print("Please enter date in yyyy-mm-dd format: ");
-        String dateInput = sc.next();
-        LocalDate date;
-        try {
-            date = LocalDate.parse(dateInput);
-        } catch (Exception e) {
-            System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
-            return;
-        }
-        patientAppointmentScheduler.scheduleAppointment(date, Session.getLoginID());
+        patientAppointmentScheduler.scheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 

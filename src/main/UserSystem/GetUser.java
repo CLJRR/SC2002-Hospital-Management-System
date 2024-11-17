@@ -15,12 +15,18 @@ public class GetUser {
         userLoader.loadInitialUsers();
     }
 
+    public void loadUser() {
+        userLoader.loadInitialUsers();
+    }
+
     public User getUser(String UserId) {
+        loadUser();
         User user = users.get(UserId);
         return user;
     }
 
     public List<User> getAllPatients() {
+        loadUser();
         List<User> patients = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getRole() == Role.PATIENT) {
@@ -31,6 +37,7 @@ public class GetUser {
     }
 
     public List<User> getAllDoctors() {
+        loadUser();
         List<User> doctors = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getRole() == Role.DOCTOR) {
@@ -41,6 +48,7 @@ public class GetUser {
     }
 
     public List<User> getAllPharmacists() {
+        loadUser();
         List<User> pharmacists = new ArrayList<>();
         for (User user : users.values()) {
             if (user.getRole() == Role.PHARMACIST) {

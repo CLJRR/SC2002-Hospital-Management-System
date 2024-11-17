@@ -9,9 +9,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The `UserService` class provides functionality for loading, saving, and
+ * formatting user data. It implements interfaces for handling file operations
+ * and object serialization/deserialization. Users are stored in a text file
+ * and managed as `User` objects.
+ */
+
 public class UserService implements Load, Format, Save, Write, toObject {
 
     private static final String FILENAME = "./data/users.txt";
+
+    /**
+     * Loads user data from a text file, parses each line into `User` objects,
+     * and returns a list of these users.
+     *
+     * @return A list of `User` objects loaded from the file.
+     * @throws IOException If an error occurs while reading the file.
+     */
 
     @Override
     public List<User> load() throws IOException {
@@ -25,6 +40,15 @@ public class UserService implements Load, Format, Save, Write, toObject {
         }
         return data;
     }
+
+    /**
+     * Saves a list of users to the text file. Converts each `User` object into
+     * a formatted string and writes it to the file.
+     *
+     * @param list A list of objects to be saved, which must be instances of `User`.
+     * @throws IOException If an error occurs during the saving process or if the
+     *                     list contains invalid objects.
+     */
 
     @Override
     public void save(List<?> list) throws IOException {
@@ -41,6 +65,13 @@ public class UserService implements Load, Format, Save, Write, toObject {
 
     }
 
+    /**
+     * Writes a list of formatted strings to the text file.
+     *
+     * @param data A list of strings to be written to the file.
+     * @throws IOException If an error occurs while writing to the file.
+     */
+
     @Override
     public void write(List<String> data) throws IOException {
         try (PrintWriter out = new PrintWriter(new FileWriter(FILENAME))) {
@@ -49,6 +80,14 @@ public class UserService implements Load, Format, Save, Write, toObject {
             }
         }
     }
+
+    /**
+     * Formats a `User` object into a comma-separated string suitable for storage.
+     *
+     * @param object The `User` object to be formatted.
+     * @return A string representation of the `User` object.
+     * @throws IOException If the object is not an instance of `User`.
+     */
 
     @Override
     public String format(Object object) throws IOException {
@@ -69,6 +108,15 @@ public class UserService implements Load, Format, Save, Write, toObject {
             throw new IOException("Invalid object type");
         }
     }
+
+    /**
+     * Converts a comma-separated string into a `User` object.
+     *
+     * @param string The string to be parsed.
+     * @return A `User` object created from the string data.
+     * @throws IOException If the string is improperly formatted or contains invalid
+     *                     data.
+     */
 
     @Override
     public Object toObject(String string) throws IOException {

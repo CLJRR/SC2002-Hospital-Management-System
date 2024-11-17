@@ -3,19 +3,42 @@ package UserSystem;
 import enums.*;
 import java.util.*;
 
+/**
+ * This class provides functionality for updating hospital staff details.
+ * It allows modifications to staff attributes such as ID, name, gender, age,
+ * and role.
+ */
+
 public class HospitalStaffUpdater {
-    private Map<String, User> staffs;
+    private final Map<String, User> staffs;
+
+    /**
+     * Constructs a HospitalStaffUpdater instance, initialising it with a map of
+     * staff members.
+     * 
+     * @param staffs A map containing staff members, keyed by their unique IDs.
+     */
 
     public HospitalStaffUpdater(Map<String, User> staffs) {
         this.staffs = staffs;
     }
 
+    /**
+     * Updates the details of a specific staff member based on user input.
+     * Provides an interactive menu to modify the staff's attributes, including ID,
+     * name, gender, age, and role. Ensures unique ID when updating the staff ID.
+     * 
+     * @param staffId The unique ID of the staff member to be updated.
+     */
+
     public void updateStaff(String staffId) {
         Scanner sc = new Scanner(System.in);
         User staff = staffs.get(staffId);
+
         if (staff != null) {
             boolean exit = false;
             while (!exit) {
+                // Display update options
                 System.out.println("1) Update ID");
                 System.out.println("2) Update Name");
                 System.out.println("3) Update Gender");
@@ -24,6 +47,7 @@ public class HospitalStaffUpdater {
                 System.out.println("6) Quit");
                 System.out.print("Select Option: ");
 
+                // Validate menu option input
                 while (!sc.hasNextInt()) { // Check if input is an integer
                     System.out.println("Option not valid. Please try again:");
                     sc.next(); // Clear the invalid input
@@ -35,34 +59,53 @@ public class HospitalStaffUpdater {
                 switch (option) {
                     case 1 -> {
                         System.out.println("Enter new ID: ");
-                        String newId = sc.nextLine();
-                        staff.setId(newId);
+                        String newId = sc.nextLine().trim();
+
+                        // Ensure the new ID is unique
+                        while (staffs.containsKey(newId)) {
+                            System.out.println("ID already exists. Please try again.");
+                            System.out.print("Enter new ID: ");
+                            newId = sc.nextLine().trim();
+                        }
+
+                        // Update the ID in the map and the User object
+                        staffs.remove(staffId); // Remove the old entry
+                        staff.setId(newId); // Update the ID in the User object
+                        staffs.put(newId, staff); // Add the updated entry with the new ID
+                        staffId = newId; // Update the reference for further updates
+                        System.out.println("ID updated successfully.");
                         break;
                     }
                     case 2 -> {
                         System.out.println("Enter new Name: ");
                         String newName = sc.nextLine();
                         staff.setName(newName);
+                        System.out.println("Name updated successfully.");
                         break;
                     }
                     case 3 -> {
                         Gender newGender = Gender.OTHER;
                         boolean validGender = false;
+
+                        // Prompt for a valid gender
                         while (!validGender) {
                             try {
                                 System.out.println("Enter new Gender: ");
                                 newGender = Gender.valueOf(sc.nextLine().trim().toUpperCase());
                                 validGender = true;
-                            } catch (Exception e) {
+                            } catch (IllegalArgumentException e) {
                                 System.err.println("Gender not valid. Please try again.");
                             }
                         }
                         staff.setGender(newGender);
+                        System.out.println("Gender updated successfully.");
                         break;
                     }
                     case 4 -> {
                         Integer age = 0;
                         boolean validAge = false;
+
+                        // Prompt for a valid age
                         while (!validAge) {
                             try {
                                 System.out.println("Enter new Age: ");
@@ -73,11 +116,14 @@ public class HospitalStaffUpdater {
                             }
                         }
                         staff.setAge(age);
+                        System.out.println("Age updated successfully.");
                         break;
                     }
                     case 5 -> {
                         Role newRole = Role.DOCTOR;
                         boolean validRole = false;
+
+                        // Prompt for a valid role
                         while (!validRole) {
                             try {
                                 System.out.println("Enter new Role: ");
@@ -90,10 +136,11 @@ public class HospitalStaffUpdater {
                             }
                         }
                         staff.setRole(newRole);
+                        System.out.println("Role updated successfully.");
                         break;
                     }
                     case 6 -> {
-                        exit = true;
+                        exit = true; // Exit the menu
                         break;
                     }
                     default -> {

@@ -362,6 +362,8 @@ public class PatientAppointmentScheduler {
                     // Loop until an integer is entered
                     while (!sc.hasNextInt()) {
                         System.out.println("Invalid input. Please enter an integer");
+                        System.out
+                                .print("Select an available timeslot (or type '99' to go back to enter a new date): ");
                         sc.next(); // Clear the invalid input
                     }
 

@@ -79,7 +79,6 @@ public class RequestFlagUpdater {
         Request request = requestRecords.get(requestId);
         if (request != null) {
             // Attempt to increase stock in inventory if flag is APPROVED
-            invController.saveInventory();
             if (newFlag == Flag.APPROVED && !invController.increaseStock(request.getMedicationName(), request.getIncreaseStockBy())) {
                 System.out.println("Unable to update stock for request " + requestId + ".");
                 return;

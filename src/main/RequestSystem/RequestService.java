@@ -1,6 +1,6 @@
 package RequestSystem;
 
-import FIleManager.*;
+import FileManager.*;
 import enums.Flag;
 import java.io.*;
 import java.util.*;

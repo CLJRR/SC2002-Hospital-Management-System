@@ -1,6 +1,6 @@
 package UserSystem;
 
-import FIleManager.*;
+import FileManager.*;
 import enums.Gender;
 import enums.Role;
 import java.io.*;

@@ -1,14 +1,15 @@
 package MedicineInventorySystem;
 
-import FIleManager.Format;
-import FIleManager.Load;
-import FIleManager.Save;
-import FIleManager.Write;
-import FIleManager.toObject;
+import FileManager.Format;
+import FileManager.Load;
+import FileManager.Save;
+import FileManager.Write;
+import FileManager.toObject;
 import java.io.*;
 import java.util.*;
 
 public class MedicineInventoryService implements Load, Format, Save, Write, toObject {
+
     private static final String FILENAME = "./data/medicine_inventory.txt";
 
     // Load medicines from the file and return as a list of MedicationInventory

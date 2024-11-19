@@ -40,12 +40,8 @@ public class ReceptionistController {
             // Process valid input
             switch (choice) {
                 case 1 -> {
-                    try {
-                        newPatientCreator.createNewPatient(); // Call to create new patient
-                    } catch (Exception e) {
-                        System.out.println("An error occurred while creating a new patient. Please try again.");
-                        e.printStackTrace();
-                    }
+                    newPatientCreator.createNewPatient(); // Call to create new patient
+
                 }
                 case 2 -> {
                     System.out.println("Exiting Receptionist System.");

@@ -6,18 +6,16 @@ import java.util.*;
 
 /**
  * Class for managing hospital staff operations such as viewing, adding,
- * removing, updating, filtering and saving staff records by admin.
- * The {@code AdminHospitalStaff} class provides functionality for managing
- * hospital staff
- * It interacts with the {@link HospitalStaffController} to view, add, remove,
- * update, filter,
- * and save staff information.
+ * removing, updating, filtering and saving staff records by admin. The
+ * {@code AdminHospitalStaff} class provides functionality for managing hospital
+ * staff It interacts with the {@link HospitalStaffController} to view, add,
+ * remove, update, filter, and save staff information.
  */
-
 public class AdminHospitalStaff {
+
     /**
-     * Starts the admin panel for hospital staff management.
-     * Provides options to view, add, remove, update, filter and save staff records.
+     * Starts the admin panel for hospital staff management. Provides options to
+     * view, add, remove, update, filter and save staff records.
      */
     public void adminHospitalStaff() {
         HospitalStaffController hospitalStaffController = new HospitalStaffController();
@@ -97,7 +95,7 @@ public class AdminHospitalStaff {
 
                     // Get valid role input
                     boolean validRole = false;
-                    Role role = Role.DOCTOR;
+                    Role role = null;
                     while (validRole == false) {
                         try {
                             System.out.print("Enter Staff Role to add: ");
@@ -109,30 +107,68 @@ public class AdminHospitalStaff {
                     }
                     GetUser getUser = new GetUser();
                     String staffId = "";
-                    if (role == Role.DOCTOR) {
-                        List<User> doctors = getUser.getAllDoctors();
-                        List<String> doctorids = new ArrayList<>();
-                        for (User doctor : doctors) {
-                            doctorids.add(doctor.getId());
+                    if (null != role) {
+                        switch (role) {
+                            case DOCTOR: {
+                                List<User> doctors = getUser.getAllDoctors();
+                                List<String> doctorids = new ArrayList<>();
+                                for (User doctor : doctors) {
+                                    doctorids.add(doctor.getId());
+                                }
+                                int num = doctors.size() + 1;
+                                staffId = String.format("D%03d", num);
+                                while (doctorids.contains(staffId)) {
+                                    num++;
+                                    staffId = String.format("D%03d", num);
+                                }
+                                break;
+                            }
+                            case PHARMACIST: {
+                                List<User> pharmacists = getUser.getAllPharmacists();
+                                List<String> pharmacistids = new ArrayList<>();
+                                for (User doctor : pharmacists) {
+                                    pharmacistids.add(doctor.getId());
+                                }
+                                int num = pharmacists.size() + 1;
+                                staffId = String.format("P%03d", num);
+
+                                while (pharmacistids.contains(staffId)) {
+                                    num++;
+                                    staffId = String.format("P%03d", num);
+                                }
+                                break;
+                            }
+                            case RECEPTIONIST: {
+                                List<User> receptionists = getUser.getAllReceptionist();
+                                List<String> pharmacistids = new ArrayList<>();
+                                for (User doctor : receptionists) {
+                                    pharmacistids.add(doctor.getId());
+                                }
+                                int num = receptionists.size() + 1;
+                                staffId = String.format("R%03d", num);
+                                while (pharmacistids.contains(staffId)) {
+                                    num++;
+                                    staffId = String.format("R%03d", num);
+                                }
+                                break;
+                            }case ADMINISTRATOR: {
+                                List<User> receptionists = getUser.getAllAdministrators();
+                                List<String> pharmacistids = new ArrayList<>();
+                                for (User doctor : receptionists) {
+                                    pharmacistids.add(doctor.getId());
+                                }
+                                int num = receptionists.size() + 1;
+                                staffId = String.format("A%03d", num);
+                                while (pharmacistids.contains(staffId)) {
+                                    num++;
+                                    staffId = String.format("A%03d", num);
+                                }
+                                break;
+                            }
+                            default:
+                                break;
                         }
-                        int num = doctors.size() + 1;
-                        staffId = "D00" + num;
-                        while (doctorids.contains(staffId)) {
-                            num++;
-                            staffId = "D00" + num;
-                        }
-                    } else if (role == Role.PHARMACIST) {
-                        List<User> pharmacists = getUser.getAllPharmacists();
-                        List<String> pharmacistids = new ArrayList<>();
-                        for (User doctor : pharmacists) {
-                            pharmacistids.add(doctor.getId());
-                        }
-                        int num = pharmacists.size() + 1;
-                        staffId = "P00" + num;
-                        while (pharmacistids.contains(staffId)) {
-                            num++;
-                            staffId = "P00" + num;
-                        }
+                        
                     }
 
                     // Create and add staff member

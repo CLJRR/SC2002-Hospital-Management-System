@@ -2,6 +2,7 @@ package Interfaces;
 
 import LoginSystem.InputPrompt;
 import LoginSystem.Login;
+import ReceptionistSystem.ReceptionistController;
 import UserSystem.GetUser;
 import UserSystem.PasswordChanger;
 import UserSystem.User;
@@ -48,6 +49,14 @@ public class LoginUI {
                 System.out.println("Error launching Pharmacist UI: " + e.getMessage());
             }
         });
+        roleActions.put(Role.RECEPTIONIST, () -> {
+            try {
+                ReceptionistController receptionistController = new ReceptionistController();
+                receptionistController.startReceptionistSystem();
+            } catch (IOException e) {
+                System.out.println("Error launching Pharmacist UI: " + e.getMessage());
+            }
+        });
     }
 
     public void loginUI() throws IOException {
@@ -87,9 +96,9 @@ public class LoginUI {
                     option = sc.nextInt();
                     sc.nextLine(); // Consumes Newline
                 }
-                if (option == 1)
+                if (option == 1) {
                     action.run(); // Run the UI action associated with the role
-                else if (option == 2) {
+                 }else if (option == 2) {
                     passwordChanger.passwordChanger(userId);
                 }
             }

@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class PatientApptViewer {
+public class PatientAppointmentViewer {
 
     private Map<String, Appointment> appointmentRecords;
     private final Scanner sc = new Scanner(System.in);
     private Appointment appointment;
 
-    public PatientApptViewer(Map<String, Appointment> appointmentRecords) {
+    public PatientAppointmentViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
 
     }

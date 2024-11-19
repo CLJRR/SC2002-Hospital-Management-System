@@ -38,7 +38,7 @@ public class RequestController {
     }
 
     /**
-     * Saves the current state of request records to persistent storage.
+     * Saves the current state of request to requests.txt
      */
     public void saveRequests() {
         saver.saveRequests();

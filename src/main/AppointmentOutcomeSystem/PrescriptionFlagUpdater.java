@@ -1,6 +1,6 @@
 /**
  * Handles the updating of prescription flags for appointment outcome records.
- * Supports operations such as marking prescriptions as DISPENSED or REJECTED,
+ * Supports operations such as changing prescription flags from PENDING to DISPENSED or REJECTED,
  * and ensures updates are reflected in the inventory system.
  */
 package AppointmentOutcomeSystem;

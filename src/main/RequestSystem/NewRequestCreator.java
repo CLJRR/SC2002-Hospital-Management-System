@@ -32,7 +32,7 @@ public class NewRequestCreator {
     }
 
     /**
-     * Allows the pharmacist to create a new stock replenishment request.
+     * Allows the pharmacist to create a stock replenishment request.
      * The method prompts the pharmacist to select a medication, specify the quantity,
      * and provide any additional notes. The new request is added to the request records.
      *

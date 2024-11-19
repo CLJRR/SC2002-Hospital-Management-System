@@ -14,7 +14,7 @@ public class Prescription {
     private String medName;
 
     /**
-     * Status flag for the prescription, indicating its current state (e.g., PENDING, APPROVED, etc.).
+     * Status flag for the prescription, indicating its current state (e.g., PENDING, DISPENSED, etc.).
      */
     private Flag flag;
 

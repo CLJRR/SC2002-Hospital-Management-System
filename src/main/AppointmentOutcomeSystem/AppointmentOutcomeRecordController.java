@@ -93,7 +93,7 @@ public class AppointmentOutcomeRecordController {
 
     /**
      * Allows a patient to view their past appointment outcome records.
-     * Uses the session's login ID to filter records. Ensures records are loaded before viewing.
+     * Uses the session's login ID to get the current logged in User's medical records. Ensures records are loaded before viewing.
      *
      * @throws IOException if an error occurs during viewing
      */
@@ -105,6 +105,7 @@ public class AppointmentOutcomeRecordController {
     /**
      * Allows an admin to view records by appointment ID.
      * Ensures records are loaded before viewing.
+     * the naming kinda ass cause last minute
      *
      * @param apptId the appointment ID to search for
      * @return {@code true} if the record exists and is displayed, {@code false} otherwise

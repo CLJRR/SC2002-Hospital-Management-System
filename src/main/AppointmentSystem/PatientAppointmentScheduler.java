@@ -1,3 +1,8 @@
+/**
+ * The {@code PatientAppointmentScheduler} class handles appointment management for patients.
+ * It provides functionalities for scheduling, rescheduling, and canceling appointments.
+ */
+
 package AppointmentSystem;
 
 import UserSystem.GetUser;
@@ -16,6 +21,10 @@ import java.util.Scanner;
 // //Schedule
 // //Reschedule
 // //Cancel
+
+/**
+ * Manages patient appointments including scheduling, rescheduling, and canceling.
+ */
 public class PatientAppointmentScheduler {
 
     private Map<String, Appointment> appointmentRecords;
@@ -23,10 +32,20 @@ public class PatientAppointmentScheduler {
     private PatientApptViewer patientApptViewer;
     private Appointment appointment;
 
+    /**
+     * Constructs a {@code PatientAppointmentScheduler} with the given appointment records.
+     *
+     * @param appointmentRecords a map containing the appointment records.
+     */
     public PatientAppointmentScheduler(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
 
+    /**
+     * Cancels an appointment for a given patient.
+     *
+     * @param patientId the ID of the patient who wants to cancel an appointment.
+     */
     public void cancelAppointment(String patientId) {
         while (true) {
             System.out.print("Enter the Appointment ID to cancel (or type 'x' to exit): ");
@@ -101,6 +120,11 @@ public class PatientAppointmentScheduler {
         return "Unknown Doctor";
     }
 
+    /**
+     * Schedules a new appointment for a patient.
+     *
+     * @param patientId the ID of the patient scheduling the appointment.
+     */
     public void scheduleAppointment(String patientId) {
         while (true) {
             System.out.print("Enter the date for scheduling in yyyy-mm-dd format (or type 'x' to cancel): ");
@@ -246,7 +270,12 @@ public class PatientAppointmentScheduler {
             }
         }
     }
-
+    
+    /**
+     * Reschedules an existing appointment for a patient.
+     *
+     * @param patientId the ID of the patient rescheduling the appointment.
+     */
     public void rescheduleAppointment(String patientId) {
         while (true) {
             System.out.print("Enter the Appointment ID to reschedule (or type 'x' to cancel): ");

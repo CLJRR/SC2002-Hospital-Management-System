@@ -1,5 +1,5 @@
 /**
- * Responsible for viewing appointment outcome records. 
+ * Responsible for viewing appointment outcome records.
  * Provides methods to display all records, pending records, and records filtered by ID.
  */
 package AppointmentOutcomeSystem;
@@ -17,12 +17,11 @@ public class AppointmentOutcomeRecordsViewer {
     static final Scanner sc = new Scanner(System.in);
 
     /**
-     * Constructs a new {@code AppointmentOutcomeRecordsViewer} with the specified
-     * map
-     * containing appointment outcome records to be viewed.
+     * Constructs a new {@code AppointmentOutcomeRecordsViewer} with the
+     * specified map containing appointment outcome records to be viewed.
      *
-     * @param appointmentOutcomeRecords the map of appointment outcome records to
-     *                                  view
+     * @param appointmentOutcomeRecords the map of appointment outcome records
+     * to view
      */
     public AppointmentOutcomeRecordsViewer(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
@@ -40,12 +39,11 @@ public class AppointmentOutcomeRecordsViewer {
     }
 
     /**
-     * Displays all appointment outcome records by checking the flag of each
-     * prescription.
+     * Displays all pending appointment outcome with prescriptions
      *
      * @throws IOException if an error occurs while viewing records
      */
-    public void viewRecords() throws IOException {
+    public void viewPendingRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             for (Prescription prescription : record.getPrescriptions()) {
                 System.out.println(record.getApptId() + " " + prescription);
@@ -54,12 +52,12 @@ public class AppointmentOutcomeRecordsViewer {
     }
 
     /**
-     * Displays appointment outcome records filtered by a specific ID.
-     * Records are sorted by appointment date in ascending order.
+     * Displays appointment outcome records filtered by a either ApptId or
+     * PatientId. Records are sorted by appointment date in ascending order.
      *
      * @param Id the appointment or patient ID to filter records
      * @return {@code true} if matching records are found and displayed,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @throws IOException if an error occurs while viewing records
      */
     public boolean viewRecordsById(String Id) throws IOException {
@@ -90,8 +88,8 @@ public class AppointmentOutcomeRecordsViewer {
 
                     // Display prescriptions
                     for (Prescription prescription : medicalRecord.getPrescriptions()) {
-                        System.out.println("Prescription: " + prescription.getMedName() + ", " +
-                                prescription.getAmount() + ", " + prescription.getDosage());
+                        System.out.println("Prescription: " + prescription.getMedName() + ", "
+                                + prescription.getAmount() + ", " + prescription.getDosage());
                     }
                     System.out.println("\n");
                 }
@@ -107,13 +105,13 @@ public class AppointmentOutcomeRecordsViewer {
     }
 
     /**
-     * Displays appointment outcome records filtered by a specific ID without
-     * pausing for user input.
-     * Records are sorted by appointment date in ascending order.
+     * Displays appointment outcome records filtered by a either ApptId or
+     * PatientId. Records are sorted by appointment date in ascending order.
+     * does not ask for sc.nextLine();
      *
      * @param Id the appointment or patient ID to filter records
      * @return {@code true} if matching records are found and displayed,
-     *         {@code false} otherwise
+     * {@code false} otherwise
      * @throws IOException if an error occurs while viewing records
      */
     public boolean viewRecordsByIdnoNewline(String Id) throws IOException {
@@ -144,8 +142,8 @@ public class AppointmentOutcomeRecordsViewer {
 
                     // Display prescriptions
                     for (Prescription prescription : medicalRecord.getPrescriptions()) {
-                        System.out.println("Prescription: " + prescription.getMedName() + ", " +
-                                prescription.getAmount() + ", " + prescription.getDosage());
+                        System.out.println("Prescription: " + prescription.getMedName() + ", "
+                                + prescription.getAmount() + ", " + prescription.getDosage());
                     }
                     System.out.println("\n");
                 }

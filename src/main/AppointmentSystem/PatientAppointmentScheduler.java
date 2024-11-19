@@ -426,11 +426,11 @@ private String generateAppointmentId() {
                     while (true) {
                         // Ask the patient to select a doctor
                         System.out.print(
-                                "Select a doctor from the available list (or type 'x' to go back to enter a new timeslot): ");
+                                "Select a doctor from the available list (or type 'x' to go back to enter a new date): ");
                         String selectedDoctorName = sc.nextLine();
 
                         if (selectedDoctorName.equals("x")) {
-                            System.out.println("Going back to enter a new timeslot.");
+                            System.out.println("Going back to enter a new date");
                             break; // Exit to re-enter a new date
                         }
 

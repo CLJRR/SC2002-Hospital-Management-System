@@ -39,10 +39,12 @@ public class RecordOutcome {
     static final Scanner sc = new Scanner(System.in);
 
     /**
-     * Constructs a new {@code RecordOutcome} with the specified map of appointment outcome records.
-     * Initializes the inventory controller and retrieves the current inventory.
+     * Constructs a new {@code RecordOutcome} with the specified map of
+     * appointment outcome records. Initializes the inventory controller and
+     * retrieves the current inventory.
      *
-     * @param appointmentOutcomeRecords the map of appointment outcome records to manage
+     * @param appointmentOutcomeRecords the map of appointment outcome records
+     * to manage
      */
     public RecordOutcome(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.inventory = new HashMap<>();
@@ -52,8 +54,9 @@ public class RecordOutcome {
     }
 
     /**
-     * Prompts the user to create a new appointment outcome record.
-     * Validates the appointment ID, ensures the appointment is confirmed, and saves the new record.
+     * Prompts the user to create a new appointment outcome record. Validates
+     * the appointment ID, ensures the appointment is confirmed, and saves the
+     * new record.
      *
      * @throws IOException if an error occurs during the process
      */
@@ -74,9 +77,11 @@ public class RecordOutcome {
 
     /**
      * Prompts the user to input details for a new appointment outcome record.
-     * Validates inputs such as appointment ID, service provided, diagnosis, and prescription details.
+     * Validates inputs such as appointment ID, service provided, diagnosis, and prescription details. 
+     * Information that can be loaded from records are loaded dynamically
      *
-     * @return a new {@link AppointmentOutcomeRecord} if successfully created, or {@code null} if canceled
+     * @return a new {@link AppointmentOutcomeRecord} if successfully created,
+     * or {@code null} if canceled
      * @throws IOException if an error occurs during input or processing
      */
     public AppointmentOutcomeRecord prompts() throws IOException {
@@ -166,7 +171,7 @@ public class RecordOutcome {
             return new AppointmentOutcomeRecord(
                     apptId,
                     findRecord.getPatientId(),
-                    Session.getLoginID(),
+                    findRecord.getDoctorId(),
                     findRecord.getDate(),
                     service,
                     diagnoses,
@@ -181,9 +186,10 @@ public class RecordOutcome {
     /**
      * Checks if a given appointment ID exists in the list of appointments.
      *
-     * @param appointments  the list of appointments to search
+     * @param appointments the list of appointments to search
      * @param appointmentId the appointment ID to look for
-     * @return the matching {@link Appointment} object, or {@code null} if not found
+     * @return the matching {@link Appointment} object, or {@code null} if not
+     * found
      */
     private Appointment containsAppointmentId(List<Appointment> appointments, String appointmentId) {
         for (Appointment appointment : appointments) {
@@ -197,7 +203,7 @@ public class RecordOutcome {
     /**
      * Updates the flag of an appointment to {@link Flag#COMPLETED}.
      *
-     * @param appointments  the list of appointments to update
+     * @param appointments the list of appointments to update
      * @param appointmentId the appointment ID whose flag needs to be updated
      * @return the updated list of appointments
      */

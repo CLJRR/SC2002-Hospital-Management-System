@@ -48,6 +48,24 @@ public class InventoryController {
         inventory.put(medication.getName(), medication);
     }
 
+     /**
+     * Removes a medication from the inventory.
+     *
+     * @param medicationName the name of the medication to remove.
+     * @return {@code true} if the medication was successfully removed, {@code false} if the medication was not found.
+     */
+    public boolean removeMedication(String medicationName) {
+        if (inventory.containsKey(medicationName)) {
+            inventory.remove(medicationName);
+            inventorySaver.saveInventory(); // Save changes after removal
+            System.out.println("\nMedication removed: " + medicationName);
+            return true;
+        } else {
+            System.out.println("\nMedication not found in inventory: " + medicationName);
+            return false;
+        }
+    }
+
     /**
      * Displays the current inventory.
      * Ensures that the latest inventory is loaded before viewing.

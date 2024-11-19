@@ -1,6 +1,6 @@
 /**
  * Responsible for loading appointment outcome records from a data source 
- * and storing them in a provided map.
+ * and storing them.
  */
 package AppointmentOutcomeSystem;
 

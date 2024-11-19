@@ -15,9 +15,6 @@ public class AppointmentOutcomeRecordsViewer {
      */
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
 
-    /**
-     * Scanner object for user input.
-     */
     static final Scanner sc = new Scanner(System.in);
 
     /**
@@ -38,7 +35,7 @@ public class AppointmentOutcomeRecordsViewer {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             System.out.println(record.toString());
         }
-        System.out.println(); // Adds a new line after the last record
+        System.out.println();
     }
 
     /**

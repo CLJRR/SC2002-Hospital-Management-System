@@ -16,22 +16,23 @@ import java.util.Scanner;
 // //Schedule
 // //Reschedule
 // //Cancel
-
 /**
  * /**
- * The {@code PatientAppointmentScheduler} class handles appointment management for patients.
- * It provides functionalities for scheduling, rescheduling, and canceling appointments.
+ * The {@code PatientAppointmentScheduler} class handles appointment management
+ * for patients. It provides functionalities for scheduling, rescheduling, and
+ * canceling appointments.
  */
-
 public class PatientAppointmentScheduler {
 
     private Map<String, Appointment> appointmentRecords;
     private final Scanner sc = new Scanner(System.in);
     private PatientAppointmentViewer PatientAppointmentViewer;
     private Appointment appointment;
+    private AppointmentController appointmentController = new AppointmentController();
 
     /**
-     * Constructs a {@code PatientAppointmentScheduler} with the given appointment records.
+     * Constructs a {@code PatientAppointmentScheduler} with the given
+     * appointment records.
      *
      * @param appointmentRecords a map containing the appointment records.
      */
@@ -42,7 +43,8 @@ public class PatientAppointmentScheduler {
     /**
      * Cancels an appointment for a given patient.
      *
-     * @param patientId the ID of the patient who wants to cancel an appointment.
+     * @param patientId the ID of the patient who wants to cancel an
+     * appointment.
      */
     public void cancelAppointment(String patientId) {
         while (true) {
@@ -96,23 +98,24 @@ public class PatientAppointmentScheduler {
         }
     }
 
-/**
- * Generates a unique appointment ID in the format "Axxx", where "xxx" is a zero-padded number.
- * The method counts the existing appointments and generates the next ID in the sequence.
- *
- * @return a unique appointment ID in the format "Axxx", where "xxx" is the next available number
- *         based on the size of the appointment records.
- */
-private String generateAppointmentId() {
-    // Filter appointmentRecords to count only valid appointment entries
-    long appointmentCount = appointmentRecords.values().stream()
-            .filter(appointment -> appointment.getType() == Type.APPOINTMENT)
-            .count();
+    /**
+     * Generates a unique appointment ID in the format "Axxx", where "xxx" is a
+     * zero-padded number. The method counts the existing appointments and
+     * generates the next ID in the sequence.
+     *
+     * @return a unique appointment ID in the format "Axxx", where "xxx" is the
+     * next available number based on the size of the appointment records.
+     */
+    private String generateAppointmentId() {
+        // Filter appointmentRecords to count only valid appointment entries
+        appointmentController.loadRecords();
+        long appointmentCount = appointmentRecords.values().stream()
+                .filter(appointment -> appointment.getType() == Type.APPOINTMENT)
+                .count();
 
-    // Generate the next appointment ID based on the count of existing appointments
-    return String.format("A%03d", appointmentCount + 1);
-}
-
+        // Generate the next appointment ID based on the count of existing appointments
+        return String.format("A%03d", appointmentCount + 1);
+    }
 
     private String getDoctorNameById(String doctorId) {
         // Fetch all doctors using GetUser
@@ -280,7 +283,7 @@ private String generateAppointmentId() {
             }
         }
     }
-    
+
     /**
      * Reschedules an existing appointment for a patient.
      *

@@ -1,8 +1,8 @@
-P1001,Alice Brown,password,null,1980-05-14,FEMALE,92268689,alice.brown@example.com,A+,PATIENT
-P1002,Bob Stone,password,null,1975-11-22,MALE,96815338,bob.stone@example.com,B+,PATIENT
-P1003,Charlie White,password,null,1990-07-08,MALE,88381439,charlie.white@example.com,O-,PATIENT
-D001,John Smith,password,45,null,MALE,null,null,null,DOCTOR
 D002,Emily Clarke,password,38,null,FEMALE,null,null,null,DOCTOR
+D001,John Smith,password,45,null,MALE,null,null,null,DOCTOR
 P001,Mark Lee,password,29,null,MALE,null,null,null,PHARMACIST
+R001,Emily Tan,password,14,null,MALE,null,null,null,RECEPTIONIST
+P1003,Charlie White,password,null,1990-07-08,MALE,88381439,charlie.white@example.com,O-,PATIENT
+P1001,Alice Brown,Test123!,null,1980-05-14,FEMALE,92268689,alice.brown@example.com,A+,PATIENT
 A001,Sarah Lee,password,40,null,FEMALE,null,null,null,ADMINISTRATOR
-R001,Emily Tan,password,14,null,Male,null,null,null,RECEPTIONIST
+P1002,Bob Stone,Test123!,null,1975-11-22,MALE,96815338,bob.stone@example.com,B+,PATIENT

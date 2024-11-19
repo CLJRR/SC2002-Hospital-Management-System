@@ -1,6 +1,6 @@
 SC2002-Hospital-Management-System
 
-
+Instructions to run file:
 Run files in following order:
 
 1) InitializeAppointmentsData.java (to reset data txt files)

@@ -1,3 +1,8 @@
+/**
+ * The {@code AdminUI} class represents the user interface for administrators in the system.
+ * It provides options to manage hospital staff, view and manage appointments, manage medication inventory,
+ * and approve replenishment requests. This class interacts with various subsystems to perform administrative tasks.
+ */
 package Interfaces;
 
 import AppointmentSystem.*;
@@ -10,6 +15,18 @@ import java.util.Scanner;
 
 public class AdminUI {
 
+    /**
+     * Launches the administrator user interface.
+     * The administrator can perform tasks such as:
+     * <ul>
+     *   <li>Managing hospital staff</li>
+     *   <li>Viewing appointment details</li>
+     *   <li>Managing medication inventory</li>
+     *   <li>Approving replenishment requests</li>
+     * </ul>
+     *
+     * @throws IOException if an error occurs during input or interaction with subsystems
+     */
     public void adminUI() throws IOException {
         Scanner sc = new Scanner(System.in);
         int option = 0;
@@ -17,6 +34,7 @@ public class AdminUI {
         AppointmentController appointmentController = new AppointmentController();
         AdminHospitalStaff staffSystem = new AdminHospitalStaff();
         RequestController requestController = new RequestController();
+
         while (option != 5) {
             System.out.println(Session.getName());
             System.out.println("1) View and Manage Hospital Staff");
@@ -32,7 +50,7 @@ public class AdminUI {
             }
 
             option = sc.nextInt();
-            sc.nextLine(); // Consumes Newline
+            sc.nextLine(); // Consume newline
 
             switch (option) {
                 case 1 -> {
@@ -57,7 +75,6 @@ public class AdminUI {
                     Session.logout();
                     break;
                 }
-
                 default -> System.out.println("Invalid choice. Please select a number between 1 and 5.");
             }
         }

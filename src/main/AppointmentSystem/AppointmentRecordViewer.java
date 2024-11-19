@@ -10,7 +10,7 @@ import enums.Type;
 import java.io.IOException;
 import java.util.*;
 
-public class ApptRecordViewer {
+public class AppointmentRecordViewer {
 
     /**
      * A map containing all appointment records, keyed by their appointment ID.
@@ -32,7 +32,7 @@ public class ApptRecordViewer {
      *
      * @param appointmentRecords the map to manage and view appointment records
      */
-    public ApptRecordViewer(Map<String, Appointment> appointmentRecords) {
+    public AppointmentRecordViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
 

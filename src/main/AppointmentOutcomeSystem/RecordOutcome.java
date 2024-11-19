@@ -26,12 +26,12 @@ public class RecordOutcome {
     /**
      * Loader for appointment data.
      */
-    private ApptLoader apptLoader;
+    private AppointmentLoader apptLoader;
 
     /**
      * Saver for appointment data.
      */
-    private ApptSaver apptSaver;
+    private AppointmentSaver apptSaver;
 
     /**
      * Map storing medication inventory, keyed by medication name.

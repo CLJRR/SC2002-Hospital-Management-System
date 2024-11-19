@@ -7,7 +7,7 @@ package AppointmentSystem;
 import java.io.IOException;
 import java.util.*;
 
-public class ApptSaver {
+public class AppointmentSaver {
 
     /**
      * A map containing all appointment records, keyed by their appointment ID.
@@ -24,7 +24,7 @@ public class ApptSaver {
      *
      * @param appointmentRecords the map of appointment records to be saved
      */
-    public ApptSaver(Map<String, Appointment> appointmentRecords) {
+    public AppointmentSaver(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
         this.appointmentService = new AppointmentService();
     }

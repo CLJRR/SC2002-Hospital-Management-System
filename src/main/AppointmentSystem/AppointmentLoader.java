@@ -7,7 +7,7 @@ package AppointmentSystem;
 import java.io.IOException;
 import java.util.*;
 
-public class ApptLoader {
+public class AppointmentLoader {
 
     /**
      * A map to store appointment records, keyed by their appointment ID.
@@ -24,7 +24,7 @@ public class ApptLoader {
      *
      * @param appointmentRecords the map to store loaded appointment records
      */
-    public ApptLoader(Map<String, Appointment> appointmentRecords) {
+    public AppointmentLoader(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
         this.appointmentService = new AppointmentService();
     }

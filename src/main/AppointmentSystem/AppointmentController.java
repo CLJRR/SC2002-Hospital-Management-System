@@ -22,17 +22,17 @@ public class AppointmentController {
     /**
      * Loader for appointment records.
      */
-    private ApptLoader loader;
+    private AppointmentLoader loader;
 
     /**
      * Saver for appointment records.
      */
-    private ApptSaver saver;
+    private AppointmentSaver saver;
 
     /**
      * Viewer for appointment records.
      */
-    private ApptRecordViewer viewer;
+    private AppointmentRecordViewer viewer;
 
     /**
      * Handles viewing the doctor's schedule.
@@ -70,9 +70,9 @@ public class AppointmentController {
      */
     public AppointmentController() {
         this.appointmentRecords = new HashMap<>();
-        this.loader = new ApptLoader(appointmentRecords);
-        this.saver = new ApptSaver(appointmentRecords);
-        this.viewer = new ApptRecordViewer(appointmentRecords);
+        this.loader = new AppointmentLoader(appointmentRecords);
+        this.saver = new AppointmentSaver(appointmentRecords);
+        this.viewer = new AppointmentRecordViewer(appointmentRecords);
         this.doctorScheduleViewer = new DoctorScheduleViewer(appointmentRecords);
         this.doctorLeaveSetter = new DoctorLeaveSetter(appointmentRecords);
         this.appointmentFlagUpdater = new AppointmentFlagUpdater(appointmentRecords);

@@ -28,7 +28,6 @@ public class PatientAppointmentScheduler {
     private final Scanner sc = new Scanner(System.in);
     private PatientAppointmentViewer PatientAppointmentViewer;
     private Appointment appointment;
-    private AppointmentController appointmentController = new AppointmentController();
 
     /**
      * Constructs a {@code PatientAppointmentScheduler} with the given
@@ -108,7 +107,6 @@ public class PatientAppointmentScheduler {
      */
     private String generateAppointmentId() {
         // Filter appointmentRecords to count only valid appointment entries
-        appointmentController.loadRecords();
         long appointmentCount = appointmentRecords.values().stream()
                 .filter(appointment -> appointment.getType() == Type.APPOINTMENT)
                 .count();

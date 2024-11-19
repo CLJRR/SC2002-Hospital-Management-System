@@ -43,7 +43,6 @@ public class InventoryLoader {
             for (MedicationInventory medication : medications) {
                 inventory.put(medication.getName(), medication);
             }
-            // Uncomment for debugging: System.out.println("Inventory loaded successfully.");
         } catch (IOException e) {
             System.err.println("Error loading inventory: " + e.getMessage());
         }

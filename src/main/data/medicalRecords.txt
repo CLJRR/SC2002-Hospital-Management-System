@@ -1,1 +1,1 @@
-A002,P1002,D002,2024-11-05,General Checkup,fever,Ibuprofen|DISPENSED|5|8mg per day;
+A002,P1002,D002,2024-11-05,General Checkup,fever,Ibuprofen|DISPENSED|5|8mg per day

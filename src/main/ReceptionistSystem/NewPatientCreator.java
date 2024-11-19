@@ -11,7 +11,6 @@ import UserSystem.UserService;
 import enums.*;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
@@ -47,7 +46,7 @@ public class NewPatientCreator {
             System.out.println("Enter Patient Name (or type 'x' to cancel):");
             name = scanner.nextLine().trim();
             if (name.equalsIgnoreCase("x")) {
-                continue;
+                return;
             }
             if (!name.isEmpty()) {
                 break;
@@ -60,7 +59,7 @@ public class NewPatientCreator {
             System.out.println("Enter Patient Date of Birth (yyyy-mm-dd) (or type 'x' to cancel):");
             String dobInput = scanner.nextLine().trim();
             if (dobInput.equalsIgnoreCase("x")) {
-                continue;
+                return;
             }
             try {
                 dateOfBirth = LocalDate.parse(dobInput);
@@ -75,7 +74,7 @@ public class NewPatientCreator {
             System.out.println("Enter Patient Gender (MALE / FEMALE / OTHER) (or type 'x' to cancel):");
             String genderInput = scanner.nextLine().trim().toUpperCase();
             if (genderInput.equalsIgnoreCase("x")) {
-                continue;
+                return;
             }
             try {
                 gender = Gender.valueOf(genderInput);
@@ -90,7 +89,7 @@ public class NewPatientCreator {
             System.out.println("Enter Patient Phone Number (or type 'x' to cancel):");
             String inputPhoneNumber = scanner.nextLine().trim();
             if (inputPhoneNumber.equalsIgnoreCase("x")) {
-                continue;
+                return;
             }
             if (!inputPhoneNumber.matches("\\d{8,15}")) {
                 System.out.println("Error: Invalid phone number format. Please try again.");
@@ -98,7 +97,7 @@ public class NewPatientCreator {
             }
             if (users.stream().anyMatch(user -> Objects.equals(inputPhoneNumber, user.getPhoneNumber()))) {
                 System.out.println("Error: Phone number already exists in the system. Please try again.");
-                continue;
+                return;
             }
             phoneNumber = inputPhoneNumber;
             break;

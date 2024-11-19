@@ -35,7 +35,6 @@ public class RequestLoader {
             for (Request request : records) {
                 requestRecords.put(request.getRequestId(), request); // Store each record in the map
             }
-            System.out.println("Requests loaded successfully.");
         } catch (IOException e) {
             System.err.println("Error loading requests: " + e.getMessage());
         }

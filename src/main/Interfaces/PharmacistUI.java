@@ -19,10 +19,10 @@ public class PharmacistUI {
      * <p>
      * The pharmacist can perform the following tasks:
      * <ul>
-     *   <li>View appointment outcome records</li>
-     *   <li>Update prescription flags</li>
-     *   <li>View medication inventory</li>
-     *   <li>Submit replenishment requests</li>
+     * <li>View appointment outcome records</li>
+     * <li>Update prescription flags</li>
+     * <li>View medication inventory</li>
+     * <li>Submit replenishment requests</li>
      * </ul>
      *
      * @throws IOException if an error occurs during interaction with subsystems
@@ -50,7 +50,7 @@ public class PharmacistUI {
             sc.nextLine(); // Consumes newline
             switch (option) {
                 case 1 -> {
-                    appointmentOutcomeRecordController.viewPendingRecords();
+                    appointmentOutcomeRecordController.viewRecords();
                     break;
                 }
                 case 2 -> {

@@ -85,9 +85,13 @@ public class AdminHospitalStaff {
                     Integer age = 0;
                     while (validAge == false) {
                         try {
-                            System.out.print("Enter Staff Age to add: ");
+                            System.out.print("Enter Staff Age to add (between 18 and 100): ");
                             age = Integer.valueOf(sc.nextLine());
-                            validAge = true;
+                            if (age >= 18 && age <= 100) {
+                                validAge = true;
+                            } else {
+                                System.out.println("Age must be between 18 and 100.");
+                            }
                         } catch (NumberFormatException e) {
                             System.err.println("Age not valid. Please try again.");
                         }
@@ -151,7 +155,8 @@ public class AdminHospitalStaff {
                                     staffId = String.format("R%03d", num);
                                 }
                                 break;
-                            }case ADMINISTRATOR: {
+                            }
+                            case ADMINISTRATOR: {
                                 List<User> receptionists = getUser.getAllAdministrators();
                                 List<String> pharmacistids = new ArrayList<>();
                                 for (User doctor : receptionists) {
@@ -168,7 +173,7 @@ public class AdminHospitalStaff {
                             default:
                                 break;
                         }
-                        
+
                     }
 
                     // Create and add staff member
@@ -188,7 +193,7 @@ public class AdminHospitalStaff {
                     String action = (choice == 3) ? "remove" : "update";
 
                     System.out.print("Enter Staff ID to " + action + ": ");
-                    staffId = sc.nextLine();
+                    staffId = sc.nextLine().toUpperCase();
 
                     if (staffs.get(staffId) == null) {
                         System.out.println("Invalid selection. Please try again.");

@@ -4,7 +4,8 @@ import enums.*;
 import java.util.*;
 
 /**
- * The {@code HospitalStaffUpdater} class provides functionality to update the details 
+ * The {@code HospitalStaffUpdater} class provides functionality to update the
+ * details
  * of a hospital staff member, including their name, gender, and age.
  */
 public class HospitalStaffUpdater {
@@ -14,7 +15,8 @@ public class HospitalStaffUpdater {
     /**
      * Constructs a {@code HospitalStaffUpdater} object.
      *
-     * @param staffs a map of staff IDs to {@link User} objects representing the staff members.
+     * @param staffs a map of staff IDs to {@link User} objects representing the
+     *               staff members.
      */
     public HospitalStaffUpdater(Map<String, User> staffs) {
         this.staffs = staffs;
@@ -76,15 +78,19 @@ public class HospitalStaffUpdater {
                         boolean validAge = false;
                         while (!validAge) {
                             try {
-                                System.out.println("Enter new Age: ");
+                                System.out.println("Enter new Age(between 18 and 100): ");
                                 age = Integer.valueOf(sc.nextLine());
-                                validAge = true;
-                                System.out.println("Age updated successfully.");
+                                if (age >= 18 && age <= 100) {
+                                    validAge = true;
+                                } else {
+                                    System.out.println("Age must be between 18 and 100.");
+                                }
                             } catch (NumberFormatException e) {
                                 System.err.println("Age not valid. Please try again.");
                             }
                         }
                         staff.setAge(age);
+                        System.out.println("Age updated successfully.");
                     }
                     case 4 -> {
                         // Quit

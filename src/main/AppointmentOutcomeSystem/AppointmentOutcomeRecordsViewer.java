@@ -46,9 +46,7 @@ public class AppointmentOutcomeRecordsViewer {
     public void viewPendingRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             for (Prescription prescription : record.getPrescriptions()) {
-                // if (prescription.getFlag() == Flag.PENDING) {
                 System.out.println(record.getApptId() + " " + prescription);
-                // }
             }
         }
     }

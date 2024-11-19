@@ -5,6 +5,7 @@ import UserSystem.User;
 import enums.Flag;
 import enums.Type;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,82 +24,87 @@ public class PatientAppointmentViewer {
 
     }
 
-    public void viewpatientViewScheduleForNextThreeDays(LocalDate startDate) {
+    public void patientViewSchedule() {
+        while (true) {
+            
+            LocalDate date = LocalDate.now();
+            System.out.print("Please enter date in yyyy-MM-dd format (or press 'x' to return): ");
+            String input = sc.nextLine();
 
-        // Loop over the specified date and the next two days
-        for (int i = 0; i < 3; i++) {
-            LocalDate date = startDate.plusDays(i);
-            patientViewSchedule(date);
-            System.out.println("Press Enter for next day");
-            sc.nextLine();
-            System.out.println(); // Add spacing between days
-        }
-        System.out.println("Press Enter to exit");
-        sc.nextLine();
-    }
-
-    public void patientViewSchedule(LocalDate date) {
-        List<String> timeslots = Timeslot.getTimeslot(); // Fetch all timeslots
-        Map<String, Map<String, String>> schedule = new HashMap<>();
-
-        // Get all doctors
-        GetUser getUser = new GetUser();
-        List<User> doctors = getUser.getAllDoctors();
-
-        // Initialize the schedule for each timeslot with all doctors marked as "AVAILABLE"
-        for (String timeslot : timeslots) {
-            Map<String, String> doctorAvailability = new HashMap<>();
-            for (User doctor : doctors) {
-                doctorAvailability.put(doctor.getName(), "AVAILABLE");
+            // Allow the user to exit
+            if (input.equalsIgnoreCase("x")) {
+                System.out.println("Returning to main menu.");
+                return;
             }
-            schedule.put(timeslot, doctorAvailability);
-        }
 
-        // Check appointments and update the schedule for unavailable times
-        for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
-                String timeSlot = appointment.getTimeSlot();
-                String doctorId = appointment.getDoctorId();
+            try {
+                date = LocalDate.parse(input);
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
+                continue; // Retry the prompt
+            }
+            List<String> timeslots = Timeslot.getTimeslot(); // Fetch all timeslots
+            Map<String, Map<String, String>> schedule = new HashMap<>();
 
-                // Find the doctor and mark them as "UNAVAILABLE"
+            // Get all doctors
+            GetUser getUser = new GetUser();
+            List<User> doctors = getUser.getAllDoctors();
+
+            // Initialize the schedule for each timeslot with all doctors marked as "AVAILABLE"
+            for (String timeslot : timeslots) {
+                Map<String, String> doctorAvailability = new HashMap<>();
                 for (User doctor : doctors) {
-                    if (doctor.getId().equalsIgnoreCase(doctorId)) {
-                        schedule.get(timeSlot).put(doctor.getName(), "UNAVAILABLE");
-                        break;
+                    doctorAvailability.put(doctor.getName(), "AVAILABLE");
+                }
+                schedule.put(timeslot, doctorAvailability);
+            }
+
+            // Check appointments and update the schedule for unavailable times
+            for (Appointment appointment : appointmentRecords.values()) {
+                if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+                    String timeSlot = appointment.getTimeSlot();
+                    String doctorId = appointment.getDoctorId();
+
+                    // Find the doctor and mark them as "UNAVAILABLE"
+                    for (User doctor : doctors) {
+                        if (doctor.getId().equalsIgnoreCase(doctorId)) {
+                            schedule.get(timeSlot).put(doctor.getName(), "UNAVAILABLE");
+                            break;
+                        }
                     }
                 }
+
             }
 
-        }
+            // Print the schedule: Available timeslots and doctors
+            System.out.println("Available Timeslots for " + date + ":");
 
-        // Print the schedule: Available timeslots and doctors
-        System.out.println("Available Timeslots for " + date + ":");
+            // Sort the timeslots in ascending order
+            List<String> sortedTimeslots = new ArrayList<>(schedule.keySet());
+            Collections.sort(sortedTimeslots); // Sorts timeslots alphabetically (e.g., "09:00", "10:00", etc.)
 
-// Sort the timeslots in ascending order
-        List<String> sortedTimeslots = new ArrayList<>(schedule.keySet());
-        Collections.sort(sortedTimeslots); // Sorts timeslots alphabetically (e.g., "09:00", "10:00", etc.)
+            boolean hasAvailableSlots = false;
+            for (String timeslot : sortedTimeslots) {
+                Map<String, String> doctorAvailability = schedule.get(timeslot);
 
-        boolean hasAvailableSlots = false;
-        for (String timeslot : sortedTimeslots) {
-            Map<String, String> doctorAvailability = schedule.get(timeslot);
+                // Check if at least one doctor is available
+                List<String> availableDoctors = new ArrayList<>();
+                for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
+                    if (doctorEntry.getValue().equalsIgnoreCase("AVAILABLE")) {
+                        availableDoctors.add(doctorEntry.getKey());
+                    }
+                }
 
-            // Check if at least one doctor is available
-            List<String> availableDoctors = new ArrayList<>();
-            for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
-                if (doctorEntry.getValue().equalsIgnoreCase("AVAILABLE")) {
-                    availableDoctors.add(doctorEntry.getKey());
+                // Print the timeslot and available doctors
+                if (!availableDoctors.isEmpty()) {
+                    System.out.println("- " + timeslot + ": Available Doctors - " + String.join(", ", availableDoctors));
+                    hasAvailableSlots = true;
                 }
             }
 
-            // Print the timeslot and available doctors
-            if (!availableDoctors.isEmpty()) {
-                System.out.println("- " + timeslot + ": Available Doctors - " + String.join(", ", availableDoctors));
-                hasAvailableSlots = true;
+            if (!hasAvailableSlots) {
+                System.out.println("No available timeslots for this date.");
             }
-        }
-
-        if (!hasAvailableSlots) {
-            System.out.println("No available timeslots for this date.");
         }
     }
 

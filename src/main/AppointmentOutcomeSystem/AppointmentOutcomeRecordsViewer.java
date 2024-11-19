@@ -4,7 +4,6 @@
  */
 package AppointmentOutcomeSystem;
 
-import enums.Flag;
 import java.io.IOException;
 import java.util.*;
 
@@ -18,10 +17,12 @@ public class AppointmentOutcomeRecordsViewer {
     static final Scanner sc = new Scanner(System.in);
 
     /**
-     * Constructs a new {@code AppointmentOutcomeRecordsViewer} with the specified map
+     * Constructs a new {@code AppointmentOutcomeRecordsViewer} with the specified
+     * map
      * containing appointment outcome records to be viewed.
      *
-     * @param appointmentOutcomeRecords the map of appointment outcome records to view
+     * @param appointmentOutcomeRecords the map of appointment outcome records to
+     *                                  view
      */
     public AppointmentOutcomeRecordsViewer(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
@@ -39,26 +40,26 @@ public class AppointmentOutcomeRecordsViewer {
     }
 
     /**
-     * Displays all pending appointment outcome records by checking the flag of each prescription.
+     * Displays all appointment outcome records by checking the flag of each
+     * prescription.
      *
      * @throws IOException if an error occurs while viewing records
      */
-    public void viewPendingRecords() throws IOException {
+    public void viewRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             for (Prescription prescription : record.getPrescriptions()) {
-                if (prescription.getFlag() == Flag.PENDING) {
-                    System.out.println(record.getApptId() + " " + prescription);
-                }
+                System.out.println(record.getApptId() + " " + prescription);
             }
         }
     }
 
     /**
-     * Displays appointment outcome records filtered by a specific ID. 
+     * Displays appointment outcome records filtered by a specific ID.
      * Records are sorted by appointment date in ascending order.
      *
      * @param Id the appointment or patient ID to filter records
-     * @return {@code true} if matching records are found and displayed, {@code false} otherwise
+     * @return {@code true} if matching records are found and displayed,
+     *         {@code false} otherwise
      * @throws IOException if an error occurs while viewing records
      */
     public boolean viewRecordsById(String Id) throws IOException {
@@ -106,11 +107,13 @@ public class AppointmentOutcomeRecordsViewer {
     }
 
     /**
-     * Displays appointment outcome records filtered by a specific ID without pausing for user input.
+     * Displays appointment outcome records filtered by a specific ID without
+     * pausing for user input.
      * Records are sorted by appointment date in ascending order.
      *
      * @param Id the appointment or patient ID to filter records
-     * @return {@code true} if matching records are found and displayed, {@code false} otherwise
+     * @return {@code true} if matching records are found and displayed,
+     *         {@code false} otherwise
      * @throws IOException if an error occurs while viewing records
      */
     public boolean viewRecordsByIdnoNewline(String Id) throws IOException {

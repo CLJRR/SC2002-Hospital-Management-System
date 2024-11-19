@@ -1,7 +1,3 @@
-/**
- * The {@code ApptRecordViewer} class provides functionalities to view appointment records.
- * It supports operations for administrators, doctors, and general users to display records based on specific criteria.
- */
 package AppointmentSystem;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
@@ -9,6 +5,13 @@ import enums.Flag;
 import enums.Type;
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * The {@code ApptRecordViewer} class provides functionalities to view
+ * appointment records.
+ * It supports operations for administrators, doctors, and general users to
+ * display records based on specific criteria.
+ */
 
 public class AppointmentRecordViewer {
 
@@ -28,7 +31,8 @@ public class AppointmentRecordViewer {
     private AppointmentOutcomeRecordController outcomeController = new AppointmentOutcomeRecordController();
 
     /**
-     * Constructs a new {@code ApptRecordViewer} with the specified map of appointment records.
+     * Constructs a new {@code ApptRecordViewer} with the specified map of
+     * appointment records.
      *
      * @param appointmentRecords the map to manage and view appointment records
      */
@@ -37,7 +41,8 @@ public class AppointmentRecordViewer {
     }
 
     /**
-     * Displays all appointment records stored in the {@code appointmentRecords} map.
+     * Displays all appointment records stored in the {@code appointmentRecords}
+     * map.
      */
     public void viewAllRecords() {
         System.out.println("All Appointment Records:");
@@ -61,7 +66,8 @@ public class AppointmentRecordViewer {
         System.out.println("All Appointment Records:");
         for (Appointment record : appointmentRecords.values()) {
             if (record.getType().equals(Type.APPOINTMENT)) {
-                System.out.println("----------------------------------------------------------------------------------------------------------------");
+                System.out.println(
+                        "----------------------------------------------------------------------------------------------------------------");
                 System.out.println(record.toString());
                 System.out.println(" ");
                 outcomeController.adminViewRecords(record.getAppointmentId());
@@ -75,7 +81,8 @@ public class AppointmentRecordViewer {
      * Displays all pending appointment records for a specific doctor.
      * Excludes appointments of type {@link Type#LEAVE}.
      *
-     * @param doctorId the ID of the doctor whose pending records should be displayed
+     * @param doctorId the ID of the doctor whose pending records should be
+     *                 displayed
      * @throws IOException if an error occurs during record access
      */
     public void viewPendingRecords(String doctorId) throws IOException {
@@ -93,7 +100,8 @@ public class AppointmentRecordViewer {
      * The ID can be an appointment ID or a patient ID.
      *
      * @param Id the ID to filter appointment records
-     * @return the {@link Appointment} object if found by appointment ID, otherwise {@code null}
+     * @return the {@link Appointment} object if found by appointment ID, otherwise
+     *         {@code null}
      * @throws IOException if an error occurs while accessing records
      */
     public Appointment viewRecordsById(String Id) throws IOException {

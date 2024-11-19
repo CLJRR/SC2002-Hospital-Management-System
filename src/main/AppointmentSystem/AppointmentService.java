@@ -1,8 +1,3 @@
-/**
- * The {@code AppointmentService} class provides methods for managing appointment records,
- * including loading, saving, formatting, and converting between objects and their string representations.
- * Implements the {@code Load}, {@code Format}, {@code Save}, {@code Write}, and {@code toObject} interfaces.
- */
 package AppointmentSystem;
 
 import FileManager.*;
@@ -11,6 +6,15 @@ import java.io.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+
+/**
+ * The {@code AppointmentService} class provides methods for managing
+ * appointment records,
+ * including loading, saving, formatting, and converting between objects and
+ * their string representations.
+ * Implements the {@code Load}, {@code Format}, {@code Save}, {@code Write}, and
+ * {@code toObject} interfaces.
+ */
 
 public class AppointmentService implements Load, Format, Save, Write, toObject {
 
@@ -25,7 +29,8 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
     final String fileName = "./data/appointments.txt";
 
     /**
-     * Loads appointment records from the file and converts them into {@link Appointment} objects.
+     * Loads appointment records from the file and converts them into
+     * {@link Appointment} objects.
      *
      * @return a list of {@link Appointment} objects
      * @throws IOException if an error occurs while reading or parsing the file
@@ -44,7 +49,8 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
     }
 
     /**
-     * Saves a list of {@link Appointment} objects to the file by formatting them into strings.
+     * Saves a list of {@link Appointment} objects to the file by formatting them
+     * into strings.
      *
      * @param list the list of {@link Appointment} objects to save
      * @throws IOException if an error occurs during the save operation
@@ -79,7 +85,8 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
     }
 
     /**
-     * Formats an {@link Appointment} object into its string representation for storage.
+     * Formats an {@link Appointment} object into its string representation for
+     * storage.
      *
      * @param object the {@link Appointment} object to format
      * @return a formatted string representation of the {@link Appointment} object
@@ -103,11 +110,13 @@ public class AppointmentService implements Load, Format, Save, Write, toObject {
     }
 
     /**
-     * Converts a string representation of an appointment into an {@link Appointment} object.
+     * Converts a string representation of an appointment into an
+     * {@link Appointment} object.
      *
      * @param string the string representation of the appointment
      * @return an {@link Appointment} object parsed from the string
-     * @throws IOException if the string is improperly formatted or contains invalid values
+     * @throws IOException if the string is improperly formatted or contains invalid
+     *                     values
      */
     @Override
     public Object toObject(String string) throws IOException {

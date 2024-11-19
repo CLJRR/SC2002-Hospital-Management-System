@@ -1,14 +1,16 @@
-/**
- * The {@code MedicineInventoryService} class provides functionality for managing
- * medication inventory data, including loading, saving, formatting, writing,
- * and converting data to and from {@code MedicationInventory} objects.
- * This class interacts with a file to store inventory data persistently.
- */
 package MedicineInventorySystem;
 
 import FileManager.*;
 import java.io.*;
 import java.util.*;
+
+/**
+ * The {@code MedicineInventoryService} class provides functionality for
+ * managing
+ * medication inventory data, including loading, saving, formatting, writing,
+ * and converting data to and from {@code MedicationInventory} objects.
+ * This class interacts with a file to store inventory data persistently.
+ */
 
 public class MedicineInventoryService implements Load, Format, Save, Write, toObject {
 
@@ -19,7 +21,8 @@ public class MedicineInventoryService implements Load, Format, Save, Write, toOb
      * {@code MedicationInventory} objects.
      *
      * @return a list of {@code MedicationInventory} objects loaded from the file.
-     * @throws IOException if there is an issue reading the file or parsing its content.
+     * @throws IOException if there is an issue reading the file or parsing its
+     *                     content.
      */
     @Override
     public List<MedicationInventory> load() throws IOException {
@@ -38,7 +41,8 @@ public class MedicineInventoryService implements Load, Format, Save, Write, toOb
      * Saves a list of {@code MedicationInventory} objects to the inventory file.
      *
      * @param inventoryList the list of {@code MedicationInventory} objects to save.
-     * @throws IOException if there is an issue writing to the file or if the list contains invalid objects.
+     * @throws IOException if there is an issue writing to the file or if the list
+     *                     contains invalid objects.
      */
     @Override
     public void save(List<?> inventoryList) throws IOException {
@@ -69,11 +73,13 @@ public class MedicineInventoryService implements Load, Format, Save, Write, toOb
     }
 
     /**
-     * Formats a {@code MedicationInventory} object as a string suitable for saving to the file.
+     * Formats a {@code MedicationInventory} object as a string suitable for saving
+     * to the file.
      *
      * @param obj the {@code MedicationInventory} object to format.
      * @return a string representation of the {@code MedicationInventory} object.
-     * @throws IOException if the provided object is not of type {@code MedicationInventory}.
+     * @throws IOException if the provided object is not of type
+     *                     {@code MedicationInventory}.
      */
     @Override
     public String format(Object obj) throws IOException {
@@ -88,11 +94,13 @@ public class MedicineInventoryService implements Load, Format, Save, Write, toOb
     }
 
     /**
-     * Converts a string line from the file into a {@code MedicationInventory} object.
+     * Converts a string line from the file into a {@code MedicationInventory}
+     * object.
      *
      * @param line the string line to convert.
      * @return a {@code MedicationInventory} object represented by the string.
-     * @throws IOException if the line format is invalid or if there is an issue parsing fields.
+     * @throws IOException if the line format is invalid or if there is an issue
+     *                     parsing fields.
      */
     @Override
     public Object toObject(String line) throws IOException {

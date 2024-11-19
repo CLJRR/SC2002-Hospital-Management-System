@@ -1,7 +1,3 @@
-/**
- * Handles the process of recording appointment outcomes.
- * Includes creating new appointment outcome records, validating appointments, and interacting with inventory and appointment services.
- */
 package AppointmentOutcomeSystem;
 
 import AppointmentSystem.*;
@@ -10,6 +6,12 @@ import SessionManager.Session;
 import enums.Flag;
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * Handles the process of recording appointment outcomes.
+ * Includes creating new appointment outcome records, validating appointments,
+ * and interacting with inventory and appointment services.
+ */
 
 public class RecordOutcome {
 
@@ -44,7 +46,7 @@ public class RecordOutcome {
      * retrieves the current inventory.
      *
      * @param appointmentOutcomeRecords the map of appointment outcome records
-     * to manage
+     *                                  to manage
      */
     public RecordOutcome(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.inventory = new HashMap<>();
@@ -77,11 +79,12 @@ public class RecordOutcome {
 
     /**
      * Prompts the user to input details for a new appointment outcome record.
-     * Validates inputs such as appointment ID, service provided, diagnosis, and prescription details. 
+     * Validates inputs such as appointment ID, service provided, diagnosis, and
+     * prescription details.
      * Information that can be loaded from records are loaded dynamically
      *
      * @return a new {@link AppointmentOutcomeRecord} if successfully created,
-     * or {@code null} if canceled
+     *         or {@code null} if canceled
      * @throws IOException if an error occurs during input or processing
      */
     public AppointmentOutcomeRecord prompts() throws IOException {
@@ -141,13 +144,15 @@ public class RecordOutcome {
             while (true) {
                 System.out.println("Enter prescription Name: ");
                 prescriptionName = sc.nextLine().trim();
-                prescriptionName = prescriptionName.substring(0, 1).toUpperCase() + prescriptionName.substring(1).toLowerCase();
+                prescriptionName = prescriptionName.substring(0, 1).toUpperCase()
+                        + prescriptionName.substring(1).toLowerCase();
 
                 if (inventory.containsKey(prescriptionName)) {
                     break;
                 }
 
-                System.out.println("Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
+                System.out.println(
+                        "Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
             }
 
             System.out.println("Enter amount: ");
@@ -175,8 +180,7 @@ public class RecordOutcome {
                     findRecord.getDate(),
                     service,
                     diagnoses,
-                    prescriptions
-            );
+                    prescriptions);
         }
 
         System.out.println("Appointment not confirmed yet.");
@@ -186,10 +190,10 @@ public class RecordOutcome {
     /**
      * Checks if a given appointment ID exists in the list of appointments.
      *
-     * @param appointments the list of appointments to search
+     * @param appointments  the list of appointments to search
      * @param appointmentId the appointment ID to look for
      * @return the matching {@link Appointment} object, or {@code null} if not
-     * found
+     *         found
      */
     private Appointment containsAppointmentId(List<Appointment> appointments, String appointmentId) {
         for (Appointment appointment : appointments) {
@@ -203,7 +207,7 @@ public class RecordOutcome {
     /**
      * Updates the flag of an appointment to {@link Flag#COMPLETED}.
      *
-     * @param appointments the list of appointments to update
+     * @param appointments  the list of appointments to update
      * @param appointmentId the appointment ID whose flag needs to be updated
      * @return the updated list of appointments
      */

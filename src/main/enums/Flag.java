@@ -1,10 +1,11 @@
+package enums;
+
 /**
  * The {@code Flag} enum represents the various states or statuses
  * that can be assigned to an entity in the system, such as appointments,
  * prescriptions, or timeslots. These flags provide a standardized way
  * to manage and track different stages of processing.
  */
-package enums;
 
 public enum Flag {
     /**

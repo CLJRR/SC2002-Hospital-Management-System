@@ -1,9 +1,4 @@
-/**
- * The {@code DoctorUI} class represents the user interface for doctors in the
- * system. It provides options to manage medical records, view schedules, set
- * availability, handle appointment requests, and record appointment outcomes.
- * This class interacts with various controllers to facilitate these tasks.
- */
+
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
@@ -12,6 +7,15 @@ import SessionManager.Session;
 import UserSystem.*;
 import java.io.IOException;
 import java.util.Scanner;
+
+/**
+ * The {@code DoctorUI} class represents the user interface for doctors in the
+ * system.
+ * It provides options to manage medical records, view schedules, set
+ * availability, handle appointment requests,
+ * and record appointment outcomes. This class interacts with various
+ * controllers to facilitate these tasks.
+ */
 
 public class DoctorUI {
 
@@ -27,7 +31,7 @@ public class DoctorUI {
      * </ul>
      *
      * @throws IOException if an error occurs during input or interaction with
-     * subsystems
+     *                     subsystems
      */
     public void doctorUI() throws IOException {
         @SuppressWarnings("resource")

@@ -1,8 +1,11 @@
-/**
- * The {@code MedicationInventory} class represents a medication item in the inventory
- * with attributes such as name, current stock level, and alert level for low stock warnings.
- */
 package MedicineInventorySystem;
+
+/**
+ * The {@code MedicationInventory} class represents a medication item in the
+ * inventory
+ * with attributes such as name, current stock level, and alert level for low
+ * stock warnings.
+ */
 
 public class MedicationInventory {
 
@@ -11,7 +14,8 @@ public class MedicationInventory {
     private int alertlevel;
 
     /**
-     * Constructs a {@code MedicationInventory} object with the specified name, stock, and alert level.
+     * Constructs a {@code MedicationInventory} object with the specified name,
+     * stock, and alert level.
      *
      * @param name       the name of the medication.
      * @param stock      the current stock level of the medication.

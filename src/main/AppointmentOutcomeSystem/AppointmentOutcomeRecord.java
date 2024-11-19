@@ -1,13 +1,15 @@
-/**
- * Represents the outcome of a medical appointment, including details of the appointment,
- * diagnoses, and prescriptions provided.
- */
 package AppointmentOutcomeSystem;
 
 import enums.Flag;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Represents the outcome of a medical appointment, including details of the
+ * appointment,
+ * diagnoses, and prescriptions provided.
+ */
 
 public class AppointmentOutcomeRecord {
 
@@ -55,10 +57,11 @@ public class AppointmentOutcomeRecord {
      * @param appointmentDate the date of the appointment
      * @param serviceProvided the service provided during the appointment
      * @param diagnoses       the list of diagnoses made during the appointment
-     * @param prescriptions   the list of prescriptions provided during the appointment
+     * @param prescriptions   the list of prescriptions provided during the
+     *                        appointment
      */
     public AppointmentOutcomeRecord(String apptId, String patientId, String doctorId, LocalDate appointmentDate,
-                                     String serviceProvided, List<String> diagnoses, List<Prescription> prescriptions) {
+            String serviceProvided, List<String> diagnoses, List<Prescription> prescriptions) {
         this.apptId = apptId;
         this.patientId = patientId;
         this.doctorId = doctorId;

@@ -1,8 +1,3 @@
-/**
- * The {@code DoctorScheduleViewer} class provides functionality to view a doctor's schedule.
- * It supports viewing schedules for specific dates or a range of three consecutive days, including
- * details about appointments, leaves, and available timeslots.
- */
 package AppointmentSystem;
 
 import enums.Flag;
@@ -11,6 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
+/**
+ * The {@code DoctorScheduleViewer} class provides functionality to view a
+ * doctor's schedule.
+ * It supports viewing schedules for specific dates or a range of three
+ * consecutive days, including
+ * details about appointments, leaves, and available timeslots.
+ */
 
 public class DoctorScheduleViewer {
 
@@ -25,7 +28,8 @@ public class DoctorScheduleViewer {
     private final Scanner sc = new Scanner(System.in);
 
     /**
-     * Constructs a new {@code DoctorScheduleViewer} with the specified map of appointment records.
+     * Constructs a new {@code DoctorScheduleViewer} with the specified map of
+     * appointment records.
      *
      * @param appointmentRecords the map of appointment records to manage and view
      */
@@ -34,8 +38,10 @@ public class DoctorScheduleViewer {
     }
 
     /**
-     * Displays the schedule for a doctor over the next three consecutive days starting from a specified date.
-     * Each day's schedule includes timeslots and their statuses (e.g., available, appointment, or leave).
+     * Displays the schedule for a doctor over the next three consecutive days
+     * starting from a specified date.
+     * Each day's schedule includes timeslots and their statuses (e.g., available,
+     * appointment, or leave).
      *
      * @param doctorId  the ID of the doctor whose schedule is to be displayed
      * @param startDate the starting date for the schedule
@@ -53,7 +59,8 @@ public class DoctorScheduleViewer {
 
     /**
      * Displays the schedule for a doctor for a specific date.
-     * The schedule includes details for each timeslot (e.g., available, appointment, or leave).
+     * The schedule includes details for each timeslot (e.g., available,
+     * appointment, or leave).
      *
      * @param doctorId the ID of the doctor whose schedule is to be displayed
      * @param date     the date for which the schedule is to be displayed

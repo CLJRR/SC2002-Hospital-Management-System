@@ -1,10 +1,11 @@
-/**
- * Responsible for saving appointment outcome records to a data source.
- */
 package AppointmentOutcomeSystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * Responsible for saving appointment outcome records to a data source.
+ */
 
 public class AppointmentOutcomeRecordSaver {
 
@@ -22,7 +23,8 @@ public class AppointmentOutcomeRecordSaver {
      * Constructs a new {@code AppointmentOutcomeRecordSaver} with the specified map
      * containing appointment outcome records to be saved.
      *
-     * @param appointmentOutcomeRecords the map of appointment outcome records to save
+     * @param appointmentOutcomeRecords the map of appointment outcome records to
+     *                                  save
      */
     public AppointmentOutcomeRecordSaver(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
@@ -37,7 +39,8 @@ public class AppointmentOutcomeRecordSaver {
     public void saveRecords() {
         List<AppointmentOutcomeRecord> recordList = new ArrayList<>(appointmentOutcomeRecords.values());
         try {
-            appointmentOutcomeRecordService.save(recordList); // Ensure `save` method exists in `AppointmentOutcomeRecordService`
+            appointmentOutcomeRecordService.save(recordList); // Ensure `save` method exists in
+                                                              // `AppointmentOutcomeRecordService`
             System.out.println("Appointment outcomes saved successfully.");
         } catch (IOException e) {
             System.err.println("Error saving appointment outcomes: " + e.getMessage());

@@ -1,11 +1,12 @@
-/**
- * The {@code ApptLoader} class is responsible for loading appointment records from a data source
- * and populating a map of appointment records.
- */
 package AppointmentSystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * The {@code ApptLoader} class is responsible for loading appointment records from a data source
+ * and populating a map of appointment records.
+ */
 
 public class AppointmentLoader {
 

@@ -1,3 +1,9 @@
+package MedicineInventorySystem;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  * The {@code AdminInventory} class provides an interface for administrators to manage the medication inventory.
  * Administrators can:
@@ -9,11 +15,6 @@
  *     <li>Save changes and exit the menu</li>
  * </ul>
  */
-package MedicineInventorySystem;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class AdminInventoryPrompt {
 

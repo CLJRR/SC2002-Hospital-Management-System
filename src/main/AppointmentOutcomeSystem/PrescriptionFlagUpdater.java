@@ -1,8 +1,3 @@
-/**
- * Handles the updating of prescription flags for appointment outcome records.
- * Supports operations such as changing prescription flags from PENDING to DISPENSED or REJECTED,
- * and ensures updates are reflected in the inventory system.
- */
 package AppointmentOutcomeSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -10,6 +5,13 @@ import enums.Flag;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
+
+/**
+ * Handles the updating of prescription flags for appointment outcome records.
+ * Supports operations such as changing prescription flags from PENDING to
+ * DISPENSED or REJECTED,
+ * and ensures updates are reflected in the inventory system.
+ */
 
 public class PrescriptionFlagUpdater {
 
@@ -34,9 +36,11 @@ public class PrescriptionFlagUpdater {
     private static final Scanner sc = new Scanner(System.in);
 
     /**
-     * Constructs a new {@code PrescriptionFlagUpdater} with the specified appointment outcome records.
+     * Constructs a new {@code PrescriptionFlagUpdater} with the specified
+     * appointment outcome records.
      *
-     * @param appointmentOutcomeRecords the map of appointment outcome records to update
+     * @param appointmentOutcomeRecords the map of appointment outcome records to
+     *                                  update
      */
     public PrescriptionFlagUpdater(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
@@ -123,14 +127,17 @@ public class PrescriptionFlagUpdater {
                         for (Prescription prescription : record.getPrescriptions()) {
                             if (prescription.getFlag() == Flag.PENDING) {
                                 foundPending = true;
-                                System.out.println("Do you want to reject the prescription for " + prescription.getMedName() + "? (yes/no)");
+                                System.out.println("Do you want to reject the prescription for "
+                                        + prescription.getMedName() + "? (yes/no)");
                                 String response = sc.next().toLowerCase();
 
                                 if (response.equalsIgnoreCase("yes")) {
                                     prescription.setFlag(Flag.REJECTED);
-                                    System.out.println("Prescription " + prescription.getMedName() + " for " + apptId + " has been rejected.");
+                                    System.out.println("Prescription " + prescription.getMedName() + " for " + apptId
+                                            + " has been rejected.");
                                 } else {
-                                    System.out.println("Prescription " + prescription.getMedName() + " was not rejected.");
+                                    System.out.println(
+                                            "Prescription " + prescription.getMedName() + " was not rejected.");
                                 }
                             }
                         }

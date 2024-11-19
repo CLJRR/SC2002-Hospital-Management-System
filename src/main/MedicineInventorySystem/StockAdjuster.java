@@ -1,16 +1,14 @@
+package MedicineInventorySystem;
+
+import java.util.*;
+
 /**
  * The {@code StockAdjuster} class is responsible for managing stock adjustments
  * (increase or decrease) of medications in the inventory.
  * It interacts with a {@code Map} that stores medication names as keys and
  * {@code MedicationInventory} objects as values.
  */
-package MedicineInventorySystem;
 
-import java.util.*;
-
-/**
- * Manages stock adjustments for medications in the inventory.
- */
 public class StockAdjuster {
 
     private Map<String, MedicationInventory> inventory;
@@ -30,7 +28,8 @@ public class StockAdjuster {
      *
      * @param medicationName the name of the medication to update.
      * @param quantity       the amount to add to the current stock.
-     * @return {@code true} if the stock was successfully increased, {@code false} if the medication was not found or if the quantity is invalid.
+     * @return {@code true} if the stock was successfully increased, {@code false}
+     *         if the medication was not found or if the quantity is invalid.
      */
     public boolean increaseStock(String medicationName, int quantity) {
         if (quantity < 0) {
@@ -56,7 +55,8 @@ public class StockAdjuster {
      * @param medicationName the name of the medication to update.
      * @param quantity       the amount to subtract from the current stock.
      * @return {@code true} if the stock was successfully decreased, {@code false}
-     *         if the medication was not found, if the stock was insufficient, or if the quantity is invalid.
+     *         if the medication was not found, if the stock was insufficient, or if
+     *         the quantity is invalid.
      */
     public boolean decreaseStock(String medicationName, int quantity) {
         if (quantity < 0) {

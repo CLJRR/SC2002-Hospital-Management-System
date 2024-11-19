@@ -1,12 +1,14 @@
-/**
- * The {@code Timeslot} class provides a list of predefined timeslots for scheduling appointments.
- * It includes methods to access and update the list of timeslots.
- */
 package AppointmentSystem;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+/**
+ * The {@code Timeslot} class provides a list of predefined timeslots for
+ * scheduling appointments.
+ * It includes methods to access and update the list of timeslots.
+ */
 
 public class Timeslot {
 
@@ -32,7 +34,8 @@ public class Timeslot {
     }
 
     /**
-     * Returns an unmodifiable list of predefined timeslots to prevent external modifications.
+     * Returns an unmodifiable list of predefined timeslots to prevent external
+     * modifications.
      *
      * @return an unmodifiable {@code List<String>} of timeslots
      */

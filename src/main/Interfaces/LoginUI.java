@@ -1,8 +1,3 @@
-/**
- * The {@code LoginUI} class manages the login process for different user roles
- * in the system. Depending on the authenticated user's role, it navigates to the
- * appropriate user interface.
- */
 package Interfaces;
 
 import LoginSystem.InputPrompt;
@@ -15,6 +10,13 @@ import enums.Role;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
+
+/**
+ * The {@code LoginUI} class manages the login process for different user roles
+ * in the system. Depending on the authenticated user's role, it navigates to
+ * the
+ * appropriate user interface.
+ */
 
 public class LoginUI {
 
@@ -73,10 +75,10 @@ public class LoginUI {
      * <p>
      * The method:
      * <ul>
-     *   <li>Prompts the user for login credentials.</li>
-     *   <li>Validates the credentials and determines the user's role.</li>
-     *   <li>Redirects the user to the appropriate interface based on their role.</li>
-     *   <li>Handles password changes if the default password is detected.</li>
+     * <li>Prompts the user for login credentials.</li>
+     * <li>Validates the credentials and determines the user's role.</li>
+     * <li>Redirects the user to the appropriate interface based on their role.</li>
+     * <li>Handles password changes if the default password is detected.</li>
      * </ul>
      *
      * @throws IOException if an error occurs during interaction with subsystems

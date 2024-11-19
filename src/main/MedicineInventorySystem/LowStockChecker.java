@@ -1,10 +1,11 @@
-/**
- * The {@code LowStockChecker} class is responsible for monitoring and alerting 
- * about medications in the inventory that are below their defined alert levels.
- */
 package MedicineInventorySystem;
 
 import java.util.*;
+
+/**
+ * The {@code LowStockChecker} class is responsible for monitoring and alerting
+ * about medications in the inventory that are below their defined alert levels.
+ */
 
 public class LowStockChecker {
 
@@ -21,16 +22,20 @@ public class LowStockChecker {
     }
 
     /**
-     * Checks the inventory for medications that have low stock levels and prints alerts.
+     * Checks the inventory for medications that have low stock levels and prints
+     * alerts.
      *
      * <p>
-     * This method iterates through the inventory and compares each medication's stock
-     * level with its alert level. If the stock is below the alert level, a warning message 
+     * This method iterates through the inventory and compares each medication's
+     * stock
+     * level with its alert level. If the stock is below the alert level, a warning
+     * message
      * is printed with details about the medication.
      * </p>
      *
      * <p>
-     * If no low-stock medications are found, it displays a message indicating all medications
+     * If no low-stock medications are found, it displays a message indicating all
+     * medications
      * are sufficiently stocked.
      * </p>
      */

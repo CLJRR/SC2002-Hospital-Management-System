@@ -1,8 +1,3 @@
-/**
- * The {@code AppointmentController} class is responsible for managing appointment records,
- * providing functionalities for administrators, doctors, and patients.
- * It supports viewing, scheduling, rescheduling, canceling, and updating appointments.
- */
 package AppointmentSystem;
 
 import SessionManager.Session;
@@ -11,6 +6,14 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+/**
+ * The {@code AppointmentController} class is responsible for managing
+ * appointment records,
+ * providing functionalities for administrators, doctors, and patients.
+ * It supports viewing, scheduling, rescheduling, canceling, and updating
+ * appointments.
+ */
 
 public class AppointmentController {
 
@@ -108,7 +111,8 @@ public class AppointmentController {
     }
 
     /**
-     * Views the doctor's schedule for the next three days starting from a given date.
+     * Views the doctor's schedule for the next three days starting from a given
+     * date.
      */
     public void doctorScheduleViewer() {
         loader.loadInitialAppointments();
@@ -211,7 +215,8 @@ public class AppointmentController {
     }
 
     /**
-     * Sets leave for a specific timeslot on a specific day for the logged-in doctor.
+     * Sets leave for a specific timeslot on a specific day for the logged-in
+     * doctor.
      */
     public void doctorSetLeaveByTimeslot() {
         loader.loadInitialAppointments();
@@ -250,7 +255,8 @@ public class AppointmentController {
     }
 
     /**
-     * Cancels leave for a specific timeslot on a specific day for the logged-in doctor.
+     * Cancels leave for a specific timeslot on a specific day for the logged-in
+     * doctor.
      */
     public void doctorCancelLeaveByTimeslot() {
         loader.loadInitialAppointments();
@@ -330,7 +336,8 @@ public class AppointmentController {
     }
 
     /**
-     * Views all available appointment slots for the next three days starting from a specific date (Patient functionality).
+     * Views all available appointment slots for the next three days starting from a
+     * specific date (Patient functionality).
      */
     public void viewAllAvailableAppointments() {
         loader.loadInitialAppointments();

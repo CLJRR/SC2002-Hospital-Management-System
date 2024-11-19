@@ -1,8 +1,3 @@
-/**
- * Service class for managing the serialization and deserialization of {@link AppointmentOutcomeRecord} objects.
- * Implements file operations for loading, saving, writing, and formatting data, as well as converting between
- * objects and their string representations.
- */
 package AppointmentOutcomeSystem;
 
 import FileManager.*;
@@ -11,6 +6,12 @@ import java.io.*;
 import java.time.*;
 import java.time.format.*;
 import java.util.*;
+
+/**
+ * Service class for managing the serialization and deserialization of {@link AppointmentOutcomeRecord} objects.
+ * Implements file operations for loading, saving, writing, and formatting data, as well as converting between
+ * objects and their string representations.
+ */
 
 public class AppointmentOutcomeRecordService implements Load, Format, Save, Write, toObject {
 

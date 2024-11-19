@@ -1,12 +1,14 @@
-/**
- * The {@code InventoryLoader} class is responsible for loading medication inventory data
- * into the system. It retrieves the data from a persistent storage using the
- * {@link MedicineInventoryService} and populates the inventory map.
- */
 package MedicineInventorySystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * The {@code InventoryLoader} class is responsible for loading medication
+ * inventory data
+ * into the system. It retrieves the data from a persistent storage using the
+ * {@link MedicineInventoryService} and populates the inventory map.
+ */
 
 public class InventoryLoader {
     private Map<String, MedicationInventory> inventory;

@@ -1,12 +1,15 @@
-/**
- * The {@code Save} interface defines a contract for saving data to a specific destination.
- * Implementing classes must provide a custom implementation of the {@code save} method
- * to handle the storage of a list of objects.
- */
 package FileManager;
 
 import java.io.IOException;
 import java.util.List;
+
+/**
+ * The {@code Save} interface defines a contract for saving data to a specific
+ * destination.
+ * Implementing classes must provide a custom implementation of the {@code save}
+ * method
+ * to handle the storage of a list of objects.
+ */
 
 public interface Save {
 

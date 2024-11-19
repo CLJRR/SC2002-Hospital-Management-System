@@ -1,15 +1,18 @@
-/**
- * The {@code AppointmentFlagUpdater} class is responsible for updating the status of appointments
- * (e.g., PENDING, CONFIRMED, or CANCELLED) based on user input and predefined rules.
- * This class ensures that updates are validated and authorized for the specified doctor.
- */
 package AppointmentSystem;
 
 import enums.Flag;
 import enums.Type;
-
 import java.util.Map;
 import java.util.Scanner;
+
+/**
+ * The {@code AppointmentFlagUpdater} class is responsible for updating the
+ * status of appointments
+ * (e.g., PENDING, CONFIRMED, or CANCELLED) based on user input and predefined
+ * rules.
+ * This class ensures that updates are validated and authorized for the
+ * specified doctor.
+ */
 
 public class AppointmentFlagUpdater {
 
@@ -24,7 +27,8 @@ public class AppointmentFlagUpdater {
     private Appointment appointment;
 
     /**
-     * Constructs a new {@code AppointmentFlagUpdater} with the specified map of appointment records.
+     * Constructs a new {@code AppointmentFlagUpdater} with the specified map of
+     * appointment records.
      *
      * @param appointmentRecords the map of appointment records to manage
      */
@@ -34,10 +38,13 @@ public class AppointmentFlagUpdater {
 
     /**
      * Prompts the user to update the status of an appointment.
-     * Validates the appointment ID, ensures that the appointment is of type {@link Type#APPOINTMENT}
-     * and in {@link Flag#PENDING} status, and checks that it belongs to the logged-in doctor.
+     * Validates the appointment ID, ensures that the appointment is of type
+     * {@link Type#APPOINTMENT}
+     * and in {@link Flag#PENDING} status, and checks that it belongs to the
+     * logged-in doctor.
      *
-     * @param doctorId the ID of the logged-in doctor attempting to update the appointment
+     * @param doctorId the ID of the logged-in doctor attempting to update the
+     *                 appointment
      */
     public void promptUpdateAppointmentFlag(String doctorId) {
         Scanner sc = new Scanner(System.in);
@@ -121,7 +128,8 @@ public class AppointmentFlagUpdater {
     }
 
     /**
-     * Updates the status of a specific appointment after validating its existence, ownership, and current status.
+     * Updates the status of a specific appointment after validating its existence,
+     * ownership, and current status.
      *
      * @param appointmentId the ID of the appointment to update
      * @param doctorId      the ID of the doctor performing the update
@@ -130,7 +138,8 @@ public class AppointmentFlagUpdater {
     public void updateAppointmentStatus(String appointmentId, String doctorId, Flag newStatus) {
         Appointment appointment = appointmentRecords.get(appointmentId);
 
-        // Validate that the appointment exists, belongs to the specified doctor, and is PENDING
+        // Validate that the appointment exists, belongs to the specified doctor, and is
+        // PENDING
         if (appointment == null) {
             System.out.println("Error: Appointment not found.");
             return;

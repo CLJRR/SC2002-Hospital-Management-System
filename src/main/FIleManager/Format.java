@@ -1,11 +1,12 @@
+package FileManager;
+
+import java.io.IOException;
+
 /**
  * The {@code Format} interface defines a contract for formatting objects into
  * specific string representations. Implementing classes are required to provide
  * a custom implementation of the {@code format} method.
  */
-package FileManager;
-
-import java.io.IOException;
 
 public interface Format {
 

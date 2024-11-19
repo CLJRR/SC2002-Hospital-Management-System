@@ -1,8 +1,3 @@
-/**
- * The {@code Request} class represents a stock replenishment request for a specific medication.
- * It includes details about the request such as the pharmacist making the request, the medication name,
- * the quantity to increase stock by, any notes, the approval status, and the flag representing the request state.
- */
 package RequestSystem;
 
 import enums.Flag;
@@ -22,14 +17,16 @@ public class Request {
      *
      * @param requestId       the unique ID of the request.
      * @param pharmId         the ID of the pharmacist making the request.
-     * @param medicationName  the name of the medication for which stock is to be replenished.
+     * @param medicationName  the name of the medication for which stock is to be
+     *                        replenished.
      * @param increaseStockBy the quantity by which stock should be increased.
      * @param notes           any additional notes or comments for the request.
-     * @param approvedBy      the ID of the administrator who approved the request (nullable).
+     * @param approvedBy      the ID of the administrator who approved the request
+     *                        (nullable).
      * @param flag            the current status of the request.
      */
     public Request(String requestId, String pharmId, String medicationName, int increaseStockBy, String notes,
-                   String approvedBy, Flag flag) {
+            String approvedBy, Flag flag) {
         this.requestId = requestId;
         this.pharmId = pharmId;
         this.medicationName = medicationName;
@@ -45,7 +42,8 @@ public class Request {
      *
      * @param requestId       the unique ID of the request.
      * @param pharmId         the ID of the pharmacist making the request.
-     * @param medicationName  the name of the medication for which stock is to be replenished.
+     * @param medicationName  the name of the medication for which stock is to be
+     *                        replenished.
      * @param increaseStockBy the quantity by which stock should be increased.
      * @param notes           any additional notes or comments for the request.
      */
@@ -193,6 +191,7 @@ public class Request {
     @Override
     public String toString() {
         return "Request [requestId=" + requestId + ", pharmId=" + pharmId + ", medicationName=" + medicationName
-                + ", increaseStockBy=" + increaseStockBy + ", notes=" + notes + ", ApprovedBy=" + approvedBy + ", flag=" + flag + "]";
+                + ", increaseStockBy=" + increaseStockBy + ", notes=" + notes + ", ApprovedBy=" + approvedBy + ", flag="
+                + flag + "]";
     }
 }

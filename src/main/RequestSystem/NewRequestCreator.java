@@ -1,8 +1,3 @@
-/**
- * The {@code NewRequestCreator} class is responsible for creating new stock replenishment
- * requests for medications in the inventory. It allows pharmacists to submit requests
- * for increasing stock along with additional notes.
- */
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -10,6 +5,14 @@ import MedicineInventorySystem.MedicationInventory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+/**
+ * The {@code NewRequestCreator} class is responsible for creating new stock
+ * replenishment
+ * requests for medications in the inventory. It allows pharmacists to submit
+ * requests
+ * for increasing stock along with additional notes.
+ */
 
 public class NewRequestCreator {
 
@@ -21,8 +24,10 @@ public class NewRequestCreator {
     /**
      * Constructs a {@code NewRequestCreator} with the given request records.
      *
-     * @param requestRecords the map of existing request records, where the key is the request ID
-     *                       and the value is the corresponding {@code Request} object.
+     * @param requestRecords the map of existing request records, where the key is
+     *                       the request ID
+     *                       and the value is the corresponding {@code Request}
+     *                       object.
      */
     public NewRequestCreator(HashMap<String, Request> requestRecords) {
         this.requestRecords = requestRecords;
@@ -33,8 +38,10 @@ public class NewRequestCreator {
 
     /**
      * Allows the pharmacist to create a stock replenishment request.
-     * The method prompts the pharmacist to select a medication, specify the quantity,
-     * and provide any additional notes. The new request is added to the request records.
+     * The method prompts the pharmacist to select a medication, specify the
+     * quantity,
+     * and provide any additional notes. The new request is added to the request
+     * records.
      *
      * @param pharmId the ID of the pharmacist creating the request.
      */
@@ -55,7 +62,8 @@ public class NewRequestCreator {
                 break; // Exit loop if the medication exists in inventory
             }
 
-            System.out.println("Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
+            System.out.println(
+                    "Error: Medication " + prescriptionName + " is not available in inventory. Please try again.");
         }
 
         System.out.println("Enter Quantity to Increase Stock By (or type 'x' to quit):");
@@ -93,7 +101,8 @@ public class NewRequestCreator {
     }
 
     /**
-     * Generates a unique request ID based on the current number of requests in the system.
+     * Generates a unique request ID based on the current number of requests in the
+     * system.
      *
      * @return a unique request ID in the format "REQ<number>".
      */

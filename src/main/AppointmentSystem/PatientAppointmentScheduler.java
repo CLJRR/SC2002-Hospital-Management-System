@@ -29,7 +29,7 @@ public class PatientAppointmentScheduler {
 
     private Map<String, Appointment> appointmentRecords;
     private final Scanner sc = new Scanner(System.in);
-    private PatientApptViewer patientApptViewer;
+    private PatientAppointmentViewer PatientAppointmentViewer;
     private Appointment appointment;
 
     /**

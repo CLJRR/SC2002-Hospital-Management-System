@@ -52,7 +52,7 @@ public class AppointmentController {
     /**
      * Viewer for patient appointments.
      */
-    private PatientApptViewer patientApptViewer;
+    private PatientAppointmentViewer PatientAppointmentViewer;
 
     /**
      * Scheduler for patient appointments.
@@ -76,7 +76,7 @@ public class AppointmentController {
         this.doctorScheduleViewer = new DoctorScheduleViewer(appointmentRecords);
         this.doctorLeaveSetter = new DoctorLeaveSetter(appointmentRecords);
         this.appointmentFlagUpdater = new AppointmentFlagUpdater(appointmentRecords);
-        this.patientApptViewer = new PatientApptViewer(appointmentRecords);
+        this.PatientAppointmentViewer = new PatientAppointmentViewer(appointmentRecords);
         this.patientAppointmentScheduler = new PatientAppointmentScheduler(appointmentRecords);
         loader.loadInitialAppointments();
     }
@@ -343,7 +343,7 @@ public class AppointmentController {
             System.out.println("Invalid date format. Please enter in yyyy-MM-dd format.");
             return;
         }
-        patientApptViewer.viewpatientViewScheduleForNextThreeDays(date);
+        PatientAppointmentViewer.viewpatientViewScheduleForNextThreeDays(date);
         saver.saveRecords();
     }
 
@@ -361,7 +361,7 @@ public class AppointmentController {
      */
     public void patientReScheduleAppointment() {
         loader.loadInitialAppointments();
-        patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
+        PatientAppointmentViewer.viewAllScheduledAppointments(Session.getLoginID());
         patientAppointmentScheduler.rescheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
@@ -371,7 +371,7 @@ public class AppointmentController {
      */
     public void patientCancelAppointment() {
         loader.loadInitialAppointments();
-        patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
+        PatientAppointmentViewer.viewAllScheduledAppointments(Session.getLoginID());
         patientAppointmentScheduler.cancelAppointment(Session.getLoginID());
         saver.saveRecords();
     }
@@ -381,7 +381,7 @@ public class AppointmentController {
      */
     public void viewAllScheduledAppointments() {
         loader.loadInitialAppointments();
-        patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
+        PatientAppointmentViewer.viewAllScheduledAppointments(Session.getLoginID());
         saver.saveRecords();
     }
 }

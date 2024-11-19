@@ -57,4 +57,26 @@ public class GetUser {
         }
         return pharmacists;
     }
+
+    public List<User> getAllReceptionist() {
+        loadUser();
+        List<User> receptionists = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getRole() == Role.RECEPTIONIST) {
+                receptionists.add(user);
+            }
+        }
+        return receptionists;
+    }
+    
+    public List<User> getAllAdministrators() {
+        loadUser();
+        List<User> adminstrators = new ArrayList<>();
+        for (User user : users.values()) {
+            if (user.getRole() == Role.ADMINISTRATOR) {
+                adminstrators.add(user);
+            }
+        }
+        return adminstrators;
+    }
 }

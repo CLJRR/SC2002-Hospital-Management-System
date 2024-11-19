@@ -35,7 +35,7 @@ public class HospitalStaffController {
 
     public void updateStaff(User staff) {
         loadUsers();
-        if (staff.getRole() == Role.DOCTOR || staff.getRole() == Role.PHARMACIST) {
+        if (staff.getRole() != Role.PATIENT) {
             hospitalStaffUpdater.updateStaff(staff.getId());
         } else {
             System.out.println("Error updating Staff.");
@@ -45,7 +45,7 @@ public class HospitalStaffController {
 
     public void addStaff(User staff) {
         loadUsers();
-        if (staff.getRole() == Role.DOCTOR || staff.getRole() == Role.PHARMACIST) {
+        if (staff.getRole() != Role.PATIENT) {
             staffs.put(staff.getId(), staff);
             System.out.println("Staff added.");
         } else {

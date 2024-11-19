@@ -1,10 +1,16 @@
-D003,Sally Newman,Test123!,30,null,FEMALE,null,null,null,DOCTOR
-D002,Emily Clarke,password,40,null,FEMALE,null,null,null,DOCTOR
-D001,John Smith,Test123!,45,null,MALE,null,null,null,DOCTOR
 P001,Mark Lee,Test123!,29,null,MALE,null,null,null,PHARMACIST
 P003,Sarah Lim,password,23,null,FEMALE,null,null,null,PHARMACIST
 P1003,Charlie White,password,null,1990-07-08,MALE,123456789,charlie.white@example.com,O-,PATIENT
+D006,s,password,16,null,FEMALE,null,null,null,DOCTOR
 P1001,John Doe,Password1!,null,1975-11-22,MALE,92268689,john.doe@example.com,B+,PATIENT
 A001,Sarah Lee,Password1!,40,null,FEMALE,null,null,null,ADMINISTRATOR
+D005,muthu,password,16,null,MALE,null,null,null,DOCTOR
 D004,Marvin Gay,password,25,null,OTHER,null,null,null,DOCTOR
 P1002,Bob Stone,password,null,1975-11-22,MALE,123456789,bob.stone@example.com,B+,PATIENT
+A002,Lee Jia rong,password,16,null,MALE,null,null,null,ADMINISTRATOR
+D003,Sally Newman,Test123!,30,null,FEMALE,null,null,null,DOCTOR
+D002,Emily Clarke,password,40,null,FEMALE,null,null,null,DOCTOR
+D001,John Smith,Test123!,45,null,MALE,null,null,null,DOCTOR
+PAT1732006007334,d,password,null,2024-12-08,MALE,96815338,jlee370@e.ntu.edu.sg,b+,PATIENT
+R001,muthu,Password1!,14,null,FEMALE,null,null,null,RECEPTIONIST
+P1005,jason,password,null,2001-12-08,OTHER,88382742,jlee@gmail.com,b+,PATIENT

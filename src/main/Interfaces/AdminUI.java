@@ -1,8 +1,3 @@
-/**
- * The {@code AdminUI} class represents the user interface for administrators in the system.
- * It provides options to manage hospital staff, view and manage appointments, manage medication inventory,
- * and approve replenishment requests. This class interacts with various subsystems to perform administrative tasks.
- */
 package Interfaces;
 
 import AppointmentSystem.*;
@@ -13,19 +8,29 @@ import UserSystem.AdminHospitalStaff;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code AdminUI} class represents the user interface for administrators in
+ * the system.
+ * It provides options to manage hospital staff, view and manage appointments,
+ * manage medication inventory,
+ * and approve replenishment requests. This class interacts with various
+ * subsystems to perform administrative tasks.
+ */
+
 public class AdminUI {
 
     /**
      * Launches the administrator user interface.
      * The administrator can perform tasks such as:
      * <ul>
-     *   <li>Managing hospital staff</li>
-     *   <li>Viewing appointment details</li>
-     *   <li>Managing medication inventory</li>
-     *   <li>Approving replenishment requests</li>
+     * <li>Managing hospital staff</li>
+     * <li>Viewing appointment details</li>
+     * <li>Managing medication inventory</li>
+     * <li>Approving replenishment requests</li>
      * </ul>
      *
-     * @throws IOException if an error occurs during input or interaction with subsystems
+     * @throws IOException if an error occurs during input or interaction with
+     *                     subsystems
      */
     public void adminUI() throws IOException {
         Scanner sc = new Scanner(System.in);

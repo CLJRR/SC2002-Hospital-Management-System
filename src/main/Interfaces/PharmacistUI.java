@@ -1,8 +1,3 @@
-/**
- * The {@code PharmacistUI} class provides the user interface for pharmacists in the system.
- * Pharmacists can view and manage appointment outcome records, update prescription flags,
- * manage medication inventory, and handle replenishment requests.
- */
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
@@ -11,6 +6,14 @@ import RequestSystem.RequestController;
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.Scanner;
+
+/**
+ * The {@code PharmacistUI} class provides the user interface for pharmacists in
+ * the system.
+ * Pharmacists can view and manage appointment outcome records, update
+ * prescription flags,
+ * manage medication inventory, and handle replenishment requests.
+ */
 
 public class PharmacistUI {
 

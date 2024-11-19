@@ -1,11 +1,14 @@
-/**
- * The {@code toObject} interface defines a contract for converting a string representation
- * into an object. Implementing classes must provide a custom implementation of the 
- * {@code toObject} method to handle the deserialization or parsing process.
- */
 package FileManager;
 
 import java.io.IOException;
+
+/**
+ * The {@code toObject} interface defines a contract for converting a string
+ * representation
+ * into an object. Implementing classes must provide a custom implementation of
+ * the
+ * {@code toObject} method to handle the deserialization or parsing process.
+ */
 
 public interface toObject {
 

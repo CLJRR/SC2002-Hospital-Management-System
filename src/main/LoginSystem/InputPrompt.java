@@ -1,10 +1,13 @@
-/**
- * The {@code InputPrompt} class provides functionality for capturing user login details.
- * It includes methods to retrieve and set the login ID and password attempts entered by the user.
- */
 package LoginSystem;
 
 import java.util.Scanner;
+
+/**
+ * The {@code InputPrompt} class provides functionality for capturing user login
+ * details.
+ * It includes methods to retrieve and set the login ID and password attempts
+ * entered by the user.
+ */
 
 public class InputPrompt {
     private String loginIDAttempt;

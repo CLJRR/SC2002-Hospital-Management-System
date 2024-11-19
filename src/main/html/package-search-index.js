@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"AppointmentOutcomeSystem"},{"l":"AppointmentSystem"},{"l":"enums"},{"l":"FileManager"},{"l":"Interfaces"},{"l":"LoginSystem"},{"l":"MedicineInventorySystem"},{"l":"ReceptionistSystem"},{"l":"RequestSystem"},{"l":"SessionManager"},{"l":"UserSystem"}];updateSearchResults();

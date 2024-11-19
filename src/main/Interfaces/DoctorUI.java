@@ -1,8 +1,3 @@
-/**
- * The {@code DoctorUI} class represents the user interface for doctors in the system.
- * It provides options to manage medical records, view schedules, set availability, handle appointment requests,
- * and record appointment outcomes. This class interacts with various controllers to facilitate these tasks.
- */
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
@@ -12,21 +7,31 @@ import UserSystem.*;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The {@code DoctorUI} class represents the user interface for doctors in the
+ * system.
+ * It provides options to manage medical records, view schedules, set
+ * availability, handle appointment requests,
+ * and record appointment outcomes. This class interacts with various
+ * controllers to facilitate these tasks.
+ */
+
 public class DoctorUI {
 
     /**
      * Launches the doctor user interface.
      * The doctor can perform tasks such as:
      * <ul>
-     *   <li>Viewing and updating patient medical records</li>
-     *   <li>Viewing personal schedules</li>
-     *   <li>Setting or canceling availability for appointments</li>
-     *   <li>Accepting or declining appointment requests</li>
-     *   <li>Viewing upcoming appointments</li>
-     *   <li>Recording appointment outcomes</li>
+     * <li>Viewing and updating patient medical records</li>
+     * <li>Viewing personal schedules</li>
+     * <li>Setting or canceling availability for appointments</li>
+     * <li>Accepting or declining appointment requests</li>
+     * <li>Viewing upcoming appointments</li>
+     * <li>Recording appointment outcomes</li>
      * </ul>
      *
-     * @throws IOException if an error occurs during input or interaction with subsystems
+     * @throws IOException if an error occurs during input or interaction with
+     *                     subsystems
      */
     public void doctorUI() throws IOException {
         @SuppressWarnings("resource")
@@ -64,10 +69,10 @@ public class DoctorUI {
                         System.out.println("2. View medical records by patient ID");
                         System.out.println("3. Exit");
                         System.out.print("Enter your choice: ");
-                        
+
                         int choice = sc.nextInt();
                         sc.nextLine(); // Consume newline
-                
+
                         switch (choice) {
                             case 1 -> {
                                 System.out.println("Fetching all medical records...");
@@ -84,15 +89,15 @@ public class DoctorUI {
                             }
                             default -> System.out.println("Invalid choice. Please try again.");
                         }
-                
+
                         // Exit the loop if the user selects option 3
                         if (choice == 3) {
                             break;
                         }
-                
+
                         System.out.println(); // Add a line break for better readability
                     }
-                
+
                     break; // Exit the main case
                 }
                 case 2 -> {
@@ -111,22 +116,26 @@ public class DoctorUI {
                     System.out.println("2) Cancel Leave for the day");
                     System.out.println("3) Set Leave for one timeslot");
                     System.out.println("4) Cancel Leave for one timeslot");
-                    
+
                     while (!sc.hasNextInt()) { // Check if input is an integer
                         System.out.println("Option not valid. Please try again:");
                         sc.next(); // Clear the invalid input
                     }
                     option = sc.nextInt();
                     sc.nextLine(); // Consumes newline
-                    if (option == 1){
-                        appointmentController.doctorSetLeave(); }
-                    if (option == 2){
-                        appointmentController.doctorCancelLeave(); }
-                    if (option == 3){
-                        appointmentController.doctorSetLeaveByTimeslot(); }
-                    if (option == 4){
-                        appointmentController.doctorCancelLeaveByTimeslot(); }
-                    if (option < 1 || option > 4){
+                    if (option == 1) {
+                        appointmentController.doctorSetLeave();
+                    }
+                    if (option == 2) {
+                        appointmentController.doctorCancelLeave();
+                    }
+                    if (option == 3) {
+                        appointmentController.doctorSetLeaveByTimeslot();
+                    }
+                    if (option == 4) {
+                        appointmentController.doctorCancelLeaveByTimeslot();
+                    }
+                    if (option < 1 || option > 4) {
                         System.out.println("Invalid Input.");
                     }
                     break;
@@ -149,7 +158,7 @@ public class DoctorUI {
                     Session.logout();
                     break;
                 }
-                
+
                 default -> System.out.println("Invalid choice. Please select a number between 1 and 8.");
             }
         }

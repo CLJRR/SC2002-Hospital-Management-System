@@ -1,7 +1,3 @@
-/**
- * The {@code PatientUI} class provides the user interface for patients in the system.
- * Patients can interact with their medical records, manage personal information, and handle appointments.
- */
 package Interfaces;
 
 import AppointmentOutcomeSystem.*;
@@ -13,6 +9,13 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * The {@code PatientUI} class provides the user interface for patients in the
+ * system.
+ * Patients can interact with their medical records, manage personal
+ * information, and handle appointments.
+ */
+
 public class PatientUI {
 
     /**
@@ -20,12 +23,12 @@ public class PatientUI {
      * <p>
      * The patient can perform the following tasks:
      * <ul>
-     *   <li>View their medical records</li>
-     *   <li>Update personal information</li>
-     *   <li>View available appointment slots</li>
-     *   <li>Schedule, reschedule, or cancel appointments</li>
-     *   <li>View scheduled appointments</li>
-     *   <li>Access past appointment outcome records</li>
+     * <li>View their medical records</li>
+     * <li>Update personal information</li>
+     * <li>View available appointment slots</li>
+     * <li>Schedule, reschedule, or cancel appointments</li>
+     * <li>View scheduled appointments</li>
+     * <li>Access past appointment outcome records</li>
      * </ul>
      *
      * @throws IOException if an error occurs during interaction with subsystems

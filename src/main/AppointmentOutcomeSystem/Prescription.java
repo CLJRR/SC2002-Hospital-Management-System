@@ -1,10 +1,12 @@
-/**
- * Represents a prescription associated with an appointment outcome record.
- * Contains details about the medication, dosage, amount, and its current flag status.
- */
 package AppointmentOutcomeSystem;
 
 import enums.Flag;
+
+/**
+ * Represents a prescription associated with an appointment outcome record.
+ * Contains details about the medication, dosage, amount, and its current flag
+ * status.
+ */
 
 public class Prescription {
 
@@ -14,7 +16,8 @@ public class Prescription {
     private String medName;
 
     /**
-     * Status flag for the prescription, indicating its current state (e.g., PENDING, DISPENSED, etc.).
+     * Status flag for the prescription, indicating its current state (e.g.,
+     * PENDING, DISPENSED, etc.).
      */
     private Flag flag;
 
@@ -29,7 +32,8 @@ public class Prescription {
     private String dosage;
 
     /**
-     * Constructs a new {@code Prescription} with the specified medication name, amount, 
+     * Constructs a new {@code Prescription} with the specified medication name,
+     * amount,
      * and dosage. The flag is set to {@link Flag#PENDING} by default.
      *
      * @param medName the name of the medication
@@ -44,7 +48,8 @@ public class Prescription {
     }
 
     /**
-     * Constructs a new {@code Prescription} with the specified medication name, flag,
+     * Constructs a new {@code Prescription} with the specified medication name,
+     * flag,
      * amount, and dosage.
      *
      * @param medName the name of the medication

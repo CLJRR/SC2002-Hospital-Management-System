@@ -1,8 +1,3 @@
-/**
- * The {@code PatientAppointmentScheduler} class handles appointment management for patients.
- * It provides functionalities for scheduling, rescheduling, and canceling appointments.
- */
-
 package AppointmentSystem;
 
 import UserSystem.GetUser;
@@ -23,8 +18,11 @@ import java.util.Scanner;
 // //Cancel
 
 /**
- * Manages patient appointments including scheduling, rescheduling, and canceling.
+ * /**
+ * The {@code PatientAppointmentScheduler} class handles appointment management for patients.
+ * It provides functionalities for scheduling, rescheduling, and canceling appointments.
  */
+
 public class PatientAppointmentScheduler {
 
     private Map<String, Appointment> appointmentRecords;

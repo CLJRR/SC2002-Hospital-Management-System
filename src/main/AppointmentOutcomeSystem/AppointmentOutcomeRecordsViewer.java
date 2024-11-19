@@ -1,11 +1,12 @@
-/**
- * Responsible for viewing appointment outcome records.
- * Provides methods to display all records, pending records, and records filtered by ID.
- */
 package AppointmentOutcomeSystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * Responsible for viewing appointment outcome records.
+ * Provides methods to display all records, pending records, and records filtered by ID.
+ */
 
 public class AppointmentOutcomeRecordsViewer {
 

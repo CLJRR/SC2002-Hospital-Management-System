@@ -1,9 +1,12 @@
+package enums;
+
 /**
- * The {@code Type} enum represents the different categories of actions or events
- * in the system. This enum allows for the classification of items such as appointments
+ * The {@code Type} enum represents the different categories of actions or
+ * events
+ * in the system. This enum allows for the classification of items such as
+ * appointments
  * or schedules.
  */
-package enums;
 
 public enum Type {
     /**
@@ -12,12 +15,14 @@ public enum Type {
     LEAVE,
 
     /**
-     * Used to classify scheduled meetings between patients and doctors or other medical staff.
+     * Used to classify scheduled meetings between patients and doctors or other
+     * medical staff.
      */
     APPOINTMENT,
 
     /**
-     * Represents other types of events or actions that do not fall into the predefined categories.
+     * Represents other types of events or actions that do not fall into the
+     * predefined categories.
      */
     OTHERS
 }

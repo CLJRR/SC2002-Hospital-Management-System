@@ -1,12 +1,13 @@
+package RequestSystem;
+
+import java.io.IOException;
+import java.util.*;
+
 /**
  * The {@code RequestSaver} class is responsible for saving request records
  * from an in-memory map to an external data source. It utilizes the
  * {@code RequestService} to handle the save operation.
  */
-package RequestSystem;
-
-import java.io.IOException;
-import java.util.*;
 
 public class RequestSaver {
 
@@ -16,7 +17,8 @@ public class RequestSaver {
     /**
      * Constructs a {@code RequestSaver} with a map of request records.
      *
-     * @param requestRecords a map containing the request records to be saved, keyed by their request IDs.
+     * @param requestRecords a map containing the request records to be saved, keyed
+     *                       by their request IDs.
      */
     public RequestSaver(Map<String, Request> requestRecords) {
         this.requestRecords = requestRecords;

@@ -1,11 +1,14 @@
-/**
- * The {@code RequestViewer} class provides methods for displaying different subsets 
- * of requests, including all requests, pending requests, and requests specific to a pharmacist.
- */
 package RequestSystem;
 
 import enums.Flag;
 import java.util.Map;
+
+/**
+ * The {@code RequestViewer} class provides methods for displaying different
+ * subsets
+ * of requests, including all requests, pending requests, and requests specific
+ * to a pharmacist.
+ */
 
 public class RequestViewer {
 
@@ -14,7 +17,8 @@ public class RequestViewer {
     /**
      * Constructs a {@code RequestViewer} with a specified map of request records.
      *
-     * @param requestRecords a {@code Map} containing {@code Request} objects, keyed by their request IDs.
+     * @param requestRecords a {@code Map} containing {@code Request} objects, keyed
+     *                       by their request IDs.
      */
     public RequestViewer(Map<String, Request> requestRecords) {
         this.requestRecords = requestRecords;

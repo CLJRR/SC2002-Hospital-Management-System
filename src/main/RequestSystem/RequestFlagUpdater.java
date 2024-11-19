@@ -1,8 +1,3 @@
-/**
- * The {@code RequestFlagUpdater} class is responsible for managing and updating the status (flag)
- * of medication replenishment requests. It allows administrators to approve or reject requests
- * and updates inventory stock accordingly if the request is approved.
- */
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -11,6 +6,14 @@ import enums.Flag;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The {@code RequestFlagUpdater} class is responsible for managing and updating
+ * the status (flag)
+ * of medication replenishment requests. It allows administrators to approve or
+ * reject requests
+ * and updates inventory stock accordingly if the request is approved.
+ */
+
 public class RequestFlagUpdater {
 
     private HashMap<String, Request> requestRecords;
@@ -18,10 +21,12 @@ public class RequestFlagUpdater {
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Constructs a {@code RequestFlagUpdater} with the given request records and initializes
+     * Constructs a {@code RequestFlagUpdater} with the given request records and
+     * initializes
      * the {@code InventoryController}.
      *
-     * @param requestRecords a map containing all existing request records, keyed by their IDs.
+     * @param requestRecords a map containing all existing request records, keyed by
+     *                       their IDs.
      */
     public RequestFlagUpdater(HashMap<String, Request> requestRecords) {
         this.requestRecords = requestRecords;
@@ -29,9 +34,11 @@ public class RequestFlagUpdater {
     }
 
     /**
-     * Prompts the user to select and update the status of a specific replenishment request.
+     * Prompts the user to select and update the status of a specific replenishment
+     * request.
      * The user is required to input a valid request ID and choose a new status.
-     * If the status is set to "APPROVED", the inventory stock is increased accordingly.
+     * If the status is set to "APPROVED", the inventory stock is increased
+     * accordingly.
      */
     public void updateRequestFlagPrompt() {
         String requestId;
@@ -52,7 +59,8 @@ public class RequestFlagUpdater {
                 if (request.getFlag() == Flag.PENDING) {
                     break; // Valid ID and flag is PENDING, proceed
                 } else {
-                    System.out.println("Request ID " + requestId + " has already been processed with flag: " + request.getFlag());
+                    System.out.println(
+                            "Request ID " + requestId + " has already been processed with flag: " + request.getFlag());
                 }
             } else {
                 System.out.println("Request ID " + requestId + " not found. Please try again.");
@@ -98,7 +106,8 @@ public class RequestFlagUpdater {
 
     /**
      * Updates the flag (status) of a specific request.
-     * If the new status is "APPROVED", it attempts to increase the inventory stock based on the request.
+     * If the new status is "APPROVED", it attempts to increase the inventory stock
+     * based on the request.
      * The approver's ID is also recorded as part of the request update.
      *
      * @param requestId the ID of the request to update.
@@ -108,7 +117,8 @@ public class RequestFlagUpdater {
         Request request = requestRecords.get(requestId);
         if (request != null) {
             // Attempt to increase stock in inventory if flag is APPROVED
-            if (newFlag == Flag.APPROVED && !invController.increaseStock(request.getMedicationName(), request.getIncreaseStockBy())) {
+            if (newFlag == Flag.APPROVED
+                    && !invController.increaseStock(request.getMedicationName(), request.getIncreaseStockBy())) {
                 System.out.println("Unable to update stock for request " + requestId + ".");
                 return;
             }

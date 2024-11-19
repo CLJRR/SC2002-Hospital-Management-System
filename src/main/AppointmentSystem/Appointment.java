@@ -1,11 +1,13 @@
-/**
- * Represents an appointment in the appointment management system.
- * Includes details about the appointment ID, patient, doctor, date, time slot, type, and status.
- */
 package AppointmentSystem;
 
 import enums.*;
 import java.time.LocalDate;
+
+/**
+ * Represents an appointment in the appointment management system.
+ * Includes details about the appointment ID, patient, doctor, date, time slot,
+ * type, and status.
+ */
 
 public class Appointment {
 
@@ -55,7 +57,8 @@ public class Appointment {
      * @param type          the type of appointment
      * @param flag          the current status of the appointment
      */
-    public Appointment(String appointmentId, String patientId, String doctorId, LocalDate date, String timeSlot, Type type, Flag flag) {
+    public Appointment(String appointmentId, String patientId, String doctorId, LocalDate date, String timeSlot,
+            Type type, Flag flag) {
         this.appointmentId = appointmentId;
         this.patientId = patientId;
         this.doctorId = doctorId;

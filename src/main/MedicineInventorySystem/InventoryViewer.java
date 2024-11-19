@@ -1,10 +1,11 @@
+package MedicineInventorySystem;
+
+import java.util.*;
+
 /**
  * The {@code InventoryViewer} class is responsible for displaying the current
  * medication inventory. It provides methods to view inventory details in a user-friendly format.
  */
-package MedicineInventorySystem;
-
-import java.util.*;
 
 public class InventoryViewer {
 

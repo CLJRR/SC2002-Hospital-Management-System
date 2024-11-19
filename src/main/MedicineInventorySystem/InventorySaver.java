@@ -1,12 +1,14 @@
-/**
- * The {@code InventorySaver} class handles saving medication inventory data
- * from the system to persistent storage. It uses the {@link MedicineInventoryService}
- * to save inventory records.
- */
 package MedicineInventorySystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * The {@code InventorySaver} class handles saving medication inventory data
+ * from the system to persistent storage. It uses the
+ * {@link MedicineInventoryService}
+ * to save inventory records.
+ */
 
 public class InventorySaver {
     private Map<String, MedicationInventory> inventory;

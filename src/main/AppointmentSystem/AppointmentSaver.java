@@ -1,11 +1,14 @@
-/**
- * The {@code ApptSaver} class is responsible for saving appointment records to a data source.
- * It ensures that the records are sorted by their appointment IDs before saving.
- */
 package AppointmentSystem;
 
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * The {@code ApptSaver} class is responsible for saving appointment records to
+ * a data source.
+ * It ensures that the records are sorted by their appointment IDs before
+ * saving.
+ */
 
 public class AppointmentSaver {
 
@@ -20,7 +23,8 @@ public class AppointmentSaver {
     private AppointmentService appointmentService;
 
     /**
-     * Constructs a new {@code ApptSaver} with the specified map of appointment records.
+     * Constructs a new {@code ApptSaver} with the specified map of appointment
+     * records.
      *
      * @param appointmentRecords the map of appointment records to be saved
      */
@@ -31,7 +35,8 @@ public class AppointmentSaver {
 
     /**
      * Saves all appointment records to a data source.
-     * The records are first sorted by their appointment IDs to ensure consistent ordering.
+     * The records are first sorted by their appointment IDs to ensure consistent
+     * ordering.
      * If an error occurs during the save process, an error message is displayed.
      */
     public void saveRecords() {

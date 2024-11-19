@@ -1,12 +1,13 @@
-/**
- * Controller class for managing appointment outcome records. 
- * Handles loading, saving, viewing, and updating records.
- */
 package AppointmentOutcomeSystem;
 
 import SessionManager.Session;
 import java.io.IOException;
 import java.util.*;
+
+/**
+ * Controller class for managing appointment outcome records.
+ * Handles loading, saving, viewing, and updating records.
+ */
 
 public class AppointmentOutcomeRecordController {
 
@@ -97,7 +98,8 @@ public class AppointmentOutcomeRecordController {
 
     /**
      * Allows a patient to view their past appointment outcome records.
-     * Uses the session's login ID to get the current logged in User's medical records. Ensures records are loaded before viewing.
+     * Uses the session's login ID to get the current logged in User's medical
+     * records. Ensures records are loaded before viewing.
      *
      * @throws IOException if an error occurs during viewing
      */

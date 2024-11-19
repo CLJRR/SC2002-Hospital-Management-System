@@ -1,11 +1,14 @@
-/**
- * The {@code InventoryController} class serves as the central controller for managing medication inventory.
- * It provides methods to load, view, update, and save inventory, as well as to handle stock adjustments and
- * low stock alerts.
- */
 package MedicineInventorySystem;
 
 import java.util.*;
+
+/**
+ * The {@code InventoryController} class serves as the central controller for
+ * managing medication inventory.
+ * It provides methods to load, view, update, and save inventory, as well as to
+ * handle stock adjustments and
+ * low stock alerts.
+ */
 
 public class InventoryController {
 
@@ -17,7 +20,8 @@ public class InventoryController {
     private LowStockChecker lowStockChecker;
 
     /**
-     * Constructs an {@code InventoryController} and initializes the inventory system components.
+     * Constructs an {@code InventoryController} and initializes the inventory
+     * system components.
      * Automatically loads the initial inventory from the file.
      */
     public InventoryController() {
@@ -42,17 +46,19 @@ public class InventoryController {
     /**
      * Adds a new medication to the inventory.
      *
-     * @param medication the {@code MedicationInventory} object representing the new medication.
+     * @param medication the {@code MedicationInventory} object representing the new
+     *                   medication.
      */
     public void addMedication(MedicationInventory medication) {
         inventory.put(medication.getName(), medication);
     }
 
-     /**
+    /**
      * Removes a medication from the inventory.
      *
      * @param medicationName the name of the medication to remove.
-     * @return {@code true} if the medication was successfully removed, {@code false} if the medication was not found.
+     * @return {@code true} if the medication was successfully removed,
+     *         {@code false} if the medication was not found.
      */
     public boolean removeMedication(String medicationName) {
         if (inventory.containsKey(medicationName)) {
@@ -80,7 +86,8 @@ public class InventoryController {
      *
      * @param medicationName the name of the medication to increase stock for.
      * @param quantity       the quantity to add to the current stock.
-     * @return {@code true} if the stock increase is successful, {@code false} otherwise.
+     * @return {@code true} if the stock increase is successful, {@code false}
+     *         otherwise.
      */
     public boolean increaseStock(String medicationName, int quantity) {
         inventoryLoader.loadInitialInventory(); // Ensure the inventory is up-to-date
@@ -97,7 +104,8 @@ public class InventoryController {
      *
      * @param medicationName the name of the medication to decrease stock for.
      * @param quantity       the quantity to subtract from the current stock.
-     * @return {@code true} if the stock decrease is successful, {@code false} otherwise.
+     * @return {@code true} if the stock decrease is successful, {@code false}
+     *         otherwise.
      */
     public boolean decreaseStock(String medicationName, int quantity) {
         inventoryLoader.loadInitialInventory(); // Ensure the inventory is up-to-date
@@ -119,7 +127,8 @@ public class InventoryController {
     /**
      * Returns the current inventory map.
      *
-     * @return a {@code Map<String, MedicationInventory>} representing the current inventory.
+     * @return a {@code Map<String, MedicationInventory>} representing the current
+     *         inventory.
      */
     public Map<String, MedicationInventory> getInventory() {
         return inventory;

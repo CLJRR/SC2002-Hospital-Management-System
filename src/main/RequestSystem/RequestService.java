@@ -1,10 +1,3 @@
-/**
- * The {@code RequestService} class implements methods for handling the persistence
- * and retrieval of {@code Request} objects. It provides functionalities for loading,
- * saving, formatting, and converting request records between objects and text representation.
- * This class implements the {@code Load}, {@code Format}, {@code Save}, {@code Write}, 
- * and {@code toObject} interfaces.
- */
 package RequestSystem;
 
 import FileManager.*;
@@ -12,12 +5,25 @@ import enums.Flag;
 import java.io.*;
 import java.util.*;
 
+/**
+ * The {@code RequestService} class implements methods for handling the
+ * persistence
+ * and retrieval of {@code Request} objects. It provides functionalities for
+ * loading,
+ * saving, formatting, and converting request records between objects and text
+ * representation.
+ * This class implements the {@code Load}, {@code Format}, {@code Save},
+ * {@code Write},
+ * and {@code toObject} interfaces.
+ */
+
 public class RequestService implements Load, Format, Save, Write, toObject {
 
     private static final String fileName = "./data/requests.txt";
 
     /**
-     * Loads request records from the specified file and converts them into a list of {@code Request} objects.
+     * Loads request records from the specified file and converts them into a list
+     * of {@code Request} objects.
      *
      * @return a list of {@code Request} objects loaded from the file.
      * @throws IOException if there is an error reading the file or converting data.
@@ -39,7 +45,8 @@ public class RequestService implements Load, Format, Save, Write, toObject {
      * Saves a list of {@code Request} objects to the specified file in text format.
      *
      * @param list the list of {@code Request} objects to save.
-     * @throws IOException if there is an error writing to the file or if the list contains invalid objects.
+     * @throws IOException if there is an error writing to the file or if the list
+     *                     contains invalid objects.
      */
     @Override
     public void save(List<?> list) throws IOException {
@@ -71,7 +78,8 @@ public class RequestService implements Load, Format, Save, Write, toObject {
     }
 
     /**
-     * Converts a {@code Request} object into a formatted string representation for storage.
+     * Converts a {@code Request} object into a formatted string representation for
+     * storage.
      *
      * @param object the {@code Request} object to format.
      * @return a string representation of the {@code Request} object.

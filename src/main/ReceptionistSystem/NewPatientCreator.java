@@ -1,8 +1,3 @@
-/**
- * The {@code NewPatientCreator} class provides functionality to create a new patient in the system.
- * It gathers input from the user, validates the input, and adds the patient to the database.
- * The class ensures unique identifiers and checks for duplicate entries before saving.
- */
 package ReceptionistSystem;
 
 import UserSystem.GetUser;
@@ -11,20 +6,31 @@ import UserSystem.UserService;
 import enums.*;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+
+/**
+ * The {@code NewPatientCreator} class provides functionality to create a new
+ * patient in the system.
+ * It gathers input from the user, validates the input, and adds the patient to
+ * the database.
+ * The class ensures unique identifiers and checks for duplicate entries before
+ * saving.
+ */
 
 public class NewPatientCreator {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Creates a new patient by prompting the receptionist for details such as name, date of birth, gender,
-     * phone number, email, and blood type. Validates input and ensures that no duplicate records are added.
+     * Creates a new patient by prompting the receptionist for details such as name,
+     * date of birth, gender,
+     * phone number, email, and blood type. Validates input and ensures that no
+     * duplicate records are added.
      *
-     * @throws IOException if there is an error reading from or writing to the user database.
+     * @throws IOException if there is an error reading from or writing to the user
+     *                     database.
      */
     public void createNewPatient() throws IOException {
         UserService service = new UserService();
@@ -164,7 +170,8 @@ public class NewPatientCreator {
     }
 
     /**
-     * Generates a unique patient ID in the format "P1XXX", where "XXX" is a zero-padded sequential number.
+     * Generates a unique patient ID in the format "P1XXX", where "XXX" is a
+     * zero-padded sequential number.
      *
      * @return a unique patient ID.
      */

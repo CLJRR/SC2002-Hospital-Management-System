@@ -10,7 +10,7 @@ public class InitializeAppointmentsData {
         String data = """
                 A001,P1001,D001,2024-09-22,09:00,APPOINTMENT,CONFIRMED
                 A002,P1002,D002,2024-11-05,09:00,APPOINTMENT,COMPLETED
-                A003,P006,D0012024-11-06,15:00,APPOINTMENT,PENDING
+                A003,P1002,D001,2024-11-06,15:00,APPOINTMENT,PENDING
                 """;
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             writer.print(data);

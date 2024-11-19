@@ -1,2 +1,1 @@
-REQ2,P001,Amoxicillin,10,fk me,A001,APPROVED
-REQ1,P001,Paracetamol,10,normal restock,P001,APPROVED
+REQ1,P001,Paracetamol,10,normal restock,A001,APPROVED

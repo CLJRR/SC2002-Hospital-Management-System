@@ -92,7 +92,7 @@ public class AppointmentOutcomeRecordController {
      */
     public void viewRecords() throws IOException {
         loadRecords();
-        viewer.viewRecords();
+        viewer.viewPendingRecords();
     }
 
     /**

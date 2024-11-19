@@ -1,3 +1,8 @@
+/**
+ * The {@code DoctorLeaveSetter} class provides functionality for managing leave for doctors.
+ * It supports setting and canceling leave for specific timeslots or entire days, ensuring no conflicts
+ * with existing non-canceled appointments or leaves.
+ */
 package AppointmentSystem;
 
 import enums.Flag;
@@ -8,13 +13,28 @@ import java.util.Map;
 
 public class DoctorLeaveSetter {
 
+    /**
+     * A map containing all appointment records, keyed by their appointment ID.
+     */
     private Map<String, Appointment> appointmentRecords;
 
+    /**
+     * Constructs a new {@code DoctorLeaveSetter} with the specified map of appointment records.
+     *
+     * @param appointmentRecords the map to manage appointment and leave records
+     */
     public DoctorLeaveSetter(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
     }
 
-    // Method to set a specific timeslot to LEAVE
+    /**
+     * Sets leave for a specific timeslot for a doctor on a given date.
+     * Ensures no conflicting non-canceled appointments or existing leave for the specified timeslot.
+     *
+     * @param doctorId the ID of the doctor
+     * @param date     the date of the leave
+     * @param timeslot the timeslot for which leave is being set
+     */
     public void setLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
         if (hasExistingNonCanceledAppointment(doctorId, date, timeslot)) {
             System.out.println("Cannot set leave: Existing non-canceled appointment or leave for Doctor " + doctorId + " on " + date + " at " + timeslot);
@@ -27,11 +47,16 @@ public class DoctorLeaveSetter {
         System.out.println("Leave set for Doctor " + doctorId + " on " + date + " at " + timeslot);
     }
 
-    // Method to set all timeslots of a day to LEAVE
+    /**
+     * Sets leave for all timeslots on a given date for a doctor.
+     * Ensures no conflicting non-canceled appointments or leaves for any timeslot on the specified date.
+     *
+     * @param doctorId the ID of the doctor
+     * @param date     the date of the leave
+     */
     public void setLeaveForAllTimeslots(String doctorId, LocalDate date) {
         List<String> timeslots = Timeslot.getTimeslot();
 
-        // First, check if there’s an existing non-canceled appointment or leave for any timeslot
         for (String timeslot : timeslots) {
             if (hasExistingNonCanceledAppointment(doctorId, date, timeslot)) {
                 System.out.println("Cannot set leave for any timeslot: Existing non-canceled appointment or leave for Doctor " + doctorId + " on " + date);
@@ -39,7 +64,6 @@ public class DoctorLeaveSetter {
             }
         }
 
-        // If no conflicts, set all timeslots to LEAVE
         for (String timeslot : timeslots) {
             String leaveId = generateLeaveId();
             Appointment leaveAppointment = new Appointment(leaveId, null, doctorId, date, timeslot, Type.LEAVE, Flag.PENDING);
@@ -48,7 +72,13 @@ public class DoctorLeaveSetter {
         System.out.println("All timeslots set to LEAVE for Doctor " + doctorId + " on " + date);
     }
 
-    // Method to cancel leave for a specific timeslot
+    /**
+     * Cancels leave for a specific timeslot for a doctor on a given date.
+     *
+     * @param doctorId the ID of the doctor
+     * @param date     the date of the leave
+     * @param timeslot the timeslot for which leave is being canceled
+     */
     public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equalsIgnoreCase(doctorId)
@@ -64,7 +94,12 @@ public class DoctorLeaveSetter {
         System.out.println("No existing leave found for Doctor " + doctorId + " on " + date + " at " + timeslot + " to cancel.");
     }
 
-    // Method to cancel leave for all timeslots of a day
+    /**
+     * Cancels leave for all timeslots on a given date for a doctor.
+     *
+     * @param doctorId the ID of the doctor
+     * @param date     the date of the leave
+     */
     public void cancelLeaveForAllTimeslots(String doctorId, LocalDate date) {
         boolean leaveFound = false;
         for (Appointment appointment : appointmentRecords.values()) {
@@ -82,7 +117,14 @@ public class DoctorLeaveSetter {
         }
     }
 
-    // Helper method to check for an existing non-canceled appointment or leave
+    /**
+     * Checks if there is an existing non-canceled appointment or leave for a doctor on a specific date and timeslot.
+     *
+     * @param doctorId the ID of the doctor
+     * @param date     the date of the appointment or leave
+     * @param timeslot the timeslot of the appointment or leave
+     * @return {@code true} if there is a conflict, {@code false} otherwise
+     */
     private boolean hasExistingNonCanceledAppointment(String doctorId, LocalDate date, String timeslot) {
         for (Appointment appointment : appointmentRecords.values()) {
             if (appointment.getDoctorId().equalsIgnoreCase(doctorId)
@@ -95,7 +137,11 @@ public class DoctorLeaveSetter {
         return false;
     }
 
-    // Helper method to generate a unique leave ID
+    /**
+     * Generates a unique ID for a leave appointment.
+     *
+     * @return a unique leave ID as a {@code String}
+     */
     private String generateLeaveId() {
         int nextId = appointmentRecords.size() + 1;
         return "L" + nextId;

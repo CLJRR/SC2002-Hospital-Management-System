@@ -1,3 +1,8 @@
+/**
+ * The {@code AppointmentController} class is responsible for managing appointment records,
+ * providing functionalities for administrators, doctors, and patients.
+ * It supports viewing, scheduling, rescheduling, canceling, and updating appointments.
+ */
 package AppointmentSystem;
 
 import SessionManager.Session;
@@ -9,17 +14,60 @@ import java.util.stream.Collectors;
 
 public class AppointmentController {
 
+    /**
+     * A map containing all appointment records, keyed by their appointment ID.
+     */
     private Map<String, Appointment> appointmentRecords;
+
+    /**
+     * Loader for appointment records.
+     */
     private ApptLoader loader;
+
+    /**
+     * Saver for appointment records.
+     */
     private ApptSaver saver;
+
+    /**
+     * Viewer for appointment records.
+     */
     private ApptRecordViewer viewer;
+
+    /**
+     * Handles viewing the doctor's schedule.
+     */
     private DoctorScheduleViewer doctorScheduleViewer;
+
+    /**
+     * Handles setting and canceling leave for doctors.
+     */
     private DoctorLeaveSetter doctorLeaveSetter;
+
+    /**
+     * Handles updating appointment flags.
+     */
     private AppointmentFlagUpdater appointmentFlagUpdater;
+
+    /**
+     * Viewer for patient appointments.
+     */
     private PatientApptViewer patientApptViewer;
+
+    /**
+     * Scheduler for patient appointments.
+     */
     private PatientAppointmentScheduler patientAppointmentScheduler;
+
+    /**
+     * Scanner for user input.
+     */
     static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructs a new {@code AppointmentController}.
+     * Initializes all components and loads initial appointment records.
+     */
     public AppointmentController() {
         this.appointmentRecords = new HashMap<>();
         this.loader = new ApptLoader(appointmentRecords);
@@ -33,27 +81,35 @@ public class AppointmentController {
         loader.loadInitialAppointments();
     }
 
-    // Method to load appointment records
+    /**
+     * Loads all appointment records from storage.
+     */
     public void loadRecords() {
         loader.loadInitialAppointments();
     }
 
-    // Method to save appointment records
+    /**
+     * Saves all appointment records to storage.
+     */
     public void saveRecords() {
         saver.saveRecords();
     }
 
-    //ADMIN
+    /**
+     * Views all appointment records (Admin functionality).
+     *
+     * @throws IOException if an error occurs while accessing records
+     */
     public void adminViewAllRecords() throws IOException {
         loader.loadInitialAppointments();
         System.out.println(" ");
         viewer.adminViewAllRecords();
         saver.saveRecords();
-
     }
 
-    //DOCTOR
-    //view Schedule for 3 days
+    /**
+     * Views the doctor's schedule for the next three days starting from a given date.
+     */
     public void doctorScheduleViewer() {
         loader.loadInitialAppointments();
         System.out.println("Please enter date in yyyy-mm-dd format");
@@ -71,7 +127,9 @@ public class AppointmentController {
         sc.nextLine();
     }
 
-    //view Schedule for day
+    /**
+     * Views the doctor's schedule for a specific date.
+     */
     public void doctorScheduleViewerByDay() {
         loader.loadInitialAppointments();
         System.out.println("Please enter date in yyyy-mm-dd format");
@@ -87,16 +145,16 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
+    /**
+     * Views all confirmed appointments for the logged-in doctor.
+     */
     public void doctorViewConfirmedAppt() {
-        loader.loadInitialAppointments(); // Load all appointments
-
-        // Fetch and filter appointments for the logged-in doctor with CONFIRMED flag
+        loader.loadInitialAppointments();
         List<Appointment> filteredAppointments = appointmentRecords.values().stream()
-                .filter(appt -> appt.getDoctorId().equalsIgnoreCase(Session.getLoginID()) // Match logged-in doctor
-                && appt.getFlag() == Flag.CONFIRMED) // Only confirmed appointments
+                .filter(appt -> appt.getDoctorId().equalsIgnoreCase(Session.getLoginID())
+                        && appt.getFlag() == Flag.CONFIRMED)
                 .collect(Collectors.toList());
 
-        // Display filtered appointments
         if (filteredAppointments.isEmpty()) {
             System.out.println("No confirmed appointments for the logged-in doctor.");
         } else {
@@ -104,19 +162,19 @@ public class AppointmentController {
             for (Appointment appt : filteredAppointments) {
                 System.out.println("Appointment ID: " + appt.getAppointmentId());
                 System.out.println("Patient ID: " + appt.getPatientId());
-                System.out.println("Date: " + appt.getDate()); // Print the appointment date
+                System.out.println("Date: " + appt.getDate());
                 System.out.println("Time: " + appt.getTimeSlot());
                 System.out.println("--------------------------------------------");
             }
         }
-
-        saver.saveRecords(); // Save updated records if needed
+        saver.saveRecords();
         System.out.println("Press Enter to go back");
         sc.nextLine();
     }
 
-    //update Personal Schedule
-    // set leave for all time slots of a day
+    /**
+     * Sets leave for all timeslots on a specific day for the logged-in doctor.
+     */
     public void doctorSetLeave() {
         loader.loadInitialAppointments();
         System.out.println("Please enter date in yyyy-mm-dd format");
@@ -131,10 +189,11 @@ public class AppointmentController {
         }
         doctorLeaveSetter.setLeaveForAllTimeslots(Session.getLoginID(), date);
         saver.saveRecords();
-
     }
 
-    // cancels leave for all time slots of a day
+    /**
+     * Cancels leave for all timeslots on a specific day for the logged-in doctor.
+     */
     public void doctorCancelLeave() {
         loader.loadInitialAppointments();
         System.out.println("Please enter date in yyyy-mm-dd format");
@@ -149,10 +208,11 @@ public class AppointmentController {
         }
         doctorLeaveSetter.cancelLeaveForAllTimeslots(Session.getLoginID(), date);
         saver.saveRecords();
-
     }
 
-    // set leave for a specefic time slot
+    /**
+     * Sets leave for a specific timeslot on a specific day for the logged-in doctor.
+     */
     public void doctorSetLeaveByTimeslot() {
         loader.loadInitialAppointments();
         System.out.println("Please enter date in yyyy-mm-dd format");
@@ -165,7 +225,6 @@ public class AppointmentController {
             System.out.println("Invalid date format. Please enter in yyyy-mm-dd format.");
             return;
         }
-        //getting timeslots
         List<String> availableTimeslots = Timeslot.getTimeslot();
         System.out.println("Available timeslots:");
         for (int i = 0; i < availableTimeslots.size(); i++) {
@@ -190,11 +249,11 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
-    // cancel leave for a specific time slot
+    /**
+     * Cancels leave for a specific timeslot on a specific day for the logged-in doctor.
+     */
     public void doctorCancelLeaveByTimeslot() {
         loader.loadInitialAppointments();
-        //    public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
-
         System.out.println("Please enter date in yyyy-mm-dd format:");
         String dateInput = sc.nextLine();
         LocalDate date;
@@ -206,7 +265,6 @@ public class AppointmentController {
             return;
         }
 
-        // Display available timeslots and prompt 
         List<String> availableTimeslots = Timeslot.getTimeslot();
         System.out.println("Available timeslots:");
         for (int i = 0; i < availableTimeslots.size(); i++) {
@@ -230,31 +288,50 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
+    /**
+     * Updates the flag of appointments for the logged-in doctor.
+     */
     public void updateAppointmentFlag() {
         loader.loadInitialAppointments();
         appointmentFlagUpdater.promptUpdateAppointmentFlag(Session.getLoginID());
         saver.saveRecords();
     }
 
+    /**
+     * Retrieves an appointment by its ID.
+     *
+     * @param Id the appointment ID
+     * @return the appointment corresponding to the given ID
+     * @throws IOException if an error occurs while accessing records
+     */
     public Appointment getAppointmentById(String Id) throws IOException {
         loader.loadInitialAppointments();
         return viewer.viewRecordsById(Id);
     }
 
+    /**
+     * Views all appointment records.
+     *
+     * @throws IOException if an error occurs while accessing records
+     */
     public void viewAllRecords() throws IOException {
         loader.loadInitialAppointments();
         viewer.viewAllRecords();
     }
 
-    //Doctor
+    /**
+     * Views all pending appointment records for the logged-in doctor.
+     *
+     * @throws IOException if an error occurs while accessing records
+     */
     public void viewPendingRecords() throws IOException {
         loader.loadInitialAppointments();
         viewer.viewPendingRecords(Session.getLoginID());
-
     }
 
-    //PATIENT
-    //view all available appointment slots
+    /**
+     * Views all available appointment slots for the next three days starting from a specific date (Patient functionality).
+     */
     public void viewAllAvailableAppointments() {
         loader.loadInitialAppointments();
         System.out.print("Please enter date in yyyy-mm-dd format: ");
@@ -270,14 +347,18 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
-    //Patient Appointment Scheduler
+    /**
+     * Schedules a new appointment for the logged-in patient.
+     */
     public void patientScheduleAppointment() {
         loader.loadInitialAppointments();
         patientAppointmentScheduler.scheduleAppointment(Session.getLoginID());
         saver.saveRecords();
     }
 
-    //Patient Re-Schedule Appointment
+    /**
+     * Reschedules an existing appointment for the logged-in patient.
+     */
     public void patientReScheduleAppointment() {
         loader.loadInitialAppointments();
         patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
@@ -285,7 +366,9 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
-    //Patient Cancel Appointment
+    /**
+     * Cancels a scheduled appointment for the logged-in patient.
+     */
     public void patientCancelAppointment() {
         loader.loadInitialAppointments();
         patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
@@ -293,11 +376,12 @@ public class AppointmentController {
         saver.saveRecords();
     }
 
-    //view all the scheduled appointments by patient
+    /**
+     * Views all scheduled appointments for the logged-in patient.
+     */
     public void viewAllScheduledAppointments() {
         loader.loadInitialAppointments();
         patientApptViewer.viewAllScheduledAppointments(Session.getLoginID());
         saver.saveRecords();
     }
-
 }

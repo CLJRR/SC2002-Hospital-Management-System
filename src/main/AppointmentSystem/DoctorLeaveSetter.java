@@ -1,7 +1,8 @@
 /**
- * The {@code DoctorLeaveSetter} class provides functionality for managing leave for doctors.
- * It supports setting and canceling leave for specific timeslots or entire days, ensuring no conflicts
- * with existing non-canceled appointments or leaves.
+ * The {@code DoctorLeaveSetter} class provides functionality for managing leave
+ * for doctors. It supports setting and canceling leave for specific timeslots
+ * or entire days, ensuring no conflicts with existing non-canceled appointments
+ * or leaves.
  */
 package AppointmentSystem;
 
@@ -19,7 +20,8 @@ public class DoctorLeaveSetter {
     private Map<String, Appointment> appointmentRecords;
 
     /**
-     * Constructs a new {@code DoctorLeaveSetter} with the specified map of appointment records.
+     * Constructs a new {@code DoctorLeaveSetter} with the specified map of
+     * appointment records.
      *
      * @param appointmentRecords the map to manage appointment and leave records
      */
@@ -28,11 +30,12 @@ public class DoctorLeaveSetter {
     }
 
     /**
-     * Sets leave for a specific timeslot for a doctor on a given date.
-     * Ensures no conflicting non-canceled appointments or existing leave for the specified timeslot.
+     * Sets leave for a specific timeslot for a doctor on a given date. Ensures
+     * no conflicting non-canceled appointments or existing leave for the
+     * specified timeslot.
      *
      * @param doctorId the ID of the doctor
-     * @param date     the date of the leave
+     * @param date the date of the leave
      * @param timeslot the timeslot for which leave is being set
      */
     public void setLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
@@ -48,11 +51,12 @@ public class DoctorLeaveSetter {
     }
 
     /**
-     * Sets leave for all timeslots on a given date for a doctor.
-     * Ensures no conflicting non-canceled appointments or leaves for any timeslot on the specified date.
+     * Sets leave for all timeslots on a given date for a doctor. Ensures no
+     * conflicting non-canceled appointments or leaves for any timeslot on the
+     * specified date.
      *
      * @param doctorId the ID of the doctor
-     * @param date     the date of the leave
+     * @param date the date of the leave
      */
     public void setLeaveForAllTimeslots(String doctorId, LocalDate date) {
         List<String> timeslots = Timeslot.getTimeslot();
@@ -76,7 +80,7 @@ public class DoctorLeaveSetter {
      * Cancels leave for a specific timeslot for a doctor on a given date.
      *
      * @param doctorId the ID of the doctor
-     * @param date     the date of the leave
+     * @param date the date of the leave
      * @param timeslot the timeslot for which leave is being canceled
      */
     public void cancelLeaveForTimeslot(String doctorId, LocalDate date, String timeslot) {
@@ -98,7 +102,7 @@ public class DoctorLeaveSetter {
      * Cancels leave for all timeslots on a given date for a doctor.
      *
      * @param doctorId the ID of the doctor
-     * @param date     the date of the leave
+     * @param date the date of the leave
      */
     public void cancelLeaveForAllTimeslots(String doctorId, LocalDate date) {
         boolean leaveFound = false;
@@ -118,10 +122,11 @@ public class DoctorLeaveSetter {
     }
 
     /**
-     * Checks if there is an existing non-canceled appointment or leave for a doctor on a specific date and timeslot.
+     * Checks if there is an existing non-canceled appointment or leave for a
+     * doctor on a specific date and timeslot.
      *
      * @param doctorId the ID of the doctor
-     * @param date     the date of the appointment or leave
+     * @param date the date of the appointment or leave
      * @param timeslot the timeslot of the appointment or leave
      * @return {@code true} if there is a conflict, {@code false} otherwise
      */
@@ -138,12 +143,21 @@ public class DoctorLeaveSetter {
     }
 
     /**
-     * Generates a unique ID for a leave appointment.
+     * Generates a unique leave ID in the format "Lxxx", where "xxx" is a
+     * zero-padded number. The method counts the number of appointments flagged
+     * as LEAVE and generates the next ID in the sequence.
      *
-     * @return a unique leave ID as a {@code String}
+     * @return a unique leave ID in the format "Lxxx", where "xxx" is the next
+     * available number based on the existing appointments flagged as LEAVE.
      */
-    private String generateLeaveId() {
-        int nextId = appointmentRecords.size() + 1;
-        return "L" + nextId;
+    String generateLeaveId() {
+        // Filter appointmentRecords to count only entries with Type LEAVE
+        long leaveCount = appointmentRecords.values().stream()
+                .filter(appointment -> appointment.getType() == Type.LEAVE)
+                .count();
+
+        // Generate the next leave ID based on the count of existing leave appointments
+        return String.format("L%03d", leaveCount + 1);
     }
+
 }

@@ -98,11 +98,23 @@ public class PatientAppointmentScheduler {
         }
     }
 
-    // Helper method to generate the next sequential appointment ID
-    private String generateAppointmentId() {
-        int nextId = appointmentRecords.size() + 1;
-        return "A" + nextId;
-    }
+/**
+ * Generates a unique appointment ID in the format "Axxx", where "xxx" is a zero-padded number.
+ * The method counts the existing appointments and generates the next ID in the sequence.
+ *
+ * @return a unique appointment ID in the format "Axxx", where "xxx" is the next available number
+ *         based on the size of the appointment records.
+ */
+private String generateAppointmentId() {
+    // Filter appointmentRecords to count only valid appointment entries
+    long appointmentCount = appointmentRecords.values().stream()
+            .filter(appointment -> appointment.getType() == Type.APPOINTMENT)
+            .count();
+
+    // Generate the next appointment ID based on the count of existing appointments
+    return String.format("A%03d", appointmentCount + 1);
+}
+
 
     private String getDoctorNameById(String doctorId) {
         // Fetch all doctors using GetUser

@@ -9,10 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The {@code UserService} class provides functionality for managing user data, 
+ * including loading from a file, saving to a file, and converting between string 
+ * and object representations. It implements the {@link Load}, {@link Format}, {@link Save}, 
+ * {@link Write}, and {@link toObject} interfaces.
+ */
 public class UserService implements Load, Format, Save, Write, toObject {
 
     private static final String FILENAME = "./data/users.txt";
 
+    /**
+     * Loads user data from a file and converts each line into a {@link User} object.
+     *
+     * @return a list of {@link User} objects loaded from the file.
+     * @throws IOException if an error occurs while reading the file.
+     */
     @Override
     public List<User> load() throws IOException {
         List<User> data = new ArrayList<>();
@@ -26,6 +38,13 @@ public class UserService implements Load, Format, Save, Write, toObject {
         return data;
     }
 
+    /**
+     * Saves a list of objects to a file by formatting each object as a string.
+     *
+     * @param list the list of objects to save (must contain {@link User} objects).
+     * @throws IOException if an error occurs while writing to the file or if the list 
+     *                     contains non-{@link User} objects.
+     */
     @Override
     public void save(List<?> list) throws IOException {
         List<String> data = new ArrayList<>();
@@ -38,9 +57,14 @@ public class UserService implements Load, Format, Save, Write, toObject {
             }
         }
         write(data);
-
     }
 
+    /**
+     * Writes a list of strings to the specified file.
+     *
+     * @param data the list of strings to write.
+     * @throws IOException if an error occurs while writing to the file.
+     */
     @Override
     public void write(List<String> data) throws IOException {
         try (PrintWriter out = new PrintWriter(new FileWriter(FILENAME))) {
@@ -50,6 +74,13 @@ public class UserService implements Load, Format, Save, Write, toObject {
         }
     }
 
+    /**
+     * Formats a {@link User} object into a string representation suitable for storage.
+     *
+     * @param object the {@link User} object to format.
+     * @return a string representation of the {@link User} object.
+     * @throws IOException if the provided object is not a {@link User}.
+     */
     @Override
     public String format(Object object) throws IOException {
         if (object instanceof User user) {
@@ -64,12 +95,18 @@ public class UserService implements Load, Format, Save, Write, toObject {
                     user.getEmail() == null ? "null" : user.getEmail(),
                     user.getBloodType() == null ? "null" : user.getBloodType(),
                     user.getRole().name());
-
         } else {
             throw new IOException("Invalid object type");
         }
     }
 
+    /**
+     * Converts a string representation of a user into a {@link User} object.
+     *
+     * @param string the string to convert.
+     * @return a {@link User} object created from the string.
+     * @throws IOException if the string format is invalid or contains incorrect data.
+     */
     @Override
     public Object toObject(String string) throws IOException {
         String[] parts = string.split(",");
@@ -82,11 +119,11 @@ public class UserService implements Load, Format, Save, Write, toObject {
             String id = parts[0];
             String name = parts[1];
             String password = parts[2];
-            // Integer age = Integer.parseInt(parts[3]);
             Integer age = "null".equalsIgnoreCase(parts[3]) ? null : Integer.parseInt(parts[3]);
 
             // Handle nullable dateOfBirth field
             LocalDate dateOfBirth = "null".equalsIgnoreCase(parts[4]) ? null : LocalDate.parse(parts[4]);
+
             // Parse enum values with error handling
             Gender gender = Gender.valueOf(parts[5].toUpperCase());
             String phoneNumber = "null".equalsIgnoreCase(parts[6]) ? null : parts[6];

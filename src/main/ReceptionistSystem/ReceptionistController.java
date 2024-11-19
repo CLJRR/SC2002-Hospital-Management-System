@@ -1,3 +1,8 @@
+/**
+ * The {@code ReceptionistController} class provides the interface and functionality for a receptionist
+ * to manage system operations such as adding new patients.
+ * It provides a menu-driven interface with input validation for user actions.
+ */
 package ReceptionistSystem;
 
 import java.io.IOException;
@@ -8,11 +13,19 @@ public class ReceptionistController {
     private static final Scanner scanner = new Scanner(System.in);
     private final NewPatientCreator newPatientCreator;
 
+    /**
+     * Constructs a new {@code ReceptionistController} and initializes the {@code NewPatientCreator}.
+     */
     public ReceptionistController() {
         this.newPatientCreator = new NewPatientCreator();
-
     }
 
+    /**
+     * Starts the receptionist system, displaying a menu for the receptionist to add new patients or exit.
+     * Input is validated to ensure valid choices are processed.
+     *
+     * @throws IOException if an I/O error occurs during patient creation.
+     */
     public void startReceptionistSystem() throws IOException {
         while (true) {
             int choice = -1; // Initialize with an invalid value
@@ -41,7 +54,6 @@ public class ReceptionistController {
             switch (choice) {
                 case 1 -> {
                     newPatientCreator.createNewPatient(); // Call to create new patient
-
                 }
                 case 2 -> {
                     System.out.println("Exiting Receptionist System.");
@@ -52,5 +64,4 @@ public class ReceptionistController {
             }
         }
     }
-
 }

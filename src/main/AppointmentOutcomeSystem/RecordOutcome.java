@@ -24,16 +24,6 @@ public class RecordOutcome {
     private AppointmentService appointmentService = new AppointmentService();
 
     /**
-     * Loader for appointment data.
-     */
-    private AppointmentLoader apptLoader;
-
-    /**
-     * Saver for appointment data.
-     */
-    private AppointmentSaver apptSaver;
-
-    /**
      * Map storing medication inventory, keyed by medication name.
      */
     private Map<String, MedicationInventory> inventory;

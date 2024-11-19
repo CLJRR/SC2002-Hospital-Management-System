@@ -30,7 +30,7 @@ public class AdminUI {
     public void adminUI() throws IOException {
         Scanner sc = new Scanner(System.in);
         int option = 0;
-        AdminInventory invSystem = new AdminInventory();
+        AdminInventoryPrompts invSystem = new AdminInventoryPrompts();
         AppointmentController appointmentController = new AppointmentController();
         AdminHospitalStaff staffSystem = new AdminHospitalStaff();
         RequestController requestController = new RequestController();

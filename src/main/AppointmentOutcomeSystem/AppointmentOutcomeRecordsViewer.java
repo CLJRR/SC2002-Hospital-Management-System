@@ -97,10 +97,12 @@ public class AppointmentOutcomeRecordsViewer {
             }
         } else {
             System.out.println("No Outcome Records found");
+            System.out.println("Press Enter to continue");
+            sc.nextLine();
             return false;
         }
 
-        System.out.println("Press Enter to go back");
+        System.out.println("Press Enter to go continue");
         sc.nextLine();
         return true;
     }

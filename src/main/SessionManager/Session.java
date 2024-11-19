@@ -1,12 +1,12 @@
+
+package SessionManager;
+
+import enums.Role;
 /**
  * The {@code Session} class manages session-related information for a logged-in user.
  * This includes their login ID, role, name, and any appointment-related data.
  * It also provides functionality to reset the session upon logout.
  */
-package SessionManager;
-
-import enums.Role;
-
 public class Session {
 
     private static String loginID; // The login ID of the currently logged-in user

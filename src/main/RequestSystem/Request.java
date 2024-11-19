@@ -1,12 +1,12 @@
+
+package RequestSystem;
+
+import enums.Flag;
 /**
  * The {@code Request} class represents a stock replenishment request for a specific medication.
  * It includes details about the request such as the pharmacist making the request, the medication name,
  * the quantity to increase stock by, any notes, the approval status, and the flag representing the request state.
  */
-package RequestSystem;
-
-import enums.Flag;
-
 public class Request {
 
     private String requestId;

@@ -1,8 +1,4 @@
-/**
- * The {@code RequestFlagUpdater} class is responsible for managing and updating the status (flag)
- * of medication replenishment requests. It allows administrators to approve or reject requests
- * and updates inventory stock accordingly if the request is approved.
- */
+
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -10,7 +6,11 @@ import SessionManager.Session;
 import enums.Flag;
 import java.util.HashMap;
 import java.util.Scanner;
-
+/**
+ * The {@code RequestFlagUpdater} class is responsible for managing and updating the status (flag)
+ * of medication replenishment requests. It allows administrators to approve or reject requests
+ * and updates inventory stock accordingly if the request is approved.
+ */
 public class RequestFlagUpdater {
 
     private HashMap<String, Request> requestRecords;

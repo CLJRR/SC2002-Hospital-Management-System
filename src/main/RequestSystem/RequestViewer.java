@@ -6,7 +6,10 @@ package RequestSystem;
 
 import enums.Flag;
 import java.util.Map;
-
+/**
+ * The {@code RequestViewer} class provides methods for displaying different subsets 
+ * of requests, including all requests, pending requests, and requests specific to a pharmacist.
+ */
 public class RequestViewer {
 
     private Map<String, Request> requestRecords;

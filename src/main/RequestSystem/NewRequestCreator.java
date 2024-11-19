@@ -1,8 +1,4 @@
-/**
- * The {@code NewRequestCreator} class is responsible for creating new stock replenishment
- * requests for medications in the inventory. It allows pharmacists to submit requests
- * for increasing stock along with additional notes.
- */
+
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -10,7 +6,11 @@ import MedicineInventorySystem.MedicationInventory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+/**
+ * The {@code NewRequestCreator} class is responsible for creating new stock replenishment
+ * requests for medications in the inventory. It allows pharmacists to submit requests
+ * for increasing stock along with additional notes.
+ */
 public class NewRequestCreator {
 
     private HashMap<String, Request> requestRecords;

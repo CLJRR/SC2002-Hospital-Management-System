@@ -1,12 +1,12 @@
-/**
- * The {@code RequestController} class manages the workflow of handling replenishment requests for medications.
- * It provides functionalities for loading, saving, viewing, creating, and updating request records.
- */
+
 package RequestSystem;
 
 import SessionManager.Session;
 import java.util.HashMap;
-
+/**
+ * The {@code RequestController} class manages the workflow of handling replenishment requests for medications.
+ * It provides functionalities for loading, saving, viewing, creating, and updating request records.
+ */
 public class RequestController {
 
     private HashMap<String, Request> requestRecords;

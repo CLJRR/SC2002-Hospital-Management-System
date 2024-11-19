@@ -1,13 +1,13 @@
+
+package RequestSystem;
+
+import java.io.IOException;
+import java.util.*;
 /**
  * The {@code RequestLoader} class is responsible for loading request records from an external
  * data source into an in-memory map for processing and management.
  * It utilizes the {@code RequestService} to handle the loading operation.
  */
-package RequestSystem;
-
-import java.io.IOException;
-import java.util.*;
-
 public class RequestLoader {
 
     private final Map<String, Request> requestRecords;

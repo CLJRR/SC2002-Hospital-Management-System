@@ -11,7 +11,13 @@ import FileManager.*;
 import enums.Flag;
 import java.io.*;
 import java.util.*;
-
+/**
+ * The {@code RequestService} class implements methods for handling the persistence
+ * and retrieval of {@code Request} objects. It provides functionalities for loading,
+ * saving, formatting, and converting request records between objects and text representation.
+ * This class implements the {@code Load}, {@code Format}, {@code Save}, {@code Write}, 
+ * and {@code toObject} interfaces.
+ */
 public class RequestService implements Load, Format, Save, Write, toObject {
 
     private static final String fileName = "./data/requests.txt";

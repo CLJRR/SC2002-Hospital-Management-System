@@ -4,6 +4,10 @@ import AppointmentOutcomeSystem.*;
 import SessionManager.Session;
 import java.util.*;
 
+/**
+ * The {@code PatientMedicalRecord} class provides functionality for patients to view 
+ * their personal medical records, including appointment details, diagnoses, and prescriptions.
+ */
 public class PatientMedicalRecord {
 
     private User patient;
@@ -11,6 +15,12 @@ public class PatientMedicalRecord {
     private AppointmentOutcomeRecordLoader appointmentOutcomeRecordLoader;
     private GetUser getUser;
 
+    /**
+     * Constructs a {@code PatientMedicalRecord} object and initializes patient details 
+     * and their corresponding medical records.
+     *
+     * @param UserId the ID of the patient whose records are being managed.
+     */
     public PatientMedicalRecord(String UserId) {
         this.appointmentOutcomeRecords = new HashMap<>();
         this.getUser = new GetUser();
@@ -19,6 +29,11 @@ public class PatientMedicalRecord {
         appointmentOutcomeRecordLoader.loadInitialAppointmentOutcomes();
     }
 
+    /**
+     * Displays the medical records for the current patient. Includes personal details, 
+     * appointment outcomes, diagnoses, and prescriptions if available.
+     * If no records are found, an appropriate message is displayed.
+     */
     public void patientMedicalRecord() {
         if (this.patient != null) {
             // Display patient information
@@ -78,5 +93,4 @@ public class PatientMedicalRecord {
         System.out.println("Press Enter to exit");
         sc.nextLine();
     }
-
 }

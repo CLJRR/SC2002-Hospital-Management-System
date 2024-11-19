@@ -1,3 +1,8 @@
+/**
+ * The {@code PatientApptViewer} class provides functionality for patients to
+ * view available schedules and their own scheduled appointments. It helps patients
+ * explore available timeslots and doctors and manage their appointments effectively.
+ */
 package AppointmentSystem;
 
 import UserSystem.GetUser;
@@ -5,27 +10,40 @@ import UserSystem.User;
 import enums.Flag;
 import enums.Type;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
+/**
+ * The PatientApptViewer class allows patients to view available schedules and
+ * their own scheduled appointments.
+ */
 public class PatientApptViewer {
 
+    /**
+     * A map containing all appointment records, keyed by their appointment ID.
+     */
     private Map<String, Appointment> appointmentRecords;
-    private final Scanner sc = new Scanner(System.in);
-    private Appointment appointment;
 
+    /**
+     * Scanner for user input.
+     */
+    private final Scanner sc = new Scanner(System.in);
+
+    /**
+     * Constructs a new {@code PatientApptViewer} with the specified map of appointment records.
+     *
+     * @param appointmentRecords the map of appointment records to manage
+     */
     public PatientApptViewer(Map<String, Appointment> appointmentRecords) {
         this.appointmentRecords = appointmentRecords;
-
     }
 
+    /**
+     * Displays the schedule for the next three consecutive days starting from a specified date.
+     * Each day's schedule includes timeslots and their availability.
+     *
+     * @param startDate the starting date for the schedule
+     */
     public void viewpatientViewScheduleForNextThreeDays(LocalDate startDate) {
-
-        // Loop over the specified date and the next two days
         for (int i = 0; i < 3; i++) {
             LocalDate date = startDate.plusDays(i);
             patientViewSchedule(date);
@@ -37,6 +55,12 @@ public class PatientApptViewer {
         sc.nextLine();
     }
 
+    /**
+     * Displays the schedule for a specific date.
+     * Shows all timeslots along with available doctors for each timeslot.
+     *
+     * @param date the date for which the schedule is displayed
+     */
     public void patientViewSchedule(LocalDate date) {
         List<String> timeslots = Timeslot.getTimeslot(); // Fetch all timeslots
         Map<String, Map<String, String>> schedule = new HashMap<>();
@@ -56,7 +80,9 @@ public class PatientApptViewer {
 
         // Check appointments and update the schedule for unavailable times
         for (Appointment appointment : appointmentRecords.values()) {
-            if (appointment.getDate().equals(date) && appointment.getFlag() != Flag.CANCELLED && appointment.getFlag() != Flag.REJECTED) {
+            if (appointment.getDate().equals(date)
+                    && appointment.getFlag() != Flag.CANCELLED
+                    && appointment.getFlag() != Flag.REJECTED) {
                 String timeSlot = appointment.getTimeSlot();
                 String doctorId = appointment.getDoctorId();
 
@@ -68,21 +94,17 @@ public class PatientApptViewer {
                     }
                 }
             }
-
         }
 
-        // Print the schedule: Available timeslots and doctors
+        // Print the schedule
         System.out.println("Available Timeslots for " + date + ":");
-
-// Sort the timeslots in ascending order
         List<String> sortedTimeslots = new ArrayList<>(schedule.keySet());
-        Collections.sort(sortedTimeslots); // Sorts timeslots alphabetically (e.g., "09:00", "10:00", etc.)
+        Collections.sort(sortedTimeslots);
 
         boolean hasAvailableSlots = false;
         for (String timeslot : sortedTimeslots) {
             Map<String, String> doctorAvailability = schedule.get(timeslot);
 
-            // Check if at least one doctor is available
             List<String> availableDoctors = new ArrayList<>();
             for (Map.Entry<String, String> doctorEntry : doctorAvailability.entrySet()) {
                 if (doctorEntry.getValue().equalsIgnoreCase("AVAILABLE")) {
@@ -90,7 +112,6 @@ public class PatientApptViewer {
                 }
             }
 
-            // Print the timeslot and available doctors
             if (!availableDoctors.isEmpty()) {
                 System.out.println("- " + timeslot + ": Available Doctors - " + String.join(", ", availableDoctors));
                 hasAvailableSlots = true;
@@ -102,7 +123,12 @@ public class PatientApptViewer {
         }
     }
 
-    // Helper method to get available slots for a specific date
+    /**
+     * Retrieves the available slots for a specific date.
+     *
+     * @param date the date for which to retrieve available slots
+     * @return a list of available timeslots for the specified date
+     */
     public List<String> getAvailableSlots(LocalDate date) {
         List<String> allSlots = Timeslot.getTimeslot();
         List<String> bookedSlots = new ArrayList<>();
@@ -117,25 +143,29 @@ public class PatientApptViewer {
         return allSlots;
     }
 
+    /**
+     * Retrieves a doctor's name by their ID.
+     *
+     * @param doctorId the ID of the doctor
+     * @return the doctor's name, or "Unknown Doctor" if not found
+     */
     private String getDoctorNameById(String doctorId) {
-        // Fetch all doctors using GetUser
         GetUser getUser = new GetUser();
         List<User> doctors = getUser.getAllDoctors();
 
-        // Iterate through the list of doctors to find the matching ID
         for (User doctor : doctors) {
             if (doctor.getId().equalsIgnoreCase(doctorId)) {
                 return doctor.getName();
             }
         }
-
-        // Return "Unknown Doctor" if no match is found
         return "Unknown Doctor";
     }
 
-    //viewScheduledApppointments
-    //need to test check
-    // Method to view all scheduled appointments for the logged-in patient
+    /**
+     * Displays all scheduled appointments for the logged-in patient.
+     *
+     * @param patientId the ID of the logged-in patient
+     */
     public void viewAllScheduledAppointments(String patientId) {
         System.out.println("Your scheduled appointments:");
         boolean hasAppointments = false;

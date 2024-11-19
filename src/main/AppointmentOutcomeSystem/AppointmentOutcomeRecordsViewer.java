@@ -1,3 +1,7 @@
+/**
+ * Responsible for viewing appointment outcome records. 
+ * Provides methods to display all records, pending records, and records filtered by ID.
+ */
 package AppointmentOutcomeSystem;
 
 import enums.Flag;
@@ -6,21 +10,39 @@ import java.util.*;
 
 public class AppointmentOutcomeRecordsViewer {
 
+    /**
+     * A map storing appointment outcome records with appointment ID as the key.
+     */
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
+
     static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructs a new {@code AppointmentOutcomeRecordsViewer} with the specified map
+     * containing appointment outcome records to be viewed.
+     *
+     * @param appointmentOutcomeRecords the map of appointment outcome records to view
+     */
     public AppointmentOutcomeRecordsViewer(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
     }
 
+    /**
+     * Displays all appointment outcome records stored in the system.
+     */
     public void viewAllRecords() {
         System.out.println("All Appointment Outcome Records:");
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             System.out.println(record.toString());
         }
-        System.out.println(); // Adds a new line after the last record
+        System.out.println();
     }
 
+    /**
+     * Displays all pending appointment outcome records by checking the flag of each prescription.
+     *
+     * @throws IOException if an error occurs while viewing records
+     */
     public void viewPendingRecords() throws IOException {
         for (AppointmentOutcomeRecord record : appointmentOutcomeRecords.values()) {
             for (Prescription prescription : record.getPrescriptions()) {
@@ -31,6 +53,14 @@ public class AppointmentOutcomeRecordsViewer {
         }
     }
 
+    /**
+     * Displays appointment outcome records filtered by a specific ID. 
+     * Records are sorted by appointment date in ascending order.
+     *
+     * @param Id the appointment or patient ID to filter records
+     * @return {@code true} if matching records are found and displayed, {@code false} otherwise
+     * @throws IOException if an error occurs while viewing records
+     */
     public boolean viewRecordsById(String Id) throws IOException {
         List<AppointmentOutcomeRecord> matchingRecords = new ArrayList<>();
         System.out.println("For Id " + Id);
@@ -74,6 +104,15 @@ public class AppointmentOutcomeRecordsViewer {
         sc.nextLine();
         return true;
     }
+
+    /**
+     * Displays appointment outcome records filtered by a specific ID without pausing for user input.
+     * Records are sorted by appointment date in ascending order.
+     *
+     * @param Id the appointment or patient ID to filter records
+     * @return {@code true} if matching records are found and displayed, {@code false} otherwise
+     * @throws IOException if an error occurs while viewing records
+     */
     public boolean viewRecordsByIdnoNewline(String Id) throws IOException {
         List<AppointmentOutcomeRecord> matchingRecords = new ArrayList<>();
         System.out.println("For Id " + Id);
@@ -112,7 +151,6 @@ public class AppointmentOutcomeRecordsViewer {
             System.out.println("No Outcome Records found");
             return false;
         }
-
 
         return true;
     }

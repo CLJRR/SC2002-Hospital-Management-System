@@ -6,6 +6,11 @@ import AppointmentOutcomeSystem.Prescription;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code DoctorMedicalRecordViewer} class provides functionality for doctors to 
+ * view medical records of patients. It can display records for all patients or 
+ * for a specific patient based on their ID.
+ */
 public class DoctorMedicalRecordViewer {
 
     private User doctor;
@@ -15,6 +20,12 @@ public class DoctorMedicalRecordViewer {
     private UserLoader loader;
     private AppointmentOutcomeRecordLoader recordLoader;
 
+    /**
+     * Constructs a {@code DoctorMedicalRecordViewer} object.
+     *
+     * @param UserId the ID of the doctor using the viewer.
+     * @param appointmentOutcomeRecords the map of appointment outcome records to be displayed.
+     */
     public DoctorMedicalRecordViewer(String UserId, Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.users = new HashMap<>();
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
@@ -26,10 +37,13 @@ public class DoctorMedicalRecordViewer {
         recordLoader.loadInitialAppointmentOutcomes();
     }
 
+    /**
+     * Displays the medical records for all patients. Records are sorted by appointment date.
+     */
     public void viewMedicalRecords() {
-        // Fetch all patients
         System.out.println("");
 
+        // Fetch all patients
         List<User> patients = getUser.getAllPatients();
 
         // Sort records by appointment date
@@ -38,7 +52,7 @@ public class DoctorMedicalRecordViewer {
                 .sorted(Comparator.comparing(AppointmentOutcomeRecord::getAppointmentDate))
                 .collect(Collectors.toList());
 
-        // Display patients' details and their records
+        // Display details for each patient
         for (User patient : patients) {
             System.out.println("Patient: " + patient.getId());
             System.out.println("Name: " + patient.getName());
@@ -59,7 +73,7 @@ public class DoctorMedicalRecordViewer {
 
                     System.out.println("Appointment: " + record.getApptId());
 
-                    // Get and display doctor information
+                    // Get doctor information
                     User doctor = getUser.getUser(record.getDoctorId());
                     String doctorName = (doctor != null) ? doctor.getName() : "Unknown";
                     System.out.println("By Doctor: " + doctorName);
@@ -71,7 +85,7 @@ public class DoctorMedicalRecordViewer {
                         System.out.println("Diagnoses: None recorded.");
                     }
 
-                    // Display all prescriptions
+                    // Display prescriptions
                     if (!record.getPrescriptions().isEmpty()) {
                         System.out.println("Treatments:");
                         for (Prescription prescription : record.getPrescriptions()) {
@@ -85,7 +99,6 @@ public class DoctorMedicalRecordViewer {
                 }
             }
 
-            // If no records are found for the patient
             if (!hasRecords) {
                 System.out.println("No records found for this patient.");
             }
@@ -98,6 +111,11 @@ public class DoctorMedicalRecordViewer {
         sc.nextLine();
     }
 
+    /**
+     * Displays the medical records for a specific patient based on their ID.
+     *
+     * @param patientId the ID of the patient whose records are to be displayed.
+     */
     public void viewMedicalRecordsById(String patientId) {
         // Fetch patient details
         User patient = getUser.getUser(patientId);
@@ -134,7 +152,7 @@ public class DoctorMedicalRecordViewer {
 
                 System.out.println("Appointment: " + record.getApptId());
 
-                // Get and display doctor information
+                // Get doctor information
                 User doctor = getUser.getUser(record.getDoctorId());
                 String doctorName = (doctor != null) ? doctor.getName() : "Unknown";
                 System.out.println("By Doctor: " + doctorName);
@@ -146,7 +164,7 @@ public class DoctorMedicalRecordViewer {
                     System.out.println("Diagnoses: None recorded.");
                 }
 
-                // Display all prescriptions
+                // Display prescriptions
                 if (!record.getPrescriptions().isEmpty()) {
                     System.out.println("Treatments:");
                     for (Prescription prescription : record.getPrescriptions()) {
@@ -167,5 +185,4 @@ public class DoctorMedicalRecordViewer {
         System.out.println("Press Enter to exit");
         sc.nextLine();
     }
-
 }

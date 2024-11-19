@@ -1,3 +1,7 @@
+/**
+ * The {@code PatientUI} class provides the user interface for patients in the system.
+ * Patients can interact with their medical records, manage personal information, and handle appointments.
+ */
 package Interfaces;
 
 import AppointmentOutcomeSystem.*;
@@ -11,6 +15,21 @@ import java.util.Scanner;
 
 public class PatientUI {
 
+    /**
+     * Launches the patient user interface.
+     * <p>
+     * The patient can perform the following tasks:
+     * <ul>
+     *   <li>View their medical records</li>
+     *   <li>Update personal information</li>
+     *   <li>View available appointment slots</li>
+     *   <li>Schedule, reschedule, or cancel appointments</li>
+     *   <li>View scheduled appointments</li>
+     *   <li>Access past appointment outcome records</li>
+     * </ul>
+     *
+     * @throws IOException if an error occurs during interaction with subsystems
+     */
     public void patientUI() throws IOException {
         String patientId = Session.getLoginID();
 
@@ -34,9 +53,7 @@ public class PatientUI {
             }
 
             option = sc.nextInt();
-            sc.nextLine(); // Consumes Newline
-            // PatientController patientController = new
-            // PatientController(appointmentService);
+            sc.nextLine(); // Consumes newline
             AppointmentOutcomeRecordController appointmentOutcomeRecordController = new AppointmentOutcomeRecordController();
             UpdateInformation updateInformation = new UpdateInformation();
             PatientMedicalRecord patientMedicalRecord = new PatientMedicalRecord(patientId);
@@ -64,10 +81,11 @@ public class PatientUI {
                 }
                 case 5 -> {
                     appointmentController.patientReScheduleAppointment();
-
+                    break;
                 }
                 case 6 -> {
                     appointmentController.patientCancelAppointment();
+                    break;
                 }
                 case 7 -> {
                     appointmentController.viewAllScheduledAppointments();
@@ -82,7 +100,6 @@ public class PatientUI {
                     Session.logout();
                     break;
                 }
-
                 default -> System.out.println("Invalid choice. Please select a number between 1 and 9.");
             }
         }

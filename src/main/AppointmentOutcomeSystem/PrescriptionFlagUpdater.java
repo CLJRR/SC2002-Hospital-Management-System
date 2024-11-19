@@ -1,3 +1,8 @@
+/**
+ * Handles the updating of prescription flags for appointment outcome records.
+ * Supports operations such as marking prescriptions as DISPENSED or REJECTED,
+ * and ensures updates are reflected in the inventory system.
+ */
 package AppointmentOutcomeSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -8,18 +13,44 @@ import java.util.Scanner;
 
 public class PrescriptionFlagUpdater {
 
+    /**
+     * Map containing appointment outcome records, keyed by their appointment ID.
+     */
     private Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords;
+
+    /**
+     * Controller responsible for managing the inventory of medicines.
+     */
     private InventoryController invController;
+
+    /**
+     * Viewer responsible for displaying appointment outcome records.
+     */
     private AppointmentOutcomeRecordsViewer viewer;
 
+    /**
+     * Scanner for user input during the update process.
+     */
     private static final Scanner sc = new Scanner(System.in);
 
+    /**
+     * Constructs a new {@code PrescriptionFlagUpdater} with the specified appointment outcome records.
+     *
+     * @param appointmentOutcomeRecords the map of appointment outcome records to update
+     */
     public PrescriptionFlagUpdater(Map<String, AppointmentOutcomeRecord> appointmentOutcomeRecords) {
         this.appointmentOutcomeRecords = appointmentOutcomeRecords;
         this.invController = new InventoryController();
         this.viewer = new AppointmentOutcomeRecordsViewer(appointmentOutcomeRecords);
     }
 
+    /**
+     * Updates the flags of prescriptions in appointment outcome records.
+     * Provides options to mark prescriptions as DISPENSED or REJECTED.
+     * Updates inventory stock when marking prescriptions as DISPENSED.
+     *
+     * @throws IOException if an error occurs during the update process
+     */
     public void updatePrescriptionFlag() throws IOException {
         System.out.println("Pending Records:");
         viewer.viewPendingRecords();
@@ -30,12 +61,13 @@ public class PrescriptionFlagUpdater {
         int option = 0;
 
         while (option != 3) {
-            while (!sc.hasNextInt()) { // Loop until an integer is entered
+            // Validate user input
+            while (!sc.hasNextInt()) {
                 System.out.println("Invalid input. Please enter an integer.");
-                sc.next(); // Clear the invalid input
+                sc.next();
             }
-            option = sc.nextInt(); // Read the integer after validation
-            sc.nextLine(); // Consumes Newline
+            option = sc.nextInt();
+            sc.nextLine(); // Consume newline character
 
             switch (option) {
                 case 1 -> {
@@ -47,6 +79,7 @@ public class PrescriptionFlagUpdater {
                         boolean allUpdated = true;
                         boolean foundPending = false;
 
+                        // Process each pending prescription
                         for (Prescription prescription : record.getPrescriptions()) {
                             if (prescription.getFlag() == Flag.PENDING) {
                                 foundPending = true;
@@ -86,6 +119,7 @@ public class PrescriptionFlagUpdater {
                     if (record != null) {
                         boolean foundPending = false;
 
+                        // Process each pending prescription
                         for (Prescription prescription : record.getPrescriptions()) {
                             if (prescription.getFlag() == Flag.PENDING) {
                                 foundPending = true;
@@ -116,8 +150,7 @@ public class PrescriptionFlagUpdater {
                 case 3 -> {
                     break;
                 }
-                default ->
-                    System.err.println("Invalid key");
+                default -> System.err.println("Invalid key");
             }
         }
     }

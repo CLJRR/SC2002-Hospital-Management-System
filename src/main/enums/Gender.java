@@ -1,5 +1,22 @@
+/**
+ * The {@code Gender} enum represents the gender categories that can be assigned to a user or entity in the system.
+ * This enum allows for standardized representation of gender across the application.
+ */
 package enums;
 
 public enum Gender {
-    MALE, FEMALE, OTHER
+    /**
+     * Represents the male gender.
+     */
+    MALE,
+
+    /**
+     * Represents the female gender.
+     */
+    FEMALE,
+
+    /**
+     * Represents any gender identity that does not fall under male or female categories.
+     */
+    OTHER
 }

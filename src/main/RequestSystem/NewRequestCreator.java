@@ -1,3 +1,8 @@
+/**
+ * The {@code NewRequestCreator} class is responsible for creating new stock replenishment
+ * requests for medications in the inventory. It allows pharmacists to submit requests
+ * for increasing stock along with additional notes.
+ */
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -13,6 +18,12 @@ public class NewRequestCreator {
     private InventoryController inventoryController;
     private Map<String, MedicationInventory> inventory;
 
+    /**
+     * Constructs a {@code NewRequestCreator} with the given request records.
+     *
+     * @param requestRecords the map of existing request records, where the key is the request ID
+     *                       and the value is the corresponding {@code Request} object.
+     */
     public NewRequestCreator(HashMap<String, Request> requestRecords) {
         this.requestRecords = requestRecords;
         this.inventoryController = new InventoryController();
@@ -20,8 +31,16 @@ public class NewRequestCreator {
         this.inventory = inventoryController.getInventory();
     }
 
+    /**
+     * Allows the pharmacist to create a new stock replenishment request.
+     * The method prompts the pharmacist to select a medication, specify the quantity,
+     * and provide any additional notes. The new request is added to the request records.
+     *
+     * @param pharmId the ID of the pharmacist creating the request.
+     */
     public void createNewRequest(String pharmId) {
         String prescriptionName = null;
+
         while (true) {
             inventoryController.viewInventory();
             System.out.println("Enter prescription Name (or type 'x' to quit): ");
@@ -73,7 +92,11 @@ public class NewRequestCreator {
         System.out.println("New request created with ID: " + requestId);
     }
 
-    // Method to generate a unique request ID
+    /**
+     * Generates a unique request ID based on the current number of requests in the system.
+     *
+     * @return a unique request ID in the format "REQ<number>".
+     */
     private String generateRequestId() {
         return "REQ" + (requestRecords.size() + 1);
     }

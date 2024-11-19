@@ -1,11 +1,26 @@
+/**
+ * The {@code AdminInventory} class provides an interface for administrators to manage the medication inventory.
+ * Administrators can:
+ * <ul>
+ *     <li>Add new medications</li>
+ *     <li>Increase or decrease stock of existing medications</li>
+ *     <li>Remove medications</li>
+ *     <li>View inventory and low stock alerts</li>
+ *     <li>Save changes and exit the menu</li>
+ * </ul>
+ */
 package MedicineInventorySystem;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class AdminInventory {
+public class AdminInventoryPrompt {
 
+    /**
+     * Launches the inventory management menu for administrators.
+     * This method provides options for administrators to interact with the inventory system.
+     */
     public void adminInventory() {
         InventoryController inventoryManager = new InventoryController();
         Scanner scanner = new Scanner(System.in);
@@ -26,8 +41,9 @@ public class AdminInventory {
             System.out.println("1. Add a new medication");
             System.out.println("2. Increase stock of an existing medication");
             System.out.println("3. Decrease stock of an existing medication");
-            System.out.println("4. View inventory");
-            System.out.println("5. Save and exit");
+            System.out.println("4. Remove a medication");
+            System.out.println("5. View inventory");
+            System.out.println("6. Save and exit");
 
             while (!scanner.hasNextInt()) { // Check if input is an integer
                 System.out.println("Option not valid. Please try again:");
@@ -39,6 +55,7 @@ public class AdminInventory {
 
             switch (choice) {
                 case 1:
+                    // Add a new medication
                     String name;
                     do {
                         System.out.print("Enter medication name to add: ");
@@ -76,6 +93,7 @@ public class AdminInventory {
 
                 case 2:
                 case 3:
+                    // Modify stock of an existing medication
                     List<String> medicationNames = new ArrayList<>(inventoryManager.getInventory().keySet());
 
                     if (medicationNames.isEmpty()) {
@@ -88,7 +106,7 @@ public class AdminInventory {
 
                     for (int i = 0; i < medicationNames.size(); i++) {
                         String medicationName = medicationNames.get(i);
-                        int currentStock = inventoryManager.getInventory().get(medicationName).getStock(); // Get stock for each medication
+                        int currentStock = inventoryManager.getInventory().get(medicationName).getStock();
                         System.out.println((i + 1) + ". " + medicationName + " | Current stock: " + currentStock);
                     }
 
@@ -127,6 +145,46 @@ public class AdminInventory {
                     break;
 
                 case 4:
+                    // Remove a medication
+                    List<String> medsToRemove = new ArrayList<>(inventoryManager.getInventory().keySet());
+
+                    if (medsToRemove.isEmpty()) {
+                        System.out.println("\nNo medications available in the inventory.");
+                        break;
+                    }
+
+                    System.out.println("\nSelect medication to remove:");
+                    for (int i = 0; i < medsToRemove.size(); i++) {
+                        System.out.println((i + 1) + ". " + medsToRemove.get(i));
+                    }
+
+                    System.out.print("\nEnter the number corresponding to the medication: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Option not valid. Please try again:");
+                        scanner.next(); // Clear the invalid input
+                    }
+
+                    int removeChoice = scanner.nextInt();
+                    scanner.nextLine(); // Consume the leftover newline
+
+                    if (removeChoice > 0 && removeChoice <= medsToRemove.size()) {
+                        String medicationName = medsToRemove.get(removeChoice - 1);
+                        boolean removed = inventoryManager.removeMedication(medicationName);
+
+                        if (removed) {
+                            System.out.println("Medication removed successfully: " + medicationName);
+                        }
+                    } else {
+                        System.out.println("\nInvalid selection. Please try again.");
+                    }
+
+                    // Wait for Enter to return to the menu
+                    System.out.println("\nPress enter to return to menu");
+                    scanner.nextLine();
+                    break;
+
+                case 5:
+                    // View inventory
                     inventoryManager.viewInventory();
                     inventoryManager.checkLowStockAlerts();
 
@@ -135,12 +193,12 @@ public class AdminInventory {
                     scanner.nextLine();
                     break;
 
-                case 5:
+                case 6:
+                    // Save and exit
                     inventoryManager.saveInventory();
                     System.out.println("\nPress enter to confirm exit inventory menu");
 
                     // Wait for Enter to exit
-                    //System.out.println("\nPress enter to confirm exit inventory menu");
                     scanner.nextLine();
                     exit = true;
                     break;

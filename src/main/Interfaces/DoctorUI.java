@@ -1,3 +1,8 @@
+/**
+ * The {@code DoctorUI} class represents the user interface for doctors in the system.
+ * It provides options to manage medical records, view schedules, set availability, handle appointment requests,
+ * and record appointment outcomes. This class interacts with various controllers to facilitate these tasks.
+ */
 package Interfaces;
 
 import AppointmentOutcomeSystem.AppointmentOutcomeRecordController;
@@ -9,6 +14,20 @@ import java.util.Scanner;
 
 public class DoctorUI {
 
+    /**
+     * Launches the doctor user interface.
+     * The doctor can perform tasks such as:
+     * <ul>
+     *   <li>Viewing and updating patient medical records</li>
+     *   <li>Viewing personal schedules</li>
+     *   <li>Setting or canceling availability for appointments</li>
+     *   <li>Accepting or declining appointment requests</li>
+     *   <li>Viewing upcoming appointments</li>
+     *   <li>Recording appointment outcomes</li>
+     * </ul>
+     *
+     * @throws IOException if an error occurs during input or interaction with subsystems
+     */
     public void doctorUI() throws IOException {
         @SuppressWarnings("resource")
         Scanner sc = new Scanner(System.in);
@@ -35,7 +54,7 @@ public class DoctorUI {
             }
 
             option = sc.nextInt();
-            sc.nextLine(); // Consumes Newline
+            sc.nextLine(); // Consumes newline
 
             switch (option) {
                 case 1 -> {
@@ -98,30 +117,27 @@ public class DoctorUI {
                         sc.next(); // Clear the invalid input
                     }
                     option = sc.nextInt();
-                    sc.nextLine(); // Consumes Newline
-                    if (option ==1){
-                        appointmentController.doctorSetLeave();}
-                    if (option ==2){
-                        appointmentController.doctorCancelLeave();}
-                    if (option ==3){
-                        appointmentController.doctorSetLeaveByTimeslot();}
-                    if (option ==4){
-                        appointmentController.doctorCancelLeaveByTimeslot();}
-                    if (option < 1 || option >4){
+                    sc.nextLine(); // Consumes newline
+                    if (option == 1){
+                        appointmentController.doctorSetLeave(); }
+                    if (option == 2){
+                        appointmentController.doctorCancelLeave(); }
+                    if (option == 3){
+                        appointmentController.doctorSetLeaveByTimeslot(); }
+                    if (option == 4){
+                        appointmentController.doctorCancelLeaveByTimeslot(); }
+                    if (option < 1 || option > 4){
                         System.out.println("Invalid Input.");
                     }
                     break;
                 }
                 case 5 -> {
-                    appointmentController.viewPendingRecords(); // prints pending reecords for tht doctor
-                    // choice 2: update by ID
+                    appointmentController.viewPendingRecords(); // prints pending records for the doctor
                     appointmentController.updateAppointmentFlag();
-
                     break;
                 }
                 case 6 -> {
                     appointmentController.doctorViewConfirmedAppt();
-
                     break;
                 }
                 case 7 -> {
@@ -134,7 +150,7 @@ public class DoctorUI {
                     break;
                 }
                 
-                default -> System.out.println("Invalid choice. Please select a number between 1 and 9.");
+                default -> System.out.println("Invalid choice. Please select a number between 1 and 8.");
             }
         }
     }

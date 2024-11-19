@@ -1,3 +1,8 @@
+/**
+ * The {@code RequestFlagUpdater} class is responsible for managing and updating the status (flag)
+ * of medication replenishment requests. It allows administrators to approve or reject requests
+ * and updates inventory stock accordingly if the request is approved.
+ */
 package RequestSystem;
 
 import MedicineInventorySystem.InventoryController;
@@ -12,11 +17,22 @@ public class RequestFlagUpdater {
     private InventoryController invController;
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Constructs a {@code RequestFlagUpdater} with the given request records and initializes
+     * the {@code InventoryController}.
+     *
+     * @param requestRecords a map containing all existing request records, keyed by their IDs.
+     */
     public RequestFlagUpdater(HashMap<String, Request> requestRecords) {
         this.requestRecords = requestRecords;
         this.invController = new InventoryController();
     }
 
+    /**
+     * Prompts the user to select and update the status of a specific replenishment request.
+     * The user is required to input a valid request ID and choose a new status.
+     * If the status is set to "APPROVED", the inventory stock is increased accordingly.
+     */
     public void updateRequestFlagPrompt() {
         String requestId;
 
@@ -80,7 +96,14 @@ public class RequestFlagUpdater {
         updateRequestFlag(requestId, newFlag);
     }
 
-    // Method to update the flag of a request
+    /**
+     * Updates the flag (status) of a specific request.
+     * If the new status is "APPROVED", it attempts to increase the inventory stock based on the request.
+     * The approver's ID is also recorded as part of the request update.
+     *
+     * @param requestId the ID of the request to update.
+     * @param newFlag   the new flag (status) to assign to the request.
+     */
     public void updateRequestFlag(String requestId, Flag newFlag) {
         Request request = requestRecords.get(requestId);
         if (request != null) {
